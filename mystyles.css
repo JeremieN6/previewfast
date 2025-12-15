@@ -1,0 +1,1181 @@
+.container-design{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: nowrap;
+  overflow-x: hidden;
+  scroll-snap-type: none;
+}
+
+.container-design > * {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+}
+
+.visual-on-mockup {
+  position: absolute;
+  top: 10px;  
+  left: 50%;
+  transform: translateX(-50%);
+  width: 83%;
+  height: 105%;
+  border-radius: 24px;
+  object-fit: cover;
+  pointer-events: none;
+  z-index: 1;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.myScreen-design-1 .visual-on-mockup {
+  top: 18px;
+  width: 69%;
+  height: 89%;
+  border-radius: 16px;
+}
+
+@media (max-width: 1200px) {
+  .container-design {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 0 16px 6px;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (min-width: 1201px) {
+  .container-design {
+    overflow-x: hidden;
+  }
+}
+.myScreen-design-1{
+  background: linear-gradient(135deg, #f87797 0%, #f6c164 60%, #ffef9e 100%);
+  width: 199px;
+  height: 430px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.myScreen-design-1 .container-img {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.mockup-iphone-design-1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -6em;
+}
+
+.myScreen-design-1 .default-design-notch {
+  position: absolute;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30%;
+  height: 12px;
+  background: #050505;
+  border-radius: 999px;
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.18);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.container-text-design-1 {
+    padding: 0 10px;
+    margin-top: -10px;
+}
+
+/* DESIGN 1 */
+
+/* DESIGN 2 */
+.section-design-2{
+  color: #000;
+}
+.container-text-design-2 {
+    padding: 0 20px;
+}
+.myScreen-design-2{
+  background: #fff;
+  width: 199px;
+  height: 430px;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.mockup-iphone-design-2{
+  width: 90%;
+}
+
+.container-img-design-2{
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+}
+
+.titleScreen-design-2{
+  margin-bottom: 0;
+}
+
+.container-text-design-2 p{
+  margin-top: 0;
+  font-size: 10px;
+}
+
+.myScreen-design-2 .default-design-notch {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30%;
+  height: 12px;
+  background: #050505;
+  border-radius: 999px;
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.18);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* DESIGN 3 */
+.section-design-3{
+  color: #000;
+}
+.container-text-design-3 {
+    padding: 0 20px;
+}
+.myScreen-design-3{
+  background: linear-gradient(150deg, #37e0ec  25%, #1aa3e0  60%, #e5f7ff 100%);
+  /* background: radial-gradient(circle,rgba(0, 198, 212, 1) 0%, rgba(26, 163, 224, 1) 50%, rgba(229, 247, 255, 1) 100%); */
+  width: 199px;
+  height: 430px;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.mockup-iphone-design-3{
+  width: 90%;
+}
+
+.container-img-design-3{
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+}
+
+.container-text-design-3 p{
+  margin-top: 0;
+  font-size: 10px;
+}
+
+.myScreen-design-3 .default-design-notch {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30%;
+  height: 12px;
+  background: #050505;
+  border-radius: 999px;
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.18);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.content-logo{
+  border-radius: 50%;
+}
+
+.container-logo-design-3{
+  margin: -10px;
+  padding: 0 20px;
+}
+
+
+/* DESIGN 4 */
+.section-design-4{
+  color: #FFF;
+}
+.container-text-design-4 {
+    padding: 0 20px;
+}
+.titleScreen-design-4{
+  margin: 0;
+}
+.myScreen-design-4{
+  background: radial-gradient(
+      circle at 40% 40%,   /* position de la zone plus claire */
+      rgba(220, 40, 40, 1) 0%,   /* rouge clair */
+      rgba(150, 20, 20, 1) 60%,  /* rouge plus profond */
+      rgba(120, 10, 10, 1) 100%  /* foncé sur les bords */
+  );
+  width: 199px;
+  height: 430px;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 26px 18px 32px;
+  position: relative;
+}
+
+.mockup-iphone-design-4{
+  width: 90%;
+}
+
+.container-img-design-4{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.container-text-design-4 {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+}
+
+.container-img-design-4-screen-1,
+.container-img-design-4-screen-2 {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.container-img-design-4-screen-1 .mockup-wrapper-design-4,
+.container-img-design-4-screen-2 .mockup-wrapper-design-4 {
+  position: absolute;
+  width: var(--mockup-width, 520px);
+  max-width: none;
+  top: var(--mockup-offset-y, 70px);
+  left: var(--mockup-offset-x, -220px);
+  transform: rotate(var(--mockup-rotate, 0deg));
+  filter: drop-shadow(0 25px 30px rgba(0, 0, 0, 0.55));
+}
+
+.mockup-wrapper-design-4 {
+  position: relative;
+  width: 100%;
+  pointer-events: none;
+}
+
+.mockup-wrapper-design-4 .mockup-iphone-design-4 {
+  width: 100%;
+  display: block;
+}
+
+.mockup-wrapper-design-4 .visual-on-mockup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: none;
+  object-fit: cover;
+  border-radius: 38px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  z-index: 1;
+}
+
+.mockup-wrapper-design-4[data-screen='1'] .visual-on-mockup {
+  position: absolute;
+  top: 4px;
+  left: 101px;
+  width: 43%;
+  height: 100%;
+  border-radius: 22px;
+  transform: rotate(-26deg) skewY(11deg);
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.mockup-wrapper-design-4[data-screen='2'] .visual-on-mockup {
+  position: absolute;
+  top: -5px;
+  left: 96px;
+  width: 45%;
+  height: 100%;
+  border-radius: 18px;
+  transform: rotate(-28.5deg) skewY(15deg);
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.container-img-design-4-screen-1 {
+  --mockup-width: 390px;
+  --mockup-offset-x: 5px;
+  --mockup-offset-y: 90px;
+  --mockup-rotate: 0deg;
+}
+
+.container-img-design-4-screen-2 {
+  --mockup-width: 390px;
+  --mockup-offset-x: -210px;
+  --mockup-offset-y: 100px;
+  --mockup-rotate: 0deg;
+}
+
+.container-text-design-4 p{
+  margin-top: 0;
+  font-size: 10px;
+}
+
+/* .myScreen-design-4--jumbo{
+  padding: 28px 18px 0;
+  height: 460px;
+} */
+
+.myScreen-design-4--jumbo .container-text-design-4{
+  align-items: center;
+  text-align: center;
+  padding: 0;
+}
+
+.myScreen-design-4--jumbo .container-text-design-4 p{
+  font-size: 12px;
+  letter-spacing: 0.01em;
+}
+
+.myScreen-design-4--jumbo .container-img-design-4{
+  flex: 1;
+  width: 100%;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: visible;
+}
+
+.myScreen-design-4--jumbo .mockup-iphone-design-4{
+  width: 115%;
+  max-width: none;
+  transform: translateY(34px);
+}
+
+.myScreen-design-4--jumbo .mockup-iphone-design-4-screen-5{
+  width: 110%;
+}
+
+/* .myScreen-design-4[data-screen='3'] .mockup-iphone-design-4{
+  width: 110%;
+  max-width: none;
+  transform: translateY(34px); 
+} */
+
+.myScreen-design-4--jumbo .container-img-design-4 {
+  position: relative;
+}
+
+.container-img-design-4-screen-3 .default-design-notch,
+.container-img-design-4-screen-4 .default-design-notch,
+.container-img-design-4-screen-5 .default-design-notch {
+  position: absolute;
+  width: 30%;
+  height: 12px;
+  background: #050505;
+  border-radius: 999px;
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.18);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.container-img-design-4-screen-3 .default-design-notch {
+  top: 65px;
+  left: 45%;
+  transform: translateX(-45%) rotate(-15deg);
+}
+
+.container-img-design-4-screen-4 .default-design-notch {
+  top: 65px;
+  left: 45%;
+  transform: translateX(-20%) rotate(15deg);
+}
+
+.container-img-design-4-screen-5 .default-design-notch {
+  top: 75px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.container-img-design-4-screen-3 .visual-on-mockup,
+.container-img-design-4-screen-4 .visual-on-mockup,
+.container-img-design-4-screen-5 .visual-on-mockup {
+  position: absolute;
+  height: 100%;
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.container-img-design-4-screen-3 .visual-on-mockup {
+  top: 52px;
+  left: 20px;
+  width: 70%;
+  border-radius: 22px;
+  transform: rotate(-0deg) skewY(-17deg);
+}
+
+.container-img-design-4-screen-4 .visual-on-mockup {
+  top: 52px;
+  left: 30px;
+  width: 69%;
+  border-radius: 21px;
+  transform: rotate(0deg) skewY(16deg);
+}
+
+.container-img-design-4-screen-5 .visual-on-mockup {
+  top: 63px;
+  left: 51%;
+  width: 98%;
+  border-radius: 20px;
+  transform: translateX(-50%);
+}
+
+.content-logo{
+  border-radius: 50%;
+}
+
+.container-logo-design-4{
+  margin: -10px;
+  padding: 0 20px;
+}
+
+
+/* DESIGN 5 */
+.section-design-5 {
+  color: #120c1b;
+}
+
+.myScreen-design-5 {
+  width: 199px;
+  height: 430px;
+  border-radius: 16px;
+  overflow: hidden;
+  padding: 18px 14px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  isolation: isolate;
+}
+
+.myScreen-design-5[data-variant~='lavender'] {
+  background: linear-gradient(180deg, #dcbcff 0%, #c09bfd 100%);
+  color: #1b1230;
+}
+
+.myScreen-design-5[data-variant~='dark'] {
+  background: radial-gradient(circle at 30% 20%, #2c143f 0%, #0c0613 70%);
+  color: #f6f2ff;
+}
+
+.myScreen-design-5[data-variant~='inverted'] {
+  flex-direction: column-reverse;
+  justify-content: center;
+}
+
+.myScreen-design-5[data-screen='4'] .visual-on-mockup {
+  position: absolute;
+  top: -7px;
+  left: 12px;
+  width: 87%;
+  height: 94%;
+  border-radius: 23px;
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.design-5-text {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  padding: 0 6px;
+  z-index: 2;
+}
+
+.design-5-text h3 {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.design-5-text p {
+  margin: 0;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.myScreen-design-5[data-variant~='lavender'] .design-5-text p {
+  color: rgba(30, 16, 46, 0.7);
+}
+
+/* .design-5-logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.85);
+  display: grid;
+  place-items: center;
+  margin-bottom: 6px;
+} */
+
+.design-5-logo img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 16px;
+}
+
+.design-5-mockup {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+  padding: 0 10px;
+  position: relative;
+}
+
+.design-5-mockup img {
+  width: 115%;
+  max-width: none;
+  filter: drop-shadow(0 25px 30px rgba(0, 0, 0, 0.45));
+  transform: translateY(28px);
+}
+
+.myScreen-design-5[data-variant~='top-heavy'] .design-5-mockup .img-mockup {
+  transform: translateY(0px);
+  width: 105%;
+}
+
+.myScreen-design-5[data-variant~='inverted'] .design-5-text {
+  padding-bottom: 10px;
+}
+
+.myScreen-design-5[data-variant~='inverted'] .design-5-mockup .img-mockup {
+  transform: translateY(10px);
+}
+
+.design-5-mockup .default-design-notch {
+  position: absolute;
+  top: 34px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30%;
+  height: 12px;
+  background: #050505;
+  border-radius: 999px;
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.18);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.myScreen-design-5[data-notch='55'] .default-design-notch {
+  top: 55px;
+}
+
+.myScreen-design-5[data-notch='20'] .default-design-notch {
+  top: 20px;
+}
+
+.myScreen-design-5[data-notch='30'] .default-design-notch {
+  top: 30px;
+}
+
+.upFontSize{
+  font-size: 1.25rem !important;
+}
+
+.myScreen-design-5[data-variant~='lavender'] .visual-on-mockup,
+.myScreen-design-5[data-screen='3'] .visual-on-mockup,
+.myScreen-design-5[data-screen='5'] .visual-on-mockup {
+  top: 45px;
+  width: 93%;
+  height: 100%;
+  border-radius: 21px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.myScreen-design-5[data-screenshot~='design5screen2'] .visual-on-mockup {
+  top: 11px;
+  width: 79%;
+  height: 94%;
+  border-radius: 17px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+/* DESIGN 6 */
+.section-design-6 {
+  color: #fff;
+}
+
+.myScreen-design-6 {
+  width: 199px;
+  height: 430px;
+  border-radius: 16px;
+  overflow: hidden;
+  padding: 26px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  position: relative;
+  box-shadow: 0 18px 35px rgba(3, 3, 3, 0.35);
+}
+
+.myScreen-design-6[data-tone='sunset'] {
+  background: linear-gradient(180deg, #b13bff 0%, #f248c4 50%, #ff6e8a 100%);
+}
+
+.myScreen-design-6[data-tone='ocean'] {
+  background: linear-gradient(320deg,rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 45%, rgba(0, 212, 255, 1) 100%);
+}
+
+.myScreen-design-6[data-tone='mono'] {
+  background: #ffffff;
+  color: #060606;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08), 0 20px 35px rgba(0, 0, 0, 0.12);
+}
+
+.myScreen-design-6[data-tone='design6_screen5'] {
+  background: linear-gradient(221deg,rgba(165, 213, 198, 1) 0%, rgba(86, 128, 248, 1) 50%, rgba(119, 106, 242, 1) 100%);
+  box-shadow: inset 0 0 0 1px rgba(13, 42, 118, 0.25), 0 20px 35px rgba(5, 15, 54, 0.45);
+  color: #fff;
+}
+
+.design-6-text {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.design-6-text h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+}
+
+.myScreen-design-6[data-tone='sunset'] .design-6-text,
+.myScreen-design-6[data-tone='ocean'] .design-6-text {
+  color: #fff;
+}
+
+.design-6-mockup {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: visible;
+}
+
+.design-6-mockup--image {
+  align-items: flex-end;
+}
+
+.design-6-mockup--image .mockup-iphone-design-6 {
+  width: 130%;
+  max-width: none;
+  filter: drop-shadow(0 25px 30px rgba(0, 0, 0, 0.45));
+  transition: transform 0.2s ease;
+}
+
+.design-6-mockup--image.tilt-left .mockup-iphone-design-6 {
+  transform: translateX(-6px) translateY(18px);
+}
+
+.design-6-mockup--image.tilt-right .mockup-iphone-design-6 {
+  transform: translateX(6px) translateY(18px);
+}
+
+.design-6-mockup--image.framed .mockup-iphone-design-6 {
+  width: 110%;
+  transform: translateY(10px);
+}
+
+.design-6-mockup--image.clip-top {
+  align-items: flex-start;
+}
+
+.design-6-mockup--image.clip-top .mockup-iphone-design-6 {
+  width: 120%;
+  transform: translateY(-32px);
+}
+
+.myScreen-design-6[data-screen='1'] .design-6-mockup--image {
+  position: relative;
+}
+
+.myScreen-design-6[data-screen='1'] .visual-on-mockup {
+  position: absolute;
+  top: 41px;
+  left: 7px;
+  width: 78%;
+  height: 100%;
+  border-radius: 20px;
+  transform: rotate(0deg) skewY(-16deg);
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.myScreen-design-6[data-screen='1'] .mockup-iphone-design-6 {
+  position: relative;
+  z-index: 2;
+}
+
+.myScreen-design-6[data-screen='2'] .visual-on-mockup {
+  position: absolute;
+  top: 23px;
+  left: 50%;
+  width: 95%;
+  height: 100%;
+  border-radius: 20px;
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.myScreen-design-6[data-screen='3'] .visual-on-mockup {
+  position: absolute;
+  top: 40px;
+  left: 28px;
+  width: 79%;
+  height: 100%;
+  border-radius: 21px;
+  transform: rotate(0deg) skewY(16deg);
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.myScreen-design-6[data-screen='4'] .visual-on-mockup {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  width: 95%;
+  height: 100%;
+  border-radius: 21px;
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.myScreen-design-6[data-screen='5'] .visual-on-mockup {
+  position: absolute;
+  top: 23px;
+  left: 12px;
+  width: 79%;
+  height: 100%;
+  border-radius: 20px;
+  transform: rotate(0deg) skewY(-16deg);
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.design-6-mockup .default-design-notch {
+  z-index: 3;
+}
+
+.design-6-mockup--image.clip-top .default-design-notch {
+  top: 18px;
+}
+
+
+.design-6-mockup--image.straight .default-design-notch {
+  --notch-shift-x: -5px;
+  --notch-shift-y: 10px;
+  --notch-rotate: -15deg;
+}
+
+.design-6-mockup--image.tilt-device .mockup-iphone-design-6 {
+  width: 125%;
+  transform: rotate(-10deg) translateY(18px);
+}
+
+.design-6-mockup--image.tilt-device.reverse .mockup-iphone-design-6 {
+  transform: rotate(10deg) translateY(18px);
+}
+
+.default-design-notch {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  --notch-shift-x: 0px;
+  --notch-shift-y: 0px;
+  --notch-rotate: 0deg;
+  transform: translateX(calc(-50% + var(--notch-shift-x))) translateY(var(--notch-shift-y)) rotate(var(--notch-rotate));
+  width: 30%;
+  height: 14px;
+  background: #050505;
+  border-radius: 999px;
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+}
+
+.design-6-mockup--device {
+  padding: 0 6px;
+}
+
+.design-6-device {
+  width: 100%;
+  aspect-ratio: 9 / 19.5;
+  border-radius: 42px;
+  border: 8px solid #050505;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.design-6-device::before,
+.design-6-device::after {
+  content: '';
+  position: absolute;
+  height: 42%;
+  width: 4px;
+  background: rgba(0, 0, 0, 0.08);
+  top: 18%;
+}
+
+.design-6-device::before {
+  left: -6px;
+  border-radius: 4px 0 0 4px;
+}
+
+.design-6-device::after {
+  right: -6px;
+  border-radius: 0 4px 4px 0;
+}
+
+.design-6-device .default-design-notch {
+  top: 18px;
+}
+
+.design-6-mockup[data-full='true'] .design-6-device {
+  height: 100%;
+}
+
+.myScreen-design-6[data-align='bottom'] .design-6-text {
+  margin-top: auto;
+}
+
+.design-6-mockup--image.tilt-left .default-design-notch {
+  --notch-shift-x: -10px;
+  --notch-shift-y: 30px;
+  --notch-rotate: -15deg;
+}
+
+.design-6-mockup--image.frame2 .default-design-notch{
+  --notch-shift-x: 0px;
+  --notch-shift-y: 10px;
+}
+
+.design-6-mockup--image.tilt-right .default-design-notch {
+  --notch-shift-x: 12px;
+  --notch-shift-y: 27px;
+  --notch-rotate: 16deg;
+}
+
+.design-6-mockup--image.tilt-device .default-design-notch {
+  top: 43px;
+  left: 68%;
+  --notch-rotate: -8deg;
+}
+
+.design-6-mockup--image.tilt-device.reverse .default-design-notch {
+  --notch-rotate: 10deg;
+}
+
+.myScreen-design-6[data-layout='invert'] {
+  flex-direction: column-reverse;
+}
+
+.myScreen-design-6[data-layout='invert'] .design-6-text {
+  padding-top: 0;
+  margin-top: 18px;
+}
+
+.myScreen-design-6[data-variant~='tall'] .design-6-mockup--image {
+  align-items: flex-start;
+}
+
+.myScreen-design-6[data-variant~='tall'] .design-6-mockup--image .mockup-iphone-design-6 {
+  /* width: 150%; */
+  transform: translateY(-5px);
+}
+
+.myScreen-design-6[data-variant~='tall'] .default-design-notch {
+  top: 32px;
+  width: 45%;
+}
+
+
+/* DESIGN 7 */
+.section-design-7 {
+  color: #050505;
+}
+
+.myScreen-design-7 {
+  width: 199px;
+  height: 430px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.18);
+  padding: 22px 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+  position: relative;
+  isolation: isolate;
+  --accent-bg: linear-gradient(180deg, #c8d4ff 0%, #7a8ec9 100%);
+}
+
+.design-7-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.design-7-text h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.design-7-text p {
+  margin: 0;
+  font-size: 0.75rem;
+  color: rgba(5, 5, 5, 0.65);
+}
+
+.design-7-text--solo h3 {
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
+.design-7-heading {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.design-7-step {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(5, 5, 5, 0.65);
+}
+
+.design-7-stage {
+  flex: 1;
+  margin: 0 -20px 0;
+  padding: 0 12px;
+  border-radius: 10px;
+  background: var(--accent-bg);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  min-height: 240px;
+  position: relative;
+  overflow: hidden;
+}
+
+.design-7-device {
+  position: relative;
+  width: 100%;
+  max-width: 260px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.design-7-visual {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.design-7-stage .design-7-mockup {
+  width: 100%;
+  max-width: none;
+  filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.4));
+  transform: translateY(30px);
+}
+
+.myScreen-design-7[data-screen='1'] [data-device='back'] .visual-on-mockup {
+  position: absolute;
+  top: 17px;
+  left: 26px;
+  width: 48%;
+  height: 91%;
+  border-radius: 16px;
+  transform: rotate(0.3deg) skewY(16deg);
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.myScreen-design-7[data-screen='1'] [data-device='front'] .visual-on-mockup {
+  position: absolute;
+  top: 79px;
+  left: 69px;
+  width: 55%;
+  height: 100%;
+  border-radius: 23px;
+  transform: rotate(0deg) skewY(15deg);
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.myScreen-design-7[data-screen='2'] .visual-on-mockup,
+.myScreen-design-7[data-screen='4'] .visual-on-mockup {
+  position: absolute;
+  top: 48px;
+  left: 30px;
+  width: 61%;
+  height: 100%;
+  border-radius: 20px;
+  transform: rotate(0deg) skewY(-16deg);
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.myScreen-design-7[data-screen='3'] .visual-on-mockup,
+.myScreen-design-7[data-screen='5'] .visual-on-mockup{
+  position: absolute;
+  top: 45px;
+  left: 37px;
+  width: 62%;
+  height: 100%;
+  border-radius: 23px;
+  transform: rotate(0deg) skewY(14deg);
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 2;
+  pointer-events: none;
+}
+
+
+
+.design-7-stage--double {
+  align-items: stretch;
+  margin-top: 12px;
+  position: relative;
+}
+
+.design-7-stage--double .design-7-device {
+  position: absolute;
+  inset: 0;
+}
+
+.design-7-stage--double [data-device='back'] {
+  z-index: 1;
+}
+
+.design-7-stage--double [data-device='front'] {
+  z-index: 2;
+}
+
+.design-7-stage--double [data-device='back'] .design-7-mockup {
+  width: 80%;
+  transform: translate(-30px, -15px) rotate(0deg);
+}
+
+.design-7-stage--double [data-device='front'] .design-7-mockup {
+  width: 90%;
+  transform: translate(20px, 85px) rotate(0deg);
+}
+
+.design-7-stage--double [data-notch='double-back'] {
+  width: 25%;
+  --notch-shift-x: -22px;
+  --notch-shift-y: 5px;
+  --notch-rotate: 15deg;
+  z-index: 5;
+}
+
+.design-7-stage--double [data-notch='double-front'] {
+  width: 25%;
+  --notch-shift-x: 37px;
+  --notch-shift-y: 82px;
+  --notch-rotate: 16deg;
+  z-index: 5;
+}
+
+.myScreen-design-7[data-shade='violet'] .default-design-notch,
+.myScreen-design-7[data-shade='amber'] .default-design-notch {
+  width: 25%;
+  --notch-shift-x: -5px;
+  --notch-shift-y: 35px;
+  --notch-rotate: -16deg;
+}
+
+.myScreen-design-7[data-shade='orchid'] .default-design-notch,
+.myScreen-design-7[data-shade='emerald'] .default-design-notch {
+  width: 25%;
+  --notch-shift-x: 6px;
+  --notch-shift-y: 35px;
+  --notch-rotate: 17deg;
+}
+
+.myScreen-design-7[data-shade='aqua'] {
+  --accent-bg: linear-gradient(180deg, #54ddff 0%, #0bb8ff 100%);
+}
+
+.myScreen-design-7[data-shade='violet'] {
+  --accent-bg: linear-gradient(180deg, #a86cff 0%, #6636ff 100%);
+}
+
+.myScreen-design-7[data-shade='orchid'] {
+  --accent-bg: linear-gradient(180deg, #d47dff 0%, #a335ff 100%);
+}
+
+.myScreen-design-7[data-shade='amber'] {
+  --accent-bg: linear-gradient(180deg, #ffb347 0%, #ff7b02 100%);
+}
+
+.myScreen-design-7[data-shade='emerald'] {
+  --accent-bg: linear-gradient(180deg, #7ddc7c 0%, #28b04f 100%);
+}
