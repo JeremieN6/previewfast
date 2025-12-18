@@ -1,0 +1,167 @@
+/* ========================================
+   DESIGN 5 - LAYOUT CSS
+   ======================================== */
+
+.section-design-5 {
+  color: #120c1b;
+}
+
+.myScreen-design-5 {
+  width: 199px;
+  height: 430px;
+  border-radius: 16px;
+  overflow: hidden;
+  padding: 18px 14px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  isolation: isolate;
+}
+
+.myScreen-design-5[data-variant~='lavender'] {
+  background: linear-gradient(180deg, #dcbcff 0%, #c09bfd 100%);
+  color: #1b1230;
+}
+
+.myScreen-design-5[data-variant~='dark'] {
+  background: radial-gradient(circle at 30% 20%, #2c143f 0%, #0c0613 70%);
+  color: #f6f2ff;
+}
+
+.myScreen-design-5[data-variant~='inverted'] {
+  flex-direction: column-reverse;
+  justify-content: center;
+}
+
+.myScreen-design-5[data-screen='4'] .visual-on-mockup {
+  position: absolute;
+  top: -7px;
+  left: 12px;
+  width: 87%;
+  height: 94%;
+  border-radius: 23px;
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.design-5-text {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  padding: 0 6px;
+  z-index: 2;
+}
+
+.design-5-text h3 {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.design-5-text p {
+  margin: 0;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.myScreen-design-5[data-variant~='lavender'] .design-5-text p {
+  color: rgba(30, 16, 46, 0.7);
+}
+
+/* .design-5-logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.85);
+  display: grid;
+  place-items: center;
+  margin-bottom: 6px;
+} */
+
+.design-5-logo img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 16px;
+}
+
+.design-5-mockup {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+  padding: 0 10px;
+  position: relative;
+}
+
+.design-5-mockup img {
+  width: 115%;
+  max-width: none;
+  filter: drop-shadow(0 25px 30px rgba(0, 0, 0, 0.45));
+  transform: translateY(28px);
+}
+
+.myScreen-design-5[data-variant~='top-heavy'] .design-5-mockup .img-mockup {
+  transform: translateY(0px);
+  width: 105%;
+}
+
+.myScreen-design-5[data-variant~='inverted'] .design-5-text {
+  padding-bottom: 10px;
+}
+
+.myScreen-design-5[data-variant~='inverted'] .design-5-mockup .img-mockup {
+  transform: translateY(10px);
+}
+
+.design-5-mockup .default-design-notch {
+  position: absolute;
+  top: 34px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30%;
+  height: 12px;
+  background: #050505;
+  border-radius: 999px;
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.18);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.myScreen-design-5[data-notch='55'] .default-design-notch {
+  top: 55px;
+}
+
+.myScreen-design-5[data-notch='20'] .default-design-notch {
+  top: 20px;
+}
+
+.myScreen-design-5[data-notch='30'] .default-design-notch {
+  top: 30px;
+}
+
+.myScreen-design-5[data-variant~='lavender'] .visual-on-mockup,
+.myScreen-design-5[data-screen='3'] .visual-on-mockup,
+.myScreen-design-5[data-screen='5'] .visual-on-mockup {
+  top: 45px;
+  width: 93%;
+  height: 100%;
+  border-radius: 21px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.myScreen-design-5[data-screenshot~='design5screen2'] .visual-on-mockup {
+  top: 11px;
+  width: 79%;
+  height: 94%;
+  border-radius: 17px;
+  left: 50%;
+  transform: translateX(-50%);
+}

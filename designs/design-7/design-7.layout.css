@@ -1,0 +1,237 @@
+/* ========================================
+   DESIGN 7 - LAYOUT CSS
+   ======================================== */
+
+.section-design-7 {
+  color: #050505;
+}
+
+.myScreen-design-7 {
+  width: 199px;
+  height: 430px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.18);
+  padding: 22px 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+  position: relative;
+  isolation: isolate;
+  --accent-bg: linear-gradient(180deg, #c8d4ff 0%, #7a8ec9 100%);
+}
+
+.design-7-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.design-7-text h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.design-7-text p {
+  margin: 0;
+  font-size: 0.75rem;
+  color: rgba(5, 5, 5, 0.65);
+}
+
+.design-7-text--solo h3 {
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
+.design-7-heading {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.design-7-step {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(5, 5, 5, 0.65);
+}
+
+.design-7-stage {
+  flex: 1;
+  margin: 0 -20px 0;
+  padding: 0 12px;
+  border-radius: 10px;
+  background: var(--accent-bg);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  min-height: 240px;
+  position: relative;
+  overflow: hidden;
+}
+
+.design-7-device {
+  position: relative;
+  width: 100%;
+  max-width: 260px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.design-7-visual {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.design-7-stage .design-7-mockup {
+  width: 100%;
+  max-width: none;
+  filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.4));
+  transform: translateY(30px);
+}
+
+.myScreen-design-7[data-screen='1'] [data-device='back'] .visual-on-mockup {
+  position: absolute;
+  top: 17px;
+  left: 26px;
+  width: 48%;
+  height: 91%;
+  border-radius: 16px;
+  transform: rotate(0.3deg) skewY(16deg);
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.myScreen-design-7[data-screen='1'] [data-device='front'] .visual-on-mockup {
+  position: absolute;
+  top: 79px;
+  left: 69px;
+  width: 55%;
+  height: 100%;
+  border-radius: 23px;
+  transform: rotate(0deg) skewY(15deg);
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.myScreen-design-7[data-screen='2'] .visual-on-mockup,
+.myScreen-design-7[data-screen='4'] .visual-on-mockup {
+  position: absolute;
+  top: 48px;
+  left: 30px;
+  width: 61%;
+  height: 100%;
+  border-radius: 20px;
+  transform: rotate(0deg) skewY(-16deg);
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.myScreen-design-7[data-screen='3'] .visual-on-mockup,
+.myScreen-design-7[data-screen='5'] .visual-on-mockup{
+  position: absolute;
+  top: 45px;
+  left: 37px;
+  width: 62%;
+  height: 100%;
+  border-radius: 23px;
+  transform: rotate(0deg) skewY(14deg);
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.design-7-stage--double {
+  align-items: stretch;
+  margin-top: 12px;
+  position: relative;
+}
+
+.design-7-stage--double .design-7-device {
+  position: absolute;
+  inset: 0;
+}
+
+.design-7-stage--double [data-device='back'] {
+  z-index: 1;
+}
+
+.design-7-stage--double [data-device='front'] {
+  z-index: 2;
+}
+
+.design-7-stage--double [data-device='back'] .design-7-mockup {
+  width: 80%;
+  transform: translate(-30px, -15px) rotate(0deg);
+}
+
+.design-7-stage--double [data-device='front'] .design-7-mockup {
+  width: 90%;
+  transform: translate(20px, 85px) rotate(0deg);
+}
+
+.design-7-stage--double [data-notch='double-back'] {
+  width: 25%;
+  --notch-shift-x: -22px;
+  --notch-shift-y: 5px;
+  --notch-rotate: 15deg;
+  z-index: 5;
+}
+
+.design-7-stage--double [data-notch='double-front'] {
+  width: 25%;
+  --notch-shift-x: 37px;
+  --notch-shift-y: 82px;
+  --notch-rotate: 16deg;
+  z-index: 5;
+}
+
+.myScreen-design-7[data-shade='violet'] .default-design-notch,
+.myScreen-design-7[data-shade='amber'] .default-design-notch {
+  width: 25%;
+  --notch-shift-x: -5px;
+  --notch-shift-y: 35px;
+  --notch-rotate: -16deg;
+}
+
+.myScreen-design-7[data-shade='orchid'] .default-design-notch,
+.myScreen-design-7[data-shade='emerald'] .default-design-notch {
+  width: 25%;
+  --notch-shift-x: 6px;
+  --notch-shift-y: 35px;
+  --notch-rotate: 17deg;
+}
+
+.myScreen-design-7[data-shade='aqua'] {
+  --accent-bg: linear-gradient(180deg, #54ddff 0%, #0bb8ff 100%);
+}
+
+.myScreen-design-7[data-shade='violet'] {
+  --accent-bg: linear-gradient(180deg, #a86cff 0%, #6636ff 100%);
+}
+
+.myScreen-design-7[data-shade='orchid'] {
+  --accent-bg: linear-gradient(180deg, #d47dff 0%, #a335ff 100%);
+}
+
+.myScreen-design-7[data-shade='amber'] {
+  --accent-bg: linear-gradient(180deg, #ffb347 0%, #ff7b02 100%);
+}
+
+.myScreen-design-7[data-shade='emerald'] {
+  --accent-bg: linear-gradient(180deg, #7ddc7c 0%, #28b04f 100%);
+}

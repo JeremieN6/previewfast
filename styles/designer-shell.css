@@ -1,0 +1,86 @@
+/* ========================================
+   DESIGNER SHELL - CSS GLOBAL DE STRUCTURE
+   ========================================
+   
+   Contient le layout général :
+   - Container principal des designs (.container-design)
+   - Règles de scroll horizontal
+   - Media queries responsive globales
+   - Classe générique .visual-on-mockup (base)
+   - Classe générique .default-design-notch
+   - Utilitaires partagés (.content-logo, .upFontSize)
+   ======================================== */
+
+/* Container principal pour l'affichage horizontal des designs */
+.container-design{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: nowrap;
+  overflow-x: hidden;
+  scroll-snap-type: none;
+}
+
+.container-design > * {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+}
+
+/* Classe générique pour les screenshots overlays (base) */
+.visual-on-mockup {
+  position: absolute;
+  top: 10px;  
+  left: 50%;
+  transform: translateX(-50%);
+  width: 83%;
+  height: 105%;
+  border-radius: 24px;
+  object-fit: cover;
+  pointer-events: none;
+  z-index: 1;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+/* Media queries responsive globales */
+@media (max-width: 1200px) {
+  .container-design {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 0 16px 6px;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (min-width: 1201px) {
+  .container-design {
+    overflow-x: hidden;
+  }
+}
+
+/* Classe générique pour les notches (encoche iPhone) */
+.default-design-notch {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  --notch-shift-x: 0px;
+  --notch-shift-y: 0px;
+  --notch-rotate: 0deg;
+  transform: translateX(calc(-50% + var(--notch-shift-x))) translateY(var(--notch-shift-y)) rotate(var(--notch-rotate));
+  width: 30%;
+  height: 14px;
+  background: #050505;
+  border-radius: 999px;
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+}
+
+/* Utilitaires partagés */
+.content-logo{
+  border-radius: 50%;
+}
+
+.upFontSize{
+  font-size: 1.25rem !important;
+}

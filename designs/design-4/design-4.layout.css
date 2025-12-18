@@ -1,0 +1,258 @@
+/* ========================================
+   DESIGN 4 - LAYOUT CSS
+   ======================================== */
+
+.section-design-4{
+  color: #FFF;
+}
+
+.container-text-design-4 {
+    padding: 0 20px;
+}
+
+.titleScreen-design-4{
+  margin: 0;
+}
+
+.myScreen-design-4{
+  background: radial-gradient(
+      circle at 40% 40%,   /* position de la zone plus claire */
+      rgba(220, 40, 40, 1) 0%,   /* rouge clair */
+      rgba(150, 20, 20, 1) 60%,  /* rouge plus profond */
+      rgba(120, 10, 10, 1) 100%  /* foncé sur les bords */
+  );
+  width: 199px;
+  height: 430px;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 26px 18px 32px;
+  position: relative;
+}
+
+.mockup-iphone-design-4{
+  width: 90%;
+}
+
+.container-img-design-4{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-text-design-4 {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+}
+
+.container-img-design-4-screen-1,
+.container-img-design-4-screen-2 {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.container-img-design-4-screen-1 .mockup-wrapper-design-4,
+.container-img-design-4-screen-2 .mockup-wrapper-design-4 {
+  position: absolute;
+  width: var(--mockup-width, 520px);
+  max-width: none;
+  top: var(--mockup-offset-y, 70px);
+  left: var(--mockup-offset-x, -220px);
+  transform: rotate(var(--mockup-rotate, 0deg));
+  filter: drop-shadow(0 25px 30px rgba(0, 0, 0, 0.55));
+}
+
+.mockup-wrapper-design-4 {
+  position: relative;
+  width: 100%;
+  pointer-events: none;
+}
+
+.mockup-wrapper-design-4 .mockup-iphone-design-4 {
+  width: 100%;
+  display: block;
+}
+
+.mockup-wrapper-design-4 .visual-on-mockup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: none;
+  object-fit: cover;
+  border-radius: 38px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  z-index: 1;
+}
+
+.mockup-wrapper-design-4[data-screen='1'] .visual-on-mockup {
+  position: absolute;
+  top: 4px;
+  left: 101px;
+  width: 43%;
+  height: 100%;
+  border-radius: 22px;
+  transform: rotate(-26deg) skewY(11deg);
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.mockup-wrapper-design-4[data-screen='2'] .visual-on-mockup {
+  position: absolute;
+  top: -5px;
+  left: 96px;
+  width: 45%;
+  height: 100%;
+  border-radius: 18px;
+  transform: rotate(-28.5deg) skewY(15deg);
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.container-img-design-4-screen-1 {
+  --mockup-width: 390px;
+  --mockup-offset-x: 5px;
+  --mockup-offset-y: 90px;
+  --mockup-rotate: 0deg;
+}
+
+.container-img-design-4-screen-2 {
+  --mockup-width: 390px;
+  --mockup-offset-x: -210px;
+  --mockup-offset-y: 100px;
+  --mockup-rotate: 0deg;
+}
+
+.container-text-design-4 p{
+  margin-top: 0;
+  font-size: 10px;
+}
+
+/* .myScreen-design-4--jumbo{
+  padding: 28px 18px 0;
+  height: 460px;
+} */
+
+.myScreen-design-4--jumbo .container-text-design-4{
+  align-items: center;
+  text-align: center;
+  padding: 0;
+}
+
+.myScreen-design-4--jumbo .container-text-design-4 p{
+  font-size: 12px;
+  letter-spacing: 0.01em;
+}
+
+.myScreen-design-4--jumbo .container-img-design-4{
+  flex: 1;
+  width: 100%;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: visible;
+}
+
+.myScreen-design-4--jumbo .mockup-iphone-design-4{
+  width: 115%;
+  max-width: none;
+  transform: translateY(34px);
+}
+
+.myScreen-design-4--jumbo .mockup-iphone-design-4-screen-5{
+  width: 110%;
+}
+
+/* .myScreen-design-4[data-screen='3'] .mockup-iphone-design-4{
+  width: 110%;
+  max-width: none;
+  transform: translateY(34px); 
+} */
+
+.myScreen-design-4--jumbo .container-img-design-4 {
+  position: relative;
+}
+
+.container-img-design-4-screen-3 .default-design-notch,
+.container-img-design-4-screen-4 .default-design-notch,
+.container-img-design-4-screen-5 .default-design-notch {
+  position: absolute;
+  width: 30%;
+  height: 12px;
+  background: #050505;
+  border-radius: 999px;
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.18);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.container-img-design-4-screen-3 .default-design-notch {
+  top: 65px;
+  left: 45%;
+  transform: translateX(-45%) rotate(-15deg);
+}
+
+.container-img-design-4-screen-4 .default-design-notch {
+  top: 65px;
+  left: 45%;
+  transform: translateX(-20%) rotate(15deg);
+}
+
+.container-img-design-4-screen-5 .default-design-notch {
+  top: 75px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.container-img-design-4-screen-3 .visual-on-mockup,
+.container-img-design-4-screen-4 .visual-on-mockup,
+.container-img-design-4-screen-5 .visual-on-mockup {
+  position: absolute;
+  height: 100%;
+  object-fit: cover;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.container-img-design-4-screen-3 .visual-on-mockup {
+  top: 52px;
+  left: 20px;
+  width: 70%;
+  border-radius: 22px;
+  transform: rotate(-0deg) skewY(-17deg);
+}
+
+.container-img-design-4-screen-4 .visual-on-mockup {
+  top: 52px;
+  left: 30px;
+  width: 69%;
+  border-radius: 21px;
+  transform: rotate(0deg) skewY(16deg);
+}
+
+.container-img-design-4-screen-5 .visual-on-mockup {
+  top: 63px;
+  left: 51%;
+  width: 98%;
+  border-radius: 20px;
+  transform: translateX(-50%);
+}
+
+.container-logo-design-4{
+  margin: -10px;
+  padding: 0 20px;
+}

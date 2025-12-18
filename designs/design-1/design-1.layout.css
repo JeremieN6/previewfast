@@ -1,0 +1,50 @@
+/* ========================================
+   DESIGN 1 - LAYOUT CSS
+   ======================================== */
+
+.myScreen-design-1 .visual-on-mockup {
+  top: 18px;
+  width: 69%;
+  height: 89%;
+  border-radius: 16px;
+}
+
+.myScreen-design-1{
+  background: linear-gradient(135deg, #f87797 0%, #f6c164 60%, #ffef9e 100%);
+  width: 199px;
+  height: 430px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.myScreen-design-1 .container-img {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.mockup-iphone-design-1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -6em;
+}
+
+.myScreen-design-1 .default-design-notch {
+  position: absolute;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30%;
+  height: 12px;
+  background: #050505;
+  border-radius: 999px;
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.18);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.container-text-design-1 {
+    padding: 0 10px;
+    margin-top: -10px;
+}
