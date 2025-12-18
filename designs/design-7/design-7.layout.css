@@ -25,7 +25,7 @@
 .design-7-text {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  /* gap: 6px; */
 }
 
 .design-7-text h3 {
@@ -43,6 +43,7 @@
 .design-7-text--solo h3 {
   font-size: 1.05rem;
   font-weight: 900;
+  line-height: normal;
 }
 
 .design-7-heading {
@@ -193,11 +194,11 @@
 }
 
 .design-7-stage--double [data-notch='double-front'] {
-  width: 25%;
-  --notch-shift-x: 37px;
-  --notch-shift-y: 82px;
-  --notch-rotate: 16deg;
-  z-index: 5;
+    width: 25%;
+    --notch-shift-x: 27px;
+    --notch-shift-y: 65px;
+    --notch-rotate: 16deg;
+    z-index: 5;
 }
 
 .myScreen-design-7[data-shade='violet'] .default-design-notch,
@@ -206,6 +207,7 @@
   --notch-shift-x: -5px;
   --notch-shift-y: 35px;
   --notch-rotate: -16deg;
+  z-index: 5;
 }
 
 .myScreen-design-7[data-shade='orchid'] .default-design-notch,
@@ -214,6 +216,7 @@
   --notch-shift-x: 6px;
   --notch-shift-y: 35px;
   --notch-rotate: 17deg;
+  z-index: 5;
 }
 
 .myScreen-design-7[data-shade='aqua'] {

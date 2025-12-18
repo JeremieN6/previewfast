@@ -50,6 +50,7 @@
   margin: 0;
   font-size: 1.05rem;
   letter-spacing: 0.01em;
+  font-weight: bold;
 }
 
 .myScreen-design-6[data-tone='sunset'] .design-6-text,
@@ -124,7 +125,7 @@
 
 .myScreen-design-6[data-screen='2'] .visual-on-mockup {
   position: absolute;
-  top: 23px;
+  top: 22px;
   left: 50%;
   width: 95%;
   height: 100%;
@@ -137,7 +138,7 @@
 
 .myScreen-design-6[data-screen='3'] .visual-on-mockup {
   position: absolute;
-  top: 40px;
+  top: 39px;
   left: 28px;
   width: 79%;
   height: 100%;

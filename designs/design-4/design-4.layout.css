@@ -12,6 +12,8 @@
 
 .titleScreen-design-4{
   margin: 0;
+  font-weight: bold;
+  font-size: 1.17rem;
 }
 
 .myScreen-design-4{
@@ -245,7 +247,7 @@
 }
 
 .container-img-design-4-screen-5 .visual-on-mockup {
-  top: 63px;
+  top: 55px;
   left: 51%;
   width: 98%;
   border-radius: 20px;

@@ -61,6 +61,7 @@
   margin: 0;
   font-size: 1rem;
   line-height: 1.3;
+  font-weight: bold;
 }
 
 .design-5-text p {
@@ -104,7 +105,7 @@
   width: 115%;
   max-width: none;
   filter: drop-shadow(0 25px 30px rgba(0, 0, 0, 0.45));
-  transform: translateY(28px);
+  transform: translateY(30px);
 }
 
 .myScreen-design-5[data-variant~='top-heavy'] .design-5-mockup .img-mockup {
@@ -152,9 +153,14 @@
   top: 45px;
   width: 93%;
   height: 100%;
-  border-radius: 21px;
+  border-radius: 23px;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.myScreen-design-5[data-screen='3'] .visual-on-mockup {
+  top: 47px;
+  border-radius: 25px;
 }
 
 .myScreen-design-5[data-screenshot~='design5screen2'] .visual-on-mockup {
