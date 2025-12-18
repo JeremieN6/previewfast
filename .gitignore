@@ -45,5 +45,5 @@ bugsFixed
 # Local archive for unused files
 unused_archive/
 
-/assets
+/public/assets
 /docs*
