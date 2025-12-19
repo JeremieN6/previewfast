@@ -1,0 +1,303 @@
+<template>
+  <div v-if="isOpen" class="modal-overlay" @click.self="close">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title">Modifier l'écran {{ screenData.id }}</h3>
+        <button @click="close" class="modal-close">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <div v-for="zone in screenData.editableZones" :key="zone.id" class="zone-editor">
+          <h4 class="zone-title">{{ zone.id }}</h4>
+          <p class="zone-type">Type: {{ zone.type }}</p>
+          
+          <!-- BACKGROUND ZONES -->
+          <div v-if="zone.type === 'background'" class="field-group">
+            <div v-if="zone.allowed.includes('color')" class="field">
+              <label :for="`${zone.id}-color`">Couleur</label>
+              <input 
+                type="color" 
+                :id="`${zone.id}-color`"
+                :value="localEdits[zone.id]?.value || zone.current"
+                @input="updateZone(zone.id, $event.target.value, 'color')"
+              />
+            </div>
+            
+            <div v-if="zone.allowed.includes('gradient')" class="field">
+              <label :for="`${zone.id}-gradient`">Dégradé CSS</label>
+              <input 
+                type="text" 
+                :id="`${zone.id}-gradient`"
+                :value="localEdits[zone.id]?.value || zone.current"
+                @input="updateZone(zone.id, $event.target.value, 'gradient')"
+                placeholder="linear-gradient(...)"
+              />
+            </div>
+          </div>
+          
+          <!-- TEXT ZONES -->
+          <div v-if="zone.type === 'text' && zone.allowed.includes('edit')" class="field-group">
+            <div class="field">
+              <label :for="`${zone.id}-text`">Texte</label>
+              <textarea 
+                :id="`${zone.id}-text`"
+                :value="localEdits[zone.id]?.value || zone.current"
+                @input="updateZone(zone.id, $event.target.value, 'text')"
+                rows="3"
+              ></textarea>
+            </div>
+          </div>
+          
+          <!-- IMAGE ZONES -->
+          <div v-if="zone.type === 'image'" class="field-group">
+            <div v-if="zone.allowed.includes('upload')" class="field">
+              <label :for="`${zone.id}-upload`">Upload nouvelle image</label>
+              <input 
+                type="file" 
+                :id="`${zone.id}-upload`"
+                accept="image/*"
+                @change="handleImageUpload(zone.id, $event)"
+              />
+            </div>
+            
+            <div v-if="zone.allowed.includes('replace')" class="field">
+              <label :for="`${zone.id}-url`">URL de l'image</label>
+              <input 
+                type="text" 
+                :id="`${zone.id}-url`"
+                :value="localEdits[zone.id]?.value || zone.current"
+                @input="updateZone(zone.id, $event.target.value, 'url')"
+                placeholder="https://..."
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button @click="apply" class="btn-primary">Appliquer</button>
+        <button @click="close" class="btn-secondary">Annuler</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'EditModal',
+  props: {
+    isOpen: {
+      type: Boolean,
+      default: false
+    },
+    screenData: {
+      type: Object,
+      default: () => ({ id: '', editableZones: [] })
+    }
+  },
+  data() {
+    return {
+      localEdits: {}
+    }
+  },
+  methods: {
+    updateZone(zoneId, value, type) {
+      this.localEdits[zoneId] = { value, type }
+    },
+    
+    handleImageUpload(zoneId, event) {
+      const file = event.target.files[0]
+      if (file) {
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          this.updateZone(zoneId, e.target.result, 'upload')
+        }
+        reader.readAsDataURL(file)
+      }
+    },
+    
+    apply() {
+      this.$emit('apply-changes', this.localEdits)
+      this.localEdits = {}
+      this.close()
+    },
+    
+    close() {
+      this.localEdits = {}
+      this.$emit('close')
+    }
+  },
+  watch: {
+    isOpen(newVal) {
+      if (!newVal) {
+        this.localEdits = {}
+      }
+    }
+  }
+}
+</script>
+
+<style scoped>
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-container {
+  background: white;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.modal-close {
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.modal-close:hover {
+  background: #f3f4f6;
+}
+
+.modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.zone-editor {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.zone-editor:last-child {
+  border-bottom: none;
+}
+
+.zone-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+
+.zone-type {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.field label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.field input[type="text"],
+.field input[type="color"],
+.field textarea {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+.field input[type="color"] {
+  height: 40px;
+  cursor: pointer;
+}
+
+.field input[type="file"] {
+  font-size: 0.875rem;
+}
+
+.field textarea {
+  resize: vertical;
+  font-family: inherit;
+}
+
+.modal-footer {
+  padding: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: #3b82f6;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #2563eb;
+}
+
+.btn-secondary {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.btn-secondary:hover {
+  background: #e5e7eb;
+}
+</style>

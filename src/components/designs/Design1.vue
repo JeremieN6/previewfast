@@ -4,9 +4,11 @@
       <div 
         v-for="screenNum in screensCount" 
         :key="screenNum"
-        class="myScreen-design-1" 
+        class="myScreen-design-1 screen-selectable" 
+        :class="{ 'screen-selected': selectedScreenId === screenNum }"
         :data-screen="screenNum" 
         :aria-label="`Ecran ${screenNum}`"
+        @click="selectScreen(screenNum)"
       >
         <div class="container-img">
           <img src="/assets/mockup/adam-mockup-1.png" alt="mockup-iphone-design-1" class="mockup-iphone-design-1">
@@ -32,6 +34,10 @@ export default {
     screensCount: {
       type: Number,
       default: 5
+    },
+    selectedScreenId: {
+      type: Number,
+      default: null
     }
   },
   data() {
@@ -39,8 +45,47 @@ export default {
       config: designConfig
     }
   },
+  methods: {
+    selectScreen(screenNum) {
+      this.$emit('screen-selected', screenNum)
+    }
+  },
   mounted() {
     console.log(`[${this.config.name}] Configuration chargée:`, this.config)
   }
 }
 </script>
+
+<style scoped>
+.screen-selectable {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.screen-selectable:hover::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(59, 130, 246, 0.1);
+  pointer-events: none;
+  border: 2px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+}
+
+.screen-selected::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(59, 130, 246, 0.15);
+  pointer-events: none;
+  border: 3px solid #3b82f6;
+  border-radius: 8px;
+}
+</style>

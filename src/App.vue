@@ -10,16 +10,58 @@
         </p>
       </header>
 
-      <Design1 :screensCount="5" />
-      <Design2 :screensCount="5" />
-      <Design3 :screensCount="5" />
-      <Design4 :screensCount="5" />
-      <Design5 :screensCount="5" />
-      <Design6 :screensCount="5" />
-      <Design7 :screensCount="5" />
+      <Design1 
+        :screensCount="5" 
+        @screen-selected="handleScreenSelection('design-1', $event)"
+        :selectedScreenId="selectedDesign === 'design-1' ? selectedScreenId : null"
+      />
+      <Design2 
+        :screensCount="5"
+        @screen-selected="handleScreenSelection('design-2', $event)"
+        :selectedScreenId="selectedDesign === 'design-2' ? selectedScreenId : null"
+      />
+      <Design3 
+        :screensCount="5"
+        @screen-selected="handleScreenSelection('design-3', $event)"
+        :selectedScreenId="selectedDesign === 'design-3' ? selectedScreenId : null"
+      />
+      <Design4 
+        :screensCount="5"
+        @screen-selected="handleScreenSelection('design-4', $event)"
+        :selectedScreenId="selectedDesign === 'design-4' ? selectedScreenId : null"
+      />
+      <Design5 
+        :screensCount="5"
+        @screen-selected="handleScreenSelection('design-5', $event)"
+        :selectedScreenId="selectedDesign === 'design-5' ? selectedScreenId : null"
+      />
+      <Design6 
+        :screensCount="5"
+        @screen-selected="handleScreenSelection('design-6', $event)"
+        :selectedScreenId="selectedDesign === 'design-6' ? selectedScreenId : null"
+      />
+      <Design7 
+        :screensCount="5"
+        @screen-selected="handleScreenSelection('design-7', $event)"
+        :selectedScreenId="selectedDesign === 'design-7' ? selectedScreenId : null"
+      />
     </main>
 
-    <!-- Bouton toggle dark mode (inspiré de QuickEsti) -->
+    <!-- Bouton Modifier (uniquement si écran sélectionné) -->
+    <div v-if="selectedDesign && selectedScreenId" class="fixed right-4 bottom-20 z-50">
+      <button
+        @click="openEditModal"
+        type="button"
+        class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg shadow-lg transition-all flex items-center gap-2"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+        </svg>
+        Modifier
+      </button>
+    </div>
+
+    <!-- Bouton toggle dark mode -->
     <div class="fixed right-4 bottom-4 z-50">
       <button
         @click="toggleDarkMode"
@@ -38,6 +80,14 @@
         </svg>
       </button>
     </div>
+
+    <!-- Modale d'édition -->
+    <EditModal
+      :isOpen="isEditModalOpen"
+      :screenData="currentScreenData"
+      @close="closeEditModal"
+      @apply-changes="applyChanges"
+    />
   </div>
 </template>
 
@@ -49,6 +99,16 @@ import Design4 from './components/designs/Design4.vue';
 import Design5 from './components/designs/Design5.vue';
 import Design6 from './components/designs/Design6.vue';
 import Design7 from './components/designs/Design7.vue';
+import EditModal from './components/EditModal.vue';
+
+// Import des configs JSON
+import design1Config from '../configs/designs/design-1.json';
+import design2Config from '../configs/designs/design-2.json';
+import design3Config from '../configs/designs/design-3.json';
+import design4Config from '../configs/designs/design-4.json';
+import design5Config from '../configs/designs/design-5.json';
+import design6Config from '../configs/designs/design-6.json';
+import design7Config from '../configs/designs/design-7.json';
 
 export default {
   name: 'App',
@@ -59,14 +119,93 @@ export default {
     Design4,
     Design5,
     Design6,
-    Design7
+    Design7,
+    EditModal
   },
   data() {
     return {
-      isDarkMode: false
+      isDarkMode: false,
+      selectedDesign: null,
+      selectedScreenId: null,
+      isEditModalOpen: false,
+      designConfigs: {
+        'design-1': design1Config,
+        'design-2': design2Config,
+        'design-3': design3Config,
+        'design-4': design4Config,
+        'design-5': design5Config,
+        'design-6': design6Config,
+        'design-7': design7Config
+      },
+      modifications: {} // Store des modifications locales
+    }
+  },
+  computed: {
+    currentScreenData() {
+      if (!this.selectedDesign || !this.selectedScreenId) {
+        return { id: '', editableZones: [] }
+      }
+      
+      const config = this.designConfigs[this.selectedDesign]
+      const screen = config.screens.find(s => s.id === `screen-${this.selectedScreenId}`)
+      
+      return screen || { id: '', editableZones: [] }
     }
   },
   methods: {
+    handleScreenSelection(designId, screenNum) {
+      this.selectedDesign = designId
+      this.selectedScreenId = screenNum
+    },
+    
+    openEditModal() {
+      this.isEditModalOpen = true
+    },
+    
+    closeEditModal() {
+      this.isEditModalOpen = false
+    },
+    
+    applyChanges(edits) {
+      // Stocker les modifications
+      const key = `${this.selectedDesign}-screen-${this.selectedScreenId}`
+      this.modifications[key] = edits
+      
+      // Appliquer les modifications au DOM
+      this.applyModificationsToDOM(edits)
+    },
+    
+    applyModificationsToDOM(edits) {
+      const screenSelector = `[data-screen="${this.selectedScreenId}"]`
+      const screenElement = document.querySelector(screenSelector)
+      
+      if (!screenElement) return
+      
+      Object.keys(edits).forEach(zoneId => {
+        const edit = edits[zoneId]
+        const zone = this.currentScreenData.editableZones.find(z => z.id === zoneId)
+        
+        if (!zone) return
+        
+        const targetElement = screenElement.querySelector(zone.selector)
+        
+        if (!targetElement) return
+        
+        // Appliquer selon le type
+        if (zone.type === 'background') {
+          if (edit.type === 'color' || edit.type === 'gradient') {
+            targetElement.style.background = edit.value
+          }
+        } else if (zone.type === 'text') {
+          targetElement.textContent = edit.value
+        } else if (zone.type === 'image') {
+          if (edit.type === 'url' || edit.type === 'upload') {
+            targetElement.src = edit.value
+          }
+        }
+      })
+    },
+    
     toggleDarkMode() {
       this.isDarkMode = !this.isDarkMode;
 
@@ -80,7 +219,6 @@ export default {
     },
 
     initDarkMode() {
-      // Vérifier les préférences sauvegardées ou système
       const savedTheme = localStorage.getItem('color-theme');
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 

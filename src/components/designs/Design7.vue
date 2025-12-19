@@ -2,7 +2,14 @@
   <section class="mySection section-design-7" aria-label="Design 7">
     <div class="container-design">
       <!-- Screen 1 (double device) -->
-      <article class="myScreen-design-7" data-shade="aqua" data-screen="1" aria-label="Design 7 · Ecran 1">
+      <article 
+        class="myScreen-design-7 screen-selectable" 
+        :class="{ 'screen-selected': selectedScreenId === 1 }"
+        data-shade="aqua" 
+        data-screen="1" 
+        aria-label="Design 7 · Ecran 1"
+        @click="selectScreen(1)"
+      >
         <div class="design-7-text design-7-text--solo">
           <h3>You can put headline here</h3>
         </div>
@@ -25,7 +32,14 @@
       </article>
 
       <!-- Screen 2 (step 01) -->
-      <article class="myScreen-design-7" data-shade="violet" data-screen="2" aria-label="Design 7 · Ecran 2">
+      <article 
+        class="myScreen-design-7 screen-selectable" 
+        :class="{ 'screen-selected': selectedScreenId === 2 }"
+        data-shade="violet" 
+        data-screen="2" 
+        aria-label="Design 7 · Ecran 2"
+        @click="selectScreen(2)"
+      >
         <div class="design-7-text">
           <div class="design-7-heading">
             <span class="design-7-step">01</span>
@@ -45,7 +59,14 @@
       </article>
 
       <!-- Screen 3 (step 02) -->
-      <article class="myScreen-design-7" data-shade="orchid" data-screen="3" aria-label="Design 7 · Ecran 3">
+      <article 
+        class="myScreen-design-7 screen-selectable" 
+        :class="{ 'screen-selected': selectedScreenId === 3 }"
+        data-shade="orchid" 
+        data-screen="3" 
+        aria-label="Design 7 · Ecran 3"
+        @click="selectScreen(3)"
+      >
         <div class="design-7-text">
           <div class="design-7-heading">
             <span class="design-7-step">02</span>
@@ -65,7 +86,14 @@
       </article>
 
       <!-- Screen 4 (step 03) -->
-      <article class="myScreen-design-7" data-shade="amber" data-screen="4" aria-label="Design 7 · Ecran 4">
+      <article 
+        class="myScreen-design-7 screen-selectable" 
+        :class="{ 'screen-selected': selectedScreenId === 4 }"
+        data-shade="amber" 
+        data-screen="4" 
+        aria-label="Design 7 · Ecran 4"
+        @click="selectScreen(4)"
+      >
         <div class="design-7-text">
           <div class="design-7-heading">
             <span class="design-7-step">03</span>
@@ -85,7 +113,14 @@
       </article>
 
       <!-- Screen 5 (step 04) -->
-      <article class="myScreen-design-7" data-shade="emerald" data-screen="5" aria-label="Design 7 · Ecran 5">
+      <article 
+        class="myScreen-design-7 screen-selectable" 
+        :class="{ 'screen-selected': selectedScreenId === 5 }"
+        data-shade="emerald" 
+        data-screen="5" 
+        aria-label="Design 7 · Ecran 5"
+        @click="selectScreen(5)"
+      >
         <div class="design-7-text">
           <div class="design-7-heading">
             <span class="design-7-step">04</span>
@@ -116,6 +151,10 @@ export default {
     screensCount: {
       type: Number,
       default: 5
+    },
+    selectedScreenId: {
+      type: Number,
+      default: null
     }
   },
   data() {
@@ -123,8 +162,47 @@ export default {
       config: designConfig
     }
   },
+  methods: {
+    selectScreen(screenNum) {
+      this.$emit('screen-selected', screenNum)
+    }
+  },
   mounted() {
     console.log(`[${this.config.name}] Configuration chargée:`, this.config)
   }
 }
 </script>
+
+<style scoped>
+.screen-selectable {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.screen-selectable:hover::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(59, 130, 246, 0.1);
+  pointer-events: none;
+  border: 2px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+}
+
+.screen-selected::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(59, 130, 246, 0.15);
+  pointer-events: none;
+  border: 3px solid #3b82f6;
+  border-radius: 8px;
+}
+</style>
