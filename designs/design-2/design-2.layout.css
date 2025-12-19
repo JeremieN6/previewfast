@@ -6,7 +6,7 @@
   color: #000;
 }
 
-.container-text-design-2 {
+.myScreen-design-2 .container-text-design-2 {
     padding: 0 20px;
 }
 
@@ -21,29 +21,29 @@
   justify-content: flex-end;
 }
 
-h3.titleScreen.titleScreen-design-2{
+.myScreen-design-2 h3.titleScreen.titleScreen-design-2{
     margin: 1em 0;
     font-size: 1.17em;
     font-weight: bold;
 }
 
-.mockup-iphone-design-2{
+.myScreen-design-2 .mockup-iphone-design-2{
   width: 90%;
 }
 
-.container-img-design-2{
+.myScreen-design-2 .container-img-design-2{
   display: flex;
   justify-content: center;
   align-items: flex-end;
   position: relative;
 }
 
-h3.titleScreen.titleScreen-design-2{
+.myScreen-design-2 h3.titleScreen.titleScreen-design-2{
     margin-bottom: 0;
     line-height: normal;
 }
 
-.container-text-design-2 p{
+.myScreen-design-2 .container-text-design-2 p{
   margin-top: 0;
   font-size: 10px;
   margin-bottom: 1em;

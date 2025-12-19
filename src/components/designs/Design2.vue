@@ -19,7 +19,8 @@
         <div class="container-img-design-2">
           <img src="/assets/mockup/adam-mockup-2bis.png" alt="mockup-iphone" class="mockup-iphone-design-2">
           <span class="default-design-notch" aria-hidden="true"></span>
-          <img v-if="screenNum === 1" src="/assets/tmp/screenshot.jpg" alt="default-visual" class="visual-on-mockup">
+          <!--<img v-if="screenNum === 1" src="/assets/tmp/screenshot.jpg" alt="default-visual" class="visual-on-mockup">-->
+        <img src="/assets/tmp/screenshot1.jpg" alt="default-visual" class="visual-on-mockup">
         </div>
       </div>
     </div>

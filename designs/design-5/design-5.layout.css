@@ -171,3 +171,8 @@
   left: 50%;
   transform: translateX(-50%);
 }
+
+/* Utilitaire spécifique à Design 5 (déplacé depuis designer-shell.css) */
+.myScreen-design-5 .upFontSize{
+  font-size: 1.25rem !important;
+}

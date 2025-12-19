@@ -76,11 +76,6 @@
   pointer-events: none;
 }
 
-/* Utilitaires partagés */
-.content-logo{
-  border-radius: 50%;
-}
-
-.upFontSize{
-  font-size: 1.25rem !important;
-}
+/* ⚠️ Les utilitaires spécifiques aux designs ont été déplacés dans leurs fichiers respectifs :
+   - .content-logo → design-3.layout.css
+   - .upFontSize → design-5.layout.css */

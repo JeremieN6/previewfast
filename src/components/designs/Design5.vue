@@ -10,9 +10,9 @@
           <h3>You can put headline here</h3>
         </div>
         <div class="design-5-mockup">
-          <img src="../../../public/assets/mockup/adam-mockup-2bis.png" alt="Mockup iPhone" />
+          <img src="/assets/mockup/adam-mockup-2bis.png" alt="Mockup iPhone" />
           <span class="default-design-notch" aria-hidden="true"></span>
-          <img src="../../../public/assets/tmp/screenshot.jpg" alt="default-visual" class="visual-on-mockup" />
+          <img src="/assets/tmp/screenshot.jpg" alt="default-visual" class="visual-on-mockup" />
         </div>
       </div>
 
@@ -23,9 +23,9 @@
           <p>Awesome headline here</p>
         </div>
         <div class="design-5-mockup">
-            <img src="../../../public/assets/mockup/adam-mockup-1bis.png" class="img-mockup" alt="Mockup iPhone">
+            <img src="/assets/mockup/adam-mockup-1bis.png" class="img-mockup" alt="Mockup iPhone">
             <span class="default-design-notch" aria-hidden="true"></span>
-            <img src="../../../public/assets/tmp/screenshot.jpg" alt="default-visual" class="visual-on-mockup">            
+            <img src="/assets/tmp/screenshot.jpg" alt="default-visual" class="visual-on-mockup">            
         </div>
       </div>
 

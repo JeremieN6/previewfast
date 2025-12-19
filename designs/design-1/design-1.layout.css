@@ -23,7 +23,7 @@
   justify-content: center;
 }
 
-.mockup-iphone-design-1{
+.myScreen-design-1 .mockup-iphone-design-1{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,12 +44,12 @@
   z-index: 2;
 }
 
-.container-text-design-1 {
+.myScreen-design-1 .container-text-design-1 {
     padding: 0 10px;
     margin-top: -10px;
 }
 
-h3.titleScreen.titleScreen-design-1{
+.myScreen-design-1 h3.titleScreen.titleScreen-design-1{
     margin: 1em 0;
     font-size: 1.17em;
     font-weight: bold;

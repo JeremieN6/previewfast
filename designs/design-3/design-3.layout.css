@@ -6,11 +6,11 @@
   color: #000;
 }
 
-.container-text-design-3 {
+.myScreen-design-3 .container-text-design-3 {
     padding: 0 20px;
 }
 
-h3.titleScreen.titleScreen-design-3{
+.myScreen-design-3 h3.titleScreen.titleScreen-design-3{
     margin: 1em 0;
     font-size: 1.17em;
     font-weight: bold;
@@ -28,18 +28,18 @@ h3.titleScreen.titleScreen-design-3{
   justify-content: flex-end;
 }
 
-.mockup-iphone-design-3{
+.myScreen-design-3 .mockup-iphone-design-3{
   width: 90%;
 }
 
-.container-img-design-3{
+.myScreen-design-3 .container-img-design-3{
   display: flex;
   justify-content: center;
   align-items: flex-end;
   position: relative;
 }
 
-.container-text-design-3 p{
+.myScreen-design-3 .container-text-design-3 p{
   margin-top: 0;
   font-size: 10px;
 }
@@ -58,7 +58,12 @@ h3.titleScreen.titleScreen-design-3{
   z-index: 2;
 }
 
-.container-logo-design-3{
+.myScreen-design-3 .container-logo-design-3{
   margin: -10px;
   padding: 0 20px;
+}
+
+/* Utilitaire spécifique à Design 3 (déplacé depuis designer-shell.css) */
+.myScreen-design-3 .content-logo{
+  border-radius: 50%;
 }
