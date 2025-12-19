@@ -1,0 +1,182 @@
+{
+  "designId": "design-4",
+  "name": "Design 4 - Red Gradient Mixed",
+  "description": "Design avec fond rouge et structure variable selon l'écran",
+  "screens": [
+    {
+      "id": "screen-1",
+      "label": "Écran 1",
+      "variant": "wrapper",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-4",
+          "allowed": ["gradient", "color"],
+          "current": "radial-gradient"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".titleScreen-design-4",
+          "allowed": ["edit"],
+          "current": "Lorem ipsum sit amet"
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".mockup-iphone-design-4",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-9.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot1.jpg"
+        }
+      ]
+    },
+    {
+      "id": "screen-2",
+      "label": "Écran 2",
+      "variant": "wrapper",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-4",
+          "allowed": ["gradient", "color"],
+          "current": "radial-gradient"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".titleScreen-design-4",
+          "allowed": ["edit"],
+          "current": "Lorem ipsum sit amet"
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".mockup-iphone-design-4",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-9.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot1.jpg"
+        }
+      ]
+    },
+    {
+      "id": "screen-3",
+      "label": "Écran 3",
+      "variant": "jumbo",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-4",
+          "allowed": ["gradient", "color"],
+          "current": "radial-gradient"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".titleScreen-design-4",
+          "allowed": ["edit"],
+          "current": "Lorem ipsum sit amet"
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".mockup-iphone-design-4",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-4.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    },
+    {
+      "id": "screen-4",
+      "label": "Écran 4",
+      "variant": "jumbo",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-4",
+          "allowed": ["gradient", "color"],
+          "current": "radial-gradient"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".titleScreen-design-4",
+          "allowed": ["edit"],
+          "current": "Lorem ipsum sit amet"
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".mockup-iphone-design-4",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-5.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    },
+    {
+      "id": "screen-5",
+      "label": "Écran 5",
+      "variant": "jumbo",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-4",
+          "allowed": ["gradient", "color"],
+          "current": "radial-gradient"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".titleScreen-design-4",
+          "allowed": ["edit"],
+          "current": "Lorem ipsum sit amet"
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".mockup-iphone-design-4",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-2bis.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    }
+  ]
+}

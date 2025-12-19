@@ -64,6 +64,8 @@
 </template>
 
 <script>
+import designConfig from '../../../configs/designs/design-6.json'
+
 export default {
   name: 'Design6',
   props: {
@@ -71,6 +73,14 @@ export default {
       type: Number,
       default: 5
     }
+  },
+  data() {
+    return {
+      config: designConfig
+    }
+  },
+  mounted() {
+    console.log(`[${this.config.name}] Configuration chargée:`, this.config)
   }
 }
 </script>

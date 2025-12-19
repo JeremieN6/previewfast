@@ -1,0 +1,212 @@
+{
+  "designId": "design-3",
+  "name": "Design 3 - Blue Gradient with Logo",
+  "description": "Design avec dégradé bleu, logo et mockup aligné en bas",
+  "screens": [
+    {
+      "id": "screen-1",
+      "label": "Écran 1",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-3",
+          "allowed": ["gradient", "color"],
+          "current": "linear-gradient"
+        },
+        {
+          "id": "logo",
+          "type": "image",
+          "selector": ".content-logo",
+          "allowed": ["upload", "replace"],
+          "current": "https://placehold.co/40x40/003941/FFFFFF?text=LOGO"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".titleScreen-design-3",
+          "allowed": ["edit"],
+          "current": "Lorem ipsum sit amet"
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".mockup-iphone-design-3",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-2bis.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    },
+    {
+      "id": "screen-2",
+      "label": "Écran 2",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-3",
+          "allowed": ["gradient", "color"],
+          "current": "linear-gradient"
+        },
+        {
+          "id": "logo",
+          "type": "image",
+          "selector": ".content-logo",
+          "allowed": ["upload", "replace"],
+          "current": "https://placehold.co/40x40/003941/FFFFFF?text=LOGO"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".titleScreen-design-3",
+          "allowed": ["edit"],
+          "current": "Lorem ipsum sit amet"
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".mockup-iphone-design-3",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-2bis.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    },
+    {
+      "id": "screen-3",
+      "label": "Écran 3",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-3",
+          "allowed": ["gradient", "color"],
+          "current": "linear-gradient"
+        },
+        {
+          "id": "logo",
+          "type": "image",
+          "selector": ".content-logo",
+          "allowed": ["upload", "replace"],
+          "current": "https://placehold.co/40x40/003941/FFFFFF?text=LOGO"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".titleScreen-design-3",
+          "allowed": ["edit"],
+          "current": "Lorem ipsum sit amet"
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".mockup-iphone-design-3",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-2bis.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    },
+    {
+      "id": "screen-4",
+      "label": "Écran 4",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-3",
+          "allowed": ["gradient", "color"],
+          "current": "linear-gradient"
+        },
+        {
+          "id": "logo",
+          "type": "image",
+          "selector": ".content-logo",
+          "allowed": ["upload", "replace"],
+          "current": "https://placehold.co/40x40/003941/FFFFFF?text=LOGO"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".titleScreen-design-3",
+          "allowed": ["edit"],
+          "current": "Lorem ipsum sit amet"
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".mockup-iphone-design-3",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-2bis.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    },
+    {
+      "id": "screen-5",
+      "label": "Écran 5",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-3",
+          "allowed": ["gradient", "color"],
+          "current": "linear-gradient"
+        },
+        {
+          "id": "logo",
+          "type": "image",
+          "selector": ".content-logo",
+          "allowed": ["upload", "replace"],
+          "current": "https://placehold.co/40x40/003941/FFFFFF?text=LOGO"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".titleScreen-design-3",
+          "allowed": ["edit"],
+          "current": "Lorem ipsum sit amet"
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".mockup-iphone-design-3",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-2bis.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    }
+  ]
+}

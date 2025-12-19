@@ -1,0 +1,201 @@
+{
+  "designId": "design-5",
+  "name": "Design 5 - Variants with Data Attributes",
+  "description": "Design avec variantes de couleurs (lavender/dark) et configurations flexibles",
+  "screens": [
+    {
+      "id": "screen-1",
+      "label": "Écran 1",
+      "variant": "lavender logo",
+      "notchPosition": "55",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-5",
+          "allowed": ["gradient", "color"],
+          "current": "linear-gradient(180deg, #dcbcff 0%, #c09bfd 100%)"
+        },
+        {
+          "id": "logo",
+          "type": "image",
+          "selector": ".design-5-logo img",
+          "allowed": ["upload", "replace"],
+          "current": "https://placehold.co/40x40/003941/FFFFFF?text=LOGO"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".design-5-text h3",
+          "allowed": ["edit"],
+          "current": "You can put headline here"
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".design-5-mockup img:first-child",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-2bis.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    },
+    {
+      "id": "screen-2",
+      "label": "Écran 2",
+      "variant": "dark top-heavy",
+      "notchPosition": "20",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-5",
+          "allowed": ["gradient", "color"],
+          "current": "radial-gradient(circle at 30% 20%, #2c143f 0%, #0c0613 70%)"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".design-5-text h3",
+          "allowed": ["edit"],
+          "current": "You can put headline here"
+        },
+        {
+          "id": "description",
+          "type": "text",
+          "selector": ".design-5-text p",
+          "allowed": ["edit"],
+          "current": "Awesome headline here"
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".design-5-mockup .img-mockup",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-1bis.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    },
+    {
+      "id": "screen-3",
+      "label": "Écran 3",
+      "variant": "lavender upFontSize",
+      "notchPosition": "55",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-5",
+          "allowed": ["gradient", "color"],
+          "current": "linear-gradient(180deg, #dcbcff 0%, #c09bfd 100%)"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".design-5-text h3",
+          "allowed": ["edit"],
+          "current": "You can put awesome headline here"
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".design-5-mockup img:first-child",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-2bis.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    },
+    {
+      "id": "screen-4",
+      "label": "Écran 4",
+      "variant": "dark inverted",
+      "notchPosition": "30",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-5",
+          "allowed": ["gradient", "color"],
+          "current": "radial-gradient(circle at 30% 20%, #2c143f 0%, #0c0613 70%)"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".design-5-text h3",
+          "allowed": ["edit"],
+          "current": "You can put headline here"
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".design-5-mockup .img-mockup",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-1bis.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot1.jpg"
+        }
+      ]
+    },
+    {
+      "id": "screen-5",
+      "label": "Écran 5",
+      "variant": "lavender",
+      "notchPosition": "55",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-5",
+          "allowed": ["gradient", "color"],
+          "current": "linear-gradient(180deg, #dcbcff 0%, #c09bfd 100%)"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".design-5-text h3",
+          "allowed": ["edit"],
+          "current": "You can put headline here"
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".design-5-mockup img:first-child",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-2bis.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    }
+  ]
+}

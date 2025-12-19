@@ -1,0 +1,296 @@
+{
+  "designId": "design-7",
+  "name": "Design 7 - Steps with Numbered Stages",
+  "description": "Design avec étapes numérotées et variantes de couleurs",
+  "screens": [
+    {
+      "id": "screen-1",
+      "label": "Écran 1",
+      "variant": "double-device",
+      "shade": "aqua",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-7",
+          "allowed": ["color"],
+          "current": "#ffffff"
+        },
+        {
+          "id": "accent-gradient",
+          "type": "background",
+          "selector": ".design-7-stage",
+          "allowed": ["gradient", "color"],
+          "current": "linear-gradient(180deg, #c8d4ff 0%, #7a8ec9 100%)"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".design-7-text h3",
+          "allowed": ["edit"],
+          "current": "You can put headline here"
+        },
+        {
+          "id": "mockup-back",
+          "type": "image",
+          "selector": "[data-device='back'] .design-7-mockup",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-5.png"
+        },
+        {
+          "id": "screenshot-back",
+          "type": "image",
+          "selector": "[data-device='back'] .visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot.jpg"
+        },
+        {
+          "id": "mockup-front",
+          "type": "image",
+          "selector": "[data-device='front'] .design-7-mockup",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-5.png"
+        },
+        {
+          "id": "screenshot-front",
+          "type": "image",
+          "selector": "[data-device='front'] .visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    },
+    {
+      "id": "screen-2",
+      "label": "Écran 2 - Étape 01",
+      "variant": "single-device",
+      "shade": "violet",
+      "step": "01",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-7",
+          "allowed": ["color"],
+          "current": "#ffffff"
+        },
+        {
+          "id": "accent-gradient",
+          "type": "background",
+          "selector": ".design-7-stage",
+          "allowed": ["gradient", "color"],
+          "current": "linear-gradient(180deg, #c8d4ff 0%, #7a8ec9 100%)"
+        },
+        {
+          "id": "step-number",
+          "type": "text",
+          "selector": ".design-7-step",
+          "allowed": ["edit"],
+          "current": "01"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".design-7-heading h3",
+          "allowed": ["edit"],
+          "current": "This is smart"
+        },
+        {
+          "id": "description",
+          "type": "text",
+          "selector": ".design-7-text p",
+          "allowed": ["edit"],
+          "current": "Expecto better pigwidgeon again powder turban. Train."
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".design-7-mockup",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-4.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    },
+    {
+      "id": "screen-3",
+      "label": "Écran 3 - Étape 02",
+      "variant": "single-device",
+      "shade": "orchid",
+      "step": "02",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-7",
+          "allowed": ["color"],
+          "current": "#ffffff"
+        },
+        {
+          "id": "accent-gradient",
+          "type": "background",
+          "selector": ".design-7-stage",
+          "allowed": ["gradient", "color"],
+          "current": "linear-gradient(180deg, #c8d4ff 0%, #7a8ec9 100%)"
+        },
+        {
+          "id": "step-number",
+          "type": "text",
+          "selector": ".design-7-step",
+          "allowed": ["edit"],
+          "current": "02"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".design-7-heading h3",
+          "allowed": ["edit"],
+          "current": "The fast way"
+        },
+        {
+          "id": "description",
+          "type": "text",
+          "selector": ".design-7-text p",
+          "allowed": ["edit"],
+          "current": "Expecto better pigwidgeon again powder turban. Train."
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".design-7-mockup",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-5.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    },
+    {
+      "id": "screen-4",
+      "label": "Écran 4 - Étape 03",
+      "variant": "single-device",
+      "shade": "amber",
+      "step": "03",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-7",
+          "allowed": ["color"],
+          "current": "#ffffff"
+        },
+        {
+          "id": "accent-gradient",
+          "type": "background",
+          "selector": ".design-7-stage",
+          "allowed": ["gradient", "color"],
+          "current": "linear-gradient(180deg, #c8d4ff 0%, #7a8ec9 100%)"
+        },
+        {
+          "id": "step-number",
+          "type": "text",
+          "selector": ".design-7-step",
+          "allowed": ["edit"],
+          "current": "03"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".design-7-heading h3",
+          "allowed": ["edit"],
+          "current": "We have you"
+        },
+        {
+          "id": "description",
+          "type": "text",
+          "selector": ".design-7-text p",
+          "allowed": ["edit"],
+          "current": "Expecto better pigwidgeon again powder turban. Train."
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".design-7-mockup",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-4.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    },
+    {
+      "id": "screen-5",
+      "label": "Écran 5 - Étape 04",
+      "variant": "single-device",
+      "shade": "emerald",
+      "step": "04",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-7",
+          "allowed": ["color"],
+          "current": "#ffffff"
+        },
+        {
+          "id": "accent-gradient",
+          "type": "background",
+          "selector": ".design-7-stage",
+          "allowed": ["gradient", "color"],
+          "current": "linear-gradient(180deg, #c8d4ff 0%, #7a8ec9 100%)"
+        },
+        {
+          "id": "step-number",
+          "type": "text",
+          "selector": ".design-7-step",
+          "allowed": ["edit"],
+          "current": "04"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".design-7-heading h3",
+          "allowed": ["edit"],
+          "current": "Fast and easy"
+        },
+        {
+          "id": "description",
+          "type": "text",
+          "selector": ".design-7-text p",
+          "allowed": ["edit"],
+          "current": "Expecto better pigwidgeon again powder turban. Train."
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".design-7-mockup",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-5.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    }
+  ]
+}

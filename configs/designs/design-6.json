@@ -1,0 +1,192 @@
+{
+  "designId": "design-6",
+  "name": "Design 6 - Tone Variants with Tilted Mockups",
+  "description": "Design avec variantes de tons (sunset/ocean/mono) et mockups inclinés",
+  "screens": [
+    {
+      "id": "screen-1",
+      "label": "Écran 1",
+      "tone": "sunset",
+      "align": "top",
+      "tilt": "left",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-6",
+          "allowed": ["gradient", "color"],
+          "current": "linear-gradient(180deg, #b13bff 0%, #f248c4 50%, #ff6e8a 100%)"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".design-6-text h3",
+          "allowed": ["edit"],
+          "current": "You can put headline here"
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".mockup-iphone-design-6",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-4.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    },
+    {
+      "id": "screen-2",
+      "label": "Écran 2",
+      "tone": "mono",
+      "align": "bottom",
+      "tilt": "framed",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-6",
+          "allowed": ["color"],
+          "current": "#ffffff"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".design-6-text h3",
+          "allowed": ["edit"],
+          "current": "You can put headline here"
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".mockup-iphone-design-6",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-1bis.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    },
+    {
+      "id": "screen-3",
+      "label": "Écran 3",
+      "tone": "ocean",
+      "align": "top",
+      "tilt": "right",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-6",
+          "allowed": ["gradient", "color"],
+          "current": "linear-gradient(320deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 45%, rgba(0, 212, 255, 1) 100%)"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".design-6-text h3",
+          "allowed": ["edit"],
+          "current": "You can put headline here"
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".mockup-iphone-design-6",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-5.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    },
+    {
+      "id": "screen-4",
+      "label": "Écran 4",
+      "tone": "mono",
+      "align": "top",
+      "tilt": "straight",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-6",
+          "allowed": ["color"],
+          "current": "#ffffff"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".design-6-text h3",
+          "allowed": ["edit"],
+          "current": "You can put headline here"
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".mockup-iphone-design-6",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-2bis.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    },
+    {
+      "id": "screen-5",
+      "label": "Écran 5",
+      "tone": "design6_screen5",
+      "align": "top",
+      "tilt": "none",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-6",
+          "allowed": ["gradient", "color"],
+          "current": "linear-gradient(221deg, rgba(165, 213, 198, 1) 0%, rgba(86, 128, 248, 1) 50%, rgba(119, 106, 242, 1) 100%)"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".design-6-text h3",
+          "allowed": ["edit"],
+          "current": "You can put headline here"
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".mockup-iphone-design-6",
+          "allowed": ["replace"],
+          "current": "/assets/mockup/adam-mockup-4.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": ["upload", "replace"],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    }
+  ]
+}
