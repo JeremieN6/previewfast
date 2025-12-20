@@ -89,16 +89,89 @@
         {{ isExporting ? 'Export...' : 'Exporter tout' }}
       </button>
       
-      <!-- Bouton Réinitialiser -->
-      <button
-        @click="resetCurrentDesign"
-        type="button"
-        class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl"
-        title="Réinitialiser ce design"
-        aria-label="Réinitialiser le design actuel"
-      >
-        Réinitialiser
-      </button>
+      <!-- Bouton Réinitialiser avec dropdown -->
+      <div class="relative">
+        <button
+          @click="isResetDropdownOpen = !isResetDropdownOpen"
+          type="button"
+          class="w-full px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl flex items-center justify-between gap-2"
+          title="Options de réinitialisation"
+          aria-label="Ouvrir le menu de réinitialisation"
+        >
+          <span class="flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+            </svg>
+            Réinitialiser
+          </span>
+          <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': isResetDropdownOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        
+        <!-- Menu dropdown -->
+        <div
+          v-show="isResetDropdownOpen"
+          class="absolute bottom-full right-0 mb-2 w-72 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-600 overflow-hidden"
+        >
+          <!-- Option 1 : Cet écran -->
+          <button
+            @click="resetCurrentScreen"
+            type="button"
+            class="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors border-b border-gray-200 dark:border-gray-600"
+          >
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 mt-0.5 text-orange-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+              </svg>
+              <div>
+                <div class="font-medium text-gray-900 dark:text-white">Cet écran uniquement</div>
+                <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                  {{ selectedDesign }}, écran {{ selectedScreenId }}
+                </div>
+              </div>
+            </div>
+          </button>
+          
+          <!-- Option 2 : Ce design -->
+          <button
+            @click="resetCurrentDesign"
+            type="button"
+            class="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors border-b border-gray-200 dark:border-gray-600"
+          >
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 mt-0.5 text-yellow-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
+              </svg>
+              <div>
+                <div class="font-medium text-gray-900 dark:text-white">Ce design complet</div>
+                <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                  {{ selectedDesign }} (5 écrans)
+                </div>
+              </div>
+            </div>
+          </button>
+          
+          <!-- Option 3 : Tous les designs -->
+          <button
+            @click="resetAllDesigns"
+            type="button"
+            class="w-full px-4 py-3 text-left hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+          >
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 mt-0.5 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+              </svg>
+              <div>
+                <div class="font-medium text-red-600 dark:text-red-400">⚠️ Tous les designs</div>
+                <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                  7 designs × 5 écrans = 35 écrans
+                </div>
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- Bouton toggle dark mode -->
@@ -175,6 +248,7 @@ export default {
       selectedScreenId: null,
       isEditModalOpen: false,
       isExporting: false, // État d'export
+      isResetDropdownOpen: false, // État du dropdown de réinitialisation
       designConfigs: {
         'design-1': design1Config,
         'design-2': design2Config,
@@ -239,6 +313,14 @@ export default {
     }
   },
   methods: {
+    handleClickOutside(event) {
+      // Vérifier si le clic est en dehors du dropdown
+      const dropdown = event.target.closest('.relative');
+      if (!dropdown && this.isResetDropdownOpen) {
+        this.isResetDropdownOpen = false;
+      }
+    },
+    
     handleScreenSelection(designId, screenNum) {
       this.selectedDesign = designId
       this.selectedScreenId = screenNum
@@ -327,8 +409,54 @@ export default {
       })
     },
     
+    resetCurrentScreen() {
+      if (!this.selectedDesign || !this.selectedScreenId) return
+      
+      // Fermer le dropdown
+      this.isResetDropdownOpen = false
+      
+      // Pas de confirmation pour un seul écran (risque faible)
+      const key = `${this.selectedDesign}_screen-${this.selectedScreenId}`
+      
+      // Supprimer de l'état local
+      if (this.modifications[key]) {
+        delete this.modifications[key]
+      }
+      
+      // Supprimer du localStorage
+      const savedState = loadDesignState(this.selectedDesign)
+      if (savedState && savedState[`screen-${this.selectedScreenId}`]) {
+        delete savedState[`screen-${this.selectedScreenId}`]
+        saveDesignState(this.selectedDesign, savedState)
+      }
+      
+      // Recharger la page pour réinitialiser visuellement
+      window.location.reload()
+      
+      console.log(`✅ Écran ${this.selectedScreenId} du ${this.selectedDesign} réinitialisé`)
+    },
+    
     resetCurrentDesign() {
       if (!this.selectedDesign) return
+      
+      // Fermer le dropdown
+      this.isResetDropdownOpen = false
+      
+      // Compter les modifications pour ce design
+      const modificationCount = Object.keys(this.modifications)
+        .filter(key => key.startsWith(this.selectedDesign))
+        .length
+      
+      // Confirmation si des modifications existent
+      if (modificationCount > 0) {
+        const confirm = window.confirm(
+          `⚠️ Réinitialiser tout le ${this.selectedDesign} ?\n\n` +
+          `Cela supprimera les modifications sur les 5 écrans de ce design.\n\n` +
+          `Voulez-vous continuer ?`
+        )
+        
+        if (!confirm) return
+      }
       
       // Réinitialiser l'état dans localStorage
       resetDesignState(this.selectedDesign)
@@ -340,8 +468,55 @@ export default {
         }
       })
       
-      // Recharger la page pour restaurer l'état par défaut
+      // Recharger la page pour tout réinitialiser visuellement
       window.location.reload()
+      
+      console.log(`✅ ${this.selectedDesign} complet réinitialisé`)
+    },
+    
+    resetAllDesigns() {
+      // Fermer le dropdown
+      this.isResetDropdownOpen = false
+      
+      // Compter toutes les modifications
+      const totalModifications = Object.keys(this.modifications).length
+      
+      // Confirmation renforcée (toujours afficher, même sans modifications)
+      const message = totalModifications > 0
+        ? `🚨 ATTENTION : Réinitialiser TOUS les designs !\n\n` +
+          `Cela supprimera TOUTES les modifications sur les 7 designs (35 écrans).\n` +
+          `Vous avez actuellement ${totalModifications} modification(s).\n\n` +
+          `⚠️ Cette action est IRRÉVERSIBLE !\n\n` +
+          `Êtes-vous absolument certain de vouloir continuer ?`
+        : `🚨 Réinitialiser TOUS les designs ?\n\n` +
+          `Cela réinitialisera les 7 designs (35 écrans).\n\n` +
+          `Voulez-vous continuer ?`
+      
+      const confirm = window.confirm(message)
+      
+      if (!confirm) return
+      
+      // Double confirmation pour les actions critiques
+      const doubleConfirm = window.confirm(
+        `⚠️ Dernière confirmation\n\n` +
+        `Vous êtes sur le point de TOUT réinitialiser.\n` +
+        `Cliquez sur OK pour confirmer définitivement.`
+      )
+      
+      if (!doubleConfirm) return
+      
+      // Réinitialiser tous les designs
+      Object.keys(this.designConfigs).forEach(designId => {
+        resetDesignState(designId)
+      })
+      
+      // Vider l'état local
+      this.modifications = {}
+      
+      // Recharger la page
+      window.location.reload()
+      
+      console.log(`✅ Tous les designs ont été réinitialisés`)
     },
     
     async handleExportScreen() {
@@ -494,6 +669,14 @@ export default {
     this.$nextTick(() => {
       this.restoreAllDesigns();
     });
+    
+    // Fermer le dropdown si on clique ailleurs
+    document.addEventListener('click', this.handleClickOutside);
+  },
+  
+  beforeUnmount() {
+    // Nettoyer le listener
+    document.removeEventListener('click', this.handleClickOutside);
   }
 }
 </script>
