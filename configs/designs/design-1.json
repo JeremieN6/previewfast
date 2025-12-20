@@ -11,28 +11,39 @@
           "id": "background",
           "type": "background",
           "selector": ".myScreen-design-1",
-          "allowed": ["gradient", "color"],
+          "allowed": [
+            "gradient",
+            "color"
+          ],
           "current": "gradient"
         },
         {
           "id": "title",
           "type": "text",
           "selector": ".titleScreen-design-1",
-          "allowed": ["edit"],
-          "current": "Lorem ipsum sit amet consectetur"
+          "allowed": [
+            "edit"
+          ],
+          "current": "Lorem ipsum sit amet consectetur",
+          "maxLines": 2
         },
         {
           "id": "mockup",
           "type": "image",
           "selector": ".mockup-iphone-design-1",
-          "allowed": ["replace"],
+          "allowed": [
+            "replace"
+          ],
           "current": "/assets/mockup/adam-mockup-1.png"
         },
         {
           "id": "screenshot",
           "type": "image",
           "selector": ".visual-on-mockup",
-          "allowed": ["upload", "replace"],
+          "allowed": [
+            "upload",
+            "replace"
+          ],
           "current": "/assets/tmp/screenshot.jpg"
         }
       ]
@@ -45,28 +56,39 @@
           "id": "background",
           "type": "background",
           "selector": ".myScreen-design-1",
-          "allowed": ["gradient", "color"],
+          "allowed": [
+            "gradient",
+            "color"
+          ],
           "current": "gradient"
         },
         {
           "id": "title",
           "type": "text",
           "selector": ".titleScreen-design-1",
-          "allowed": ["edit"],
-          "current": "Lorem ipsum sit amet consectetur"
+          "allowed": [
+            "edit"
+          ],
+          "current": "Lorem ipsum sit amet consectetur",
+          "maxLines": 2
         },
         {
           "id": "mockup",
           "type": "image",
           "selector": ".mockup-iphone-design-1",
-          "allowed": ["replace"],
+          "allowed": [
+            "replace"
+          ],
           "current": "/assets/mockup/adam-mockup-1.png"
         },
         {
           "id": "screenshot",
           "type": "image",
           "selector": ".visual-on-mockup",
-          "allowed": ["upload", "replace"],
+          "allowed": [
+            "upload",
+            "replace"
+          ],
           "current": "/assets/tmp/screenshot.jpg"
         }
       ]
@@ -79,28 +101,39 @@
           "id": "background",
           "type": "background",
           "selector": ".myScreen-design-1",
-          "allowed": ["gradient", "color"],
+          "allowed": [
+            "gradient",
+            "color"
+          ],
           "current": "gradient"
         },
         {
           "id": "title",
           "type": "text",
           "selector": ".titleScreen-design-1",
-          "allowed": ["edit"],
-          "current": "Lorem ipsum sit amet consectetur"
+          "allowed": [
+            "edit"
+          ],
+          "current": "Lorem ipsum sit amet consectetur",
+          "maxLines": 2
         },
         {
           "id": "mockup",
           "type": "image",
           "selector": ".mockup-iphone-design-1",
-          "allowed": ["replace"],
+          "allowed": [
+            "replace"
+          ],
           "current": "/assets/mockup/adam-mockup-1.png"
         },
         {
           "id": "screenshot",
           "type": "image",
           "selector": ".visual-on-mockup",
-          "allowed": ["upload", "replace"],
+          "allowed": [
+            "upload",
+            "replace"
+          ],
           "current": "/assets/tmp/screenshot.jpg"
         }
       ]
@@ -113,28 +146,39 @@
           "id": "background",
           "type": "background",
           "selector": ".myScreen-design-1",
-          "allowed": ["gradient", "color"],
+          "allowed": [
+            "gradient",
+            "color"
+          ],
           "current": "gradient"
         },
         {
           "id": "title",
           "type": "text",
           "selector": ".titleScreen-design-1",
-          "allowed": ["edit"],
-          "current": "Lorem ipsum sit amet consectetur"
+          "allowed": [
+            "edit"
+          ],
+          "current": "Lorem ipsum sit amet consectetur",
+          "maxLines": 2
         },
         {
           "id": "mockup",
           "type": "image",
           "selector": ".mockup-iphone-design-1",
-          "allowed": ["replace"],
+          "allowed": [
+            "replace"
+          ],
           "current": "/assets/mockup/adam-mockup-1.png"
         },
         {
           "id": "screenshot",
           "type": "image",
           "selector": ".visual-on-mockup",
-          "allowed": ["upload", "replace"],
+          "allowed": [
+            "upload",
+            "replace"
+          ],
           "current": "/assets/tmp/screenshot.jpg"
         }
       ]
@@ -147,28 +191,39 @@
           "id": "background",
           "type": "background",
           "selector": ".myScreen-design-1",
-          "allowed": ["gradient", "color"],
+          "allowed": [
+            "gradient",
+            "color"
+          ],
           "current": "gradient"
         },
         {
           "id": "title",
           "type": "text",
           "selector": ".titleScreen-design-1",
-          "allowed": ["edit"],
-          "current": "Lorem ipsum sit amet consectetur"
+          "allowed": [
+            "edit"
+          ],
+          "current": "Lorem ipsum sit amet consectetur",
+          "maxLines": 2
         },
         {
           "id": "mockup",
           "type": "image",
           "selector": ".mockup-iphone-design-1",
-          "allowed": ["replace"],
+          "allowed": [
+            "replace"
+          ],
           "current": "/assets/mockup/adam-mockup-1.png"
         },
         {
           "id": "screenshot",
           "type": "image",
           "selector": ".visual-on-mockup",
-          "allowed": ["upload", "replace"],
+          "allowed": [
+            "upload",
+            "replace"
+          ],
           "current": "/assets/tmp/screenshot.jpg"
         }
       ]

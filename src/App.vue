@@ -59,6 +59,18 @@
         </svg>
         Modifier
       </button>
+      
+      <!-- Bouton Réinitialiser (visible uniquement si un design est sélectionné) -->
+      <button
+        v-if="selectedDesign"
+        @click="resetCurrentDesign"
+        type="button"
+        class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl"
+        title="Réinitialiser ce design"
+        aria-label="Réinitialiser le design actuel"
+      >
+        Réinitialiser
+      </button>
     </div>
 
     <!-- Bouton toggle dark mode -->
@@ -100,6 +112,9 @@ import Design5 from './components/designs/Design5.vue';
 import Design6 from './components/designs/Design6.vue';
 import Design7 from './components/designs/Design7.vue';
 import EditModal from './components/EditModal.vue';
+
+// Import du module de persistance
+import { saveDesignState, loadDesignState, resetDesignState } from './utils/persistence.js';
 
 // Import des configs JSON
 import design1Config from '../configs/designs/design-1.json';
@@ -149,7 +164,46 @@ export default {
       const config = this.designConfigs[this.selectedDesign]
       const screen = config.screens.find(s => s.id === `screen-${this.selectedScreenId}`)
       
-      return screen || { id: '', editableZones: [] }
+      if (!screen) {
+        return { id: '', editableZones: [] }
+      }
+      
+      // Priorité 1 : Modifications locales en mémoire (this.modifications)
+      const key = `${this.selectedDesign}-screen-${this.selectedScreenId}`
+      const localEdits = this.modifications[key] || {}
+      
+      // Priorité 2 : Modifications sauvegardées dans localStorage
+      const savedState = loadDesignState(this.selectedDesign)
+      const screenId = `screen-${this.selectedScreenId}`
+      const savedEdits = savedState?.[screenId] || {}
+      
+      // Fusionner : local > saved > default
+      const enrichedZones = screen.editableZones.map(zone => {
+        const localEdit = localEdits[zone.id]
+        const savedEdit = savedEdits[zone.id]
+        
+        if (localEdit) {
+          // Modification locale en cours de session (la plus récente)
+          return {
+            ...zone,
+            current: localEdit.value
+          }
+        } else if (savedEdit) {
+          // Modification sauvegardée depuis localStorage
+          return {
+            ...zone,
+            current: savedEdit.value
+          }
+        }
+        
+        // Pas de modification, garder la valeur par défaut
+        return zone
+      })
+      
+      return {
+        ...screen,
+        editableZones: enrichedZones
+      }
     }
   },
   methods: {
@@ -173,37 +227,89 @@ export default {
       
       // Appliquer les modifications au DOM
       this.applyModificationsToDOM(edits)
+      
+      // Sauvegarder automatiquement dans localStorage
+      if (this.selectedDesign && this.selectedScreenId) {
+        const screenId = `screen-${this.selectedScreenId}`
+        saveDesignState(this.selectedDesign, screenId, edits)
+      }
     },
     
     applyModificationsToDOM(edits) {
-      const screenSelector = `[data-screen="${this.selectedScreenId}"]`
+      // Extraire le numéro du design (ex: 'design-1' -> '1')
+      const designNum = this.selectedDesign.split('-')[1]
+      // Sélecteur spécifique au design ET à l'écran
+      const screenSelector = `.myScreen-design-${designNum}[data-screen="${this.selectedScreenId}"]`
       const screenElement = document.querySelector(screenSelector)
       
-      if (!screenElement) return
+      if (!screenElement) {
+        console.warn(`[App] Screen element not found: ${screenSelector}`)
+        return
+      }
       
       Object.keys(edits).forEach(zoneId => {
         const edit = edits[zoneId]
         const zone = this.currentScreenData.editableZones.find(z => z.id === zoneId)
         
-        if (!zone) return
+        if (!zone) {
+          console.warn(`[App] Zone not found: ${zoneId}`)
+          return
+        }
         
-        const targetElement = screenElement.querySelector(zone.selector)
+        // Pour le background, si le sélecteur cible l'écran lui-même, appliquer directement
+        let targetElement
+        if (zone.type === 'background' && screenElement.matches(zone.selector)) {
+          targetElement = screenElement
+        } else {
+          // Pour les autres zones, chercher l'élément à l'intérieur
+          targetElement = screenElement.querySelector(zone.selector)
+        }
         
-        if (!targetElement) return
+        if (!targetElement) {
+          console.warn(`[App] Target element not found for zone ${zoneId} with selector: ${zone.selector}`)
+          return
+        }
         
         // Appliquer selon le type
         if (zone.type === 'background') {
           if (edit.type === 'color' || edit.type === 'gradient') {
             targetElement.style.background = edit.value
+            console.log(`[App] Applied ${edit.type} to ${zoneId}:`, edit.value)
           }
         } else if (zone.type === 'text') {
           targetElement.textContent = edit.value
+          console.log(`[App] Applied text to ${zoneId}:`, edit.value)
         } else if (zone.type === 'image') {
           if (edit.type === 'url' || edit.type === 'upload') {
             targetElement.src = edit.value
+            
+            // Cas spécial : logo du Design 3 nécessite un width de 30%
+            if (this.selectedDesign === 'design-3' && zoneId === 'logo') {
+              targetElement.style.width = '30%'
+              targetElement.style.height = 'auto' // Maintenir le ratio
+            }
+            
+            console.log(`[App] Applied image to ${zoneId}`)
           }
         }
       })
+    },
+    
+    resetCurrentDesign() {
+      if (!this.selectedDesign) return
+      
+      // Réinitialiser l'état dans localStorage
+      resetDesignState(this.selectedDesign)
+      
+      // Réinitialiser l'état local
+      Object.keys(this.modifications).forEach(key => {
+        if (key.startsWith(this.selectedDesign)) {
+          delete this.modifications[key]
+        }
+      })
+      
+      // Recharger la page pour restaurer l'état par défaut
+      window.location.reload()
     },
     
     toggleDarkMode() {
@@ -229,11 +335,90 @@ export default {
         this.isDarkMode = false;
         document.documentElement.classList.remove('dark');
       }
+    },
+    
+    restoreAllDesigns() {
+      // Restaurer tous les designs sauvegardés
+      Object.keys(this.designConfigs).forEach(designId => {
+        const savedState = loadDesignState(designId)
+        
+        if (!savedState) return
+        
+        // Pour chaque écran sauvegardé
+        Object.keys(savedState).forEach(screenId => {
+          const edits = savedState[screenId]
+          const screenNum = screenId.replace('screen-', '')
+          
+          // Attendre que le DOM soit prêt
+          this.$nextTick(() => {
+            // Extraire le numéro du design (ex: 'design-1' -> '1')
+            const designNum = designId.split('-')[1]
+            // Sélecteur spécifique au design ET à l'écran
+            const screenSelector = `.myScreen-design-${designNum}[data-screen="${screenNum}"]`
+            const screenElement = document.querySelector(screenSelector)
+            
+            if (!screenElement) return
+            
+            // Trouver la config correspondante
+            const config = this.designConfigs[designId]
+            const screen = config.screens.find(s => s.id === screenId)
+            
+            if (!screen) return
+            
+            // Appliquer chaque modification
+            Object.keys(edits).forEach(zoneId => {
+              const edit = edits[zoneId]
+              const zone = screen.editableZones.find(z => z.id === zoneId)
+              
+              if (!zone) return
+              
+              // Pour le background, si le sélecteur cible l'écran lui-même, appliquer directement
+              let targetElement
+              if (zone.type === 'background' && screenElement.matches(zone.selector)) {
+                targetElement = screenElement
+              } else {
+                // Pour les autres zones, chercher l'élément à l'intérieur
+                targetElement = screenElement.querySelector(zone.selector)
+              }
+              
+              if (!targetElement) return
+              
+              // Appliquer selon le type
+              if (zone.type === 'background') {
+                if (edit.type === 'color' || edit.type === 'gradient') {
+                  targetElement.style.background = edit.value
+                }
+              } else if (zone.type === 'text') {
+                targetElement.textContent = edit.value
+              } else if (zone.type === 'image') {
+                if (edit.type === 'url' || edit.type === 'upload') {
+                  targetElement.src = edit.value
+                  
+                  // Cas spécial : logo du Design 3 nécessite un width de 30%
+                  if (designId === 'design-3' && zoneId === 'logo') {
+                    targetElement.style.width = '30%'
+                    targetElement.style.height = 'auto' // Maintenir le ratio
+                  }
+                }
+              }
+            })
+            
+            // Stocker dans modifications locales
+            const key = `${designId}-${screenId}`
+            this.modifications[key] = edits
+          })
+        })
+      })
     }
   },
 
   mounted() {
     this.initDarkMode();
+    
+    // Restaurer les modifications sauvegardées
+    this.$nextTick(() => {
+      this.restoreAllDesigns();
+    });
   }
 }
 </script>

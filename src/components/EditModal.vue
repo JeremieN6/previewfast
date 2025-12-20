@@ -18,37 +18,69 @@
           <!-- BACKGROUND ZONES -->
           <div v-if="zone.type === 'background'" class="field-group">
             <div v-if="zone.allowed.includes('color')" class="field">
-              <label :for="`${zone.id}-color`">Couleur</label>
-              <input 
-                type="color" 
-                :id="`${zone.id}-color`"
-                :value="localEdits[zone.id]?.value || zone.current"
-                @input="updateZone(zone.id, $event.target.value, 'color')"
-              />
+              <label :for="`${zone.id}-color`">Couleur unie</label>
+              <div class="color-picker-wrapper">
+                <input 
+                  type="color" 
+                  :id="`${zone.id}-color`"
+                  :value="getColorValue(zone)"
+                  @input="updateZone(zone.id, $event.target.value, 'color')"
+                  class="color-input"
+                />
+                <input 
+                  type="text" 
+                  :value="localEdits[zone.id]?.type === 'color' ? localEdits[zone.id]?.value : getColorValue(zone)"
+                  @input="updateZone(zone.id, $event.target.value, 'color')"
+                  placeholder="#000000"
+                  class="color-text-input"
+                  pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+                />
+              </div>
+              <small class="field-hint">Cliquez sur le carré de couleur ou entrez un code hex (#RRGGBB)</small>
             </div>
             
             <div v-if="zone.allowed.includes('gradient')" class="field">
               <label :for="`${zone.id}-gradient`">Dégradé CSS</label>
-              <input 
-                type="text" 
+              <textarea 
                 :id="`${zone.id}-gradient`"
-                :value="localEdits[zone.id]?.value || zone.current"
+                :value="localEdits[zone.id]?.type === 'gradient' ? localEdits[zone.id]?.value : (zone.current.includes('gradient') ? zone.current : '')"
                 @input="updateZone(zone.id, $event.target.value, 'gradient')"
-                placeholder="linear-gradient(...)"
-              />
+                placeholder="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+                rows="2"
+                class="gradient-input"
+              ></textarea>
+              <small class="field-hint">Exemples:
+                <br>• linear-gradient(135deg, #667eea 0%, #764ba2 100%)
+                <br>• radial-gradient(circle, #f00, #00f)
+              </small>
             </div>
           </div>
           
           <!-- TEXT ZONES -->
           <div v-if="zone.type === 'text' && zone.allowed.includes('edit')" class="field-group">
             <div class="field">
-              <label :for="`${zone.id}-text`">Texte</label>
+              <label :for="`${zone.id}-text`">
+                Texte
+                <span v-if="zone.maxLines" class="max-lines-hint">
+                  (Max {{ zone.maxLines }} ligne{{ zone.maxLines > 1 ? 's' : '' }})
+                </span>
+                <span v-if="zone.maxChars" class="max-chars-hint">
+                  (Max {{ zone.maxChars }} caractères)
+                </span>
+              </label>
               <textarea 
                 :id="`${zone.id}-text`"
                 :value="localEdits[zone.id]?.value || zone.current"
-                @input="updateZone(zone.id, $event.target.value, 'text')"
+                @input="updateZone(zone.id, $event.target.value, 'text', zone)"
+                :maxlength="zone.maxChars"
                 rows="3"
               ></textarea>
+              <small v-if="zone.maxLines" class="field-hint">
+                Attention : Ne pas dépasser {{ zone.maxLines }} ligne{{ zone.maxLines > 1 ? 's' : '' }} pour préserver le design.
+              </small>
+              <small v-if="zone.maxChars" class="field-hint">
+                {{ (localEdits[zone.id]?.value || zone.current).length }} / {{ zone.maxChars }} caractères
+              </small>
             </div>
           </div>
           
@@ -105,6 +137,22 @@ export default {
     }
   },
   methods: {
+    getColorValue(zone) {
+      // Si on a une modification locale de type color, l'utiliser
+      if (this.localEdits[zone.id]?.type === 'color') {
+        return this.localEdits[zone.id].value
+      }
+      
+      // Sinon, extraire la couleur de la valeur actuelle si c'est un hex
+      const current = zone.current || ''
+      if (current.startsWith('#')) {
+        return current
+      }
+      
+      // Si c'est un gradient ou autre, retourner une couleur par défaut
+      return '#000000'
+    },
+    
     updateZone(zoneId, value, type) {
       this.localEdits[zoneId] = { value, type }
     },
@@ -250,6 +298,41 @@ export default {
   font-size: 0.875rem;
 }
 
+.color-picker-wrapper {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.color-input {
+  width: 60px;
+  height: 40px;
+  padding: 0.25rem;
+  cursor: pointer;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+}
+
+.color-text-input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-family: monospace;
+}
+
+.gradient-input {
+  font-family: monospace;
+  font-size: 0.8rem;
+}
+
+.field-hint {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: -0.25rem;
+}
+
 .field input[type="color"] {
   height: 40px;
   cursor: pointer;
@@ -299,5 +382,14 @@ export default {
 
 .btn-secondary:hover {
   background: #e5e7eb;
+}
+
+/* Hints pour les limites de lignes/caractères */
+.max-lines-hint,
+.max-chars-hint {
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-weight: normal;
+  margin-left: 0.5rem;
 }
 </style>

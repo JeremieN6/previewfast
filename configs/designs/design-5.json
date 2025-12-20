@@ -13,35 +13,49 @@
           "id": "background",
           "type": "background",
           "selector": ".myScreen-design-5",
-          "allowed": ["gradient", "color"],
+          "allowed": [
+            "gradient",
+            "color"
+          ],
           "current": "linear-gradient(180deg, #dcbcff 0%, #c09bfd 100%)"
         },
         {
           "id": "logo",
           "type": "image",
           "selector": ".design-5-logo img",
-          "allowed": ["upload", "replace"],
+          "allowed": [
+            "upload",
+            "replace"
+          ],
           "current": "https://placehold.co/40x40/003941/FFFFFF?text=LOGO"
         },
         {
           "id": "title",
           "type": "text",
           "selector": ".design-5-text h3",
-          "allowed": ["edit"],
-          "current": "You can put headline here"
+          "allowed": [
+            "edit"
+          ],
+          "current": "You can put headline here",
+          "maxLines": 1
         },
         {
           "id": "mockup",
           "type": "image",
           "selector": ".design-5-mockup img:first-child",
-          "allowed": ["replace"],
+          "allowed": [
+            "replace"
+          ],
           "current": "/assets/mockup/adam-mockup-2bis.png"
         },
         {
           "id": "screenshot",
           "type": "image",
           "selector": ".visual-on-mockup",
-          "allowed": ["upload", "replace"],
+          "allowed": [
+            "upload",
+            "replace"
+          ],
           "current": "/assets/tmp/screenshot.jpg"
         }
       ]
@@ -56,35 +70,49 @@
           "id": "background",
           "type": "background",
           "selector": ".myScreen-design-5",
-          "allowed": ["gradient", "color"],
+          "allowed": [
+            "gradient",
+            "color"
+          ],
           "current": "radial-gradient(circle at 30% 20%, #2c143f 0%, #0c0613 70%)"
         },
         {
           "id": "title",
           "type": "text",
           "selector": ".design-5-text h3",
-          "allowed": ["edit"],
-          "current": "You can put headline here"
+          "allowed": [
+            "edit"
+          ],
+          "current": "You can put headline here",
+          "maxLines": 2
         },
         {
           "id": "description",
           "type": "text",
           "selector": ".design-5-text p",
-          "allowed": ["edit"],
-          "current": "Awesome headline here"
+          "allowed": [
+            "edit"
+          ],
+          "current": "Awesome headline here",
+          "maxLines": 1
         },
         {
           "id": "mockup",
           "type": "image",
           "selector": ".design-5-mockup .img-mockup",
-          "allowed": ["replace"],
+          "allowed": [
+            "replace"
+          ],
           "current": "/assets/mockup/adam-mockup-1bis.png"
         },
         {
           "id": "screenshot",
           "type": "image",
           "selector": ".visual-on-mockup",
-          "allowed": ["upload", "replace"],
+          "allowed": [
+            "upload",
+            "replace"
+          ],
           "current": "/assets/tmp/screenshot.jpg"
         }
       ]
@@ -99,28 +127,39 @@
           "id": "background",
           "type": "background",
           "selector": ".myScreen-design-5",
-          "allowed": ["gradient", "color"],
+          "allowed": [
+            "gradient",
+            "color"
+          ],
           "current": "linear-gradient(180deg, #dcbcff 0%, #c09bfd 100%)"
         },
         {
           "id": "title",
           "type": "text",
           "selector": ".design-5-text h3",
-          "allowed": ["edit"],
-          "current": "You can put awesome headline here"
+          "allowed": [
+            "edit"
+          ],
+          "current": "You can put awesome headline here",
+          "maxLines": 1
         },
         {
           "id": "mockup",
           "type": "image",
           "selector": ".design-5-mockup img:first-child",
-          "allowed": ["replace"],
+          "allowed": [
+            "replace"
+          ],
           "current": "/assets/mockup/adam-mockup-2bis.png"
         },
         {
           "id": "screenshot",
           "type": "image",
           "selector": ".visual-on-mockup",
-          "allowed": ["upload", "replace"],
+          "allowed": [
+            "upload",
+            "replace"
+          ],
           "current": "/assets/tmp/screenshot.jpg"
         }
       ]
@@ -135,28 +174,39 @@
           "id": "background",
           "type": "background",
           "selector": ".myScreen-design-5",
-          "allowed": ["gradient", "color"],
+          "allowed": [
+            "gradient",
+            "color"
+          ],
           "current": "radial-gradient(circle at 30% 20%, #2c143f 0%, #0c0613 70%)"
         },
         {
           "id": "title",
           "type": "text",
           "selector": ".design-5-text h3",
-          "allowed": ["edit"],
-          "current": "You can put headline here"
+          "allowed": [
+            "edit"
+          ],
+          "current": "You can put headline here",
+          "maxLines": 2
         },
         {
           "id": "mockup",
           "type": "image",
           "selector": ".design-5-mockup .img-mockup",
-          "allowed": ["replace"],
+          "allowed": [
+            "replace"
+          ],
           "current": "/assets/mockup/adam-mockup-1bis.png"
         },
         {
           "id": "screenshot",
           "type": "image",
           "selector": ".visual-on-mockup",
-          "allowed": ["upload", "replace"],
+          "allowed": [
+            "upload",
+            "replace"
+          ],
           "current": "/assets/tmp/screenshot1.jpg"
         }
       ]
@@ -171,28 +221,39 @@
           "id": "background",
           "type": "background",
           "selector": ".myScreen-design-5",
-          "allowed": ["gradient", "color"],
+          "allowed": [
+            "gradient",
+            "color"
+          ],
           "current": "linear-gradient(180deg, #dcbcff 0%, #c09bfd 100%)"
         },
         {
           "id": "title",
           "type": "text",
           "selector": ".design-5-text h3",
-          "allowed": ["edit"],
-          "current": "You can put headline here"
+          "allowed": [
+            "edit"
+          ],
+          "current": "You can put headline here",
+          "maxLines": 2
         },
         {
           "id": "mockup",
           "type": "image",
           "selector": ".design-5-mockup img:first-child",
-          "allowed": ["replace"],
+          "allowed": [
+            "replace"
+          ],
           "current": "/assets/mockup/adam-mockup-2bis.png"
         },
         {
           "id": "screenshot",
           "type": "image",
           "selector": ".visual-on-mockup",
-          "allowed": ["upload", "replace"],
+          "allowed": [
+            "upload",
+            "replace"
+          ],
           "current": "/assets/tmp/screenshot.jpg"
         }
       ]

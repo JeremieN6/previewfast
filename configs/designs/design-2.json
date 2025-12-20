@@ -11,35 +11,48 @@
           "id": "background",
           "type": "background",
           "selector": ".myScreen-design-2",
-          "allowed": ["color"],
+          "allowed": [
+            "color"
+          ],
           "current": "#ffffff"
         },
         {
           "id": "title",
           "type": "text",
           "selector": ".titleScreen-design-2",
-          "allowed": ["edit"],
-          "current": "Lorem ipsum sit amet"
+          "allowed": [
+            "edit"
+          ],
+          "current": "Lorem ipsum sit amet",
+          "maxLines": 2
         },
         {
           "id": "description",
           "type": "text",
           "selector": ".container-text-design-2 p",
-          "allowed": ["edit"],
-          "current": "Lorem ipsum dolor sit amet"
+          "allowed": [
+            "edit"
+          ],
+          "current": "Lorem ipsum dolor sit amet",
+          "maxLines": 1
         },
         {
           "id": "mockup",
           "type": "image",
           "selector": ".mockup-iphone-design-2",
-          "allowed": ["replace"],
+          "allowed": [
+            "replace"
+          ],
           "current": "/assets/mockup/adam-mockup-2bis.png"
         },
         {
           "id": "screenshot",
           "type": "image",
           "selector": ".visual-on-mockup",
-          "allowed": ["upload", "replace"],
+          "allowed": [
+            "upload",
+            "replace"
+          ],
           "current": "/assets/tmp/screenshot1.jpg"
         }
       ]
@@ -52,35 +65,48 @@
           "id": "background",
           "type": "background",
           "selector": ".myScreen-design-2",
-          "allowed": ["color"],
+          "allowed": [
+            "color"
+          ],
           "current": "#ffffff"
         },
         {
           "id": "title",
           "type": "text",
           "selector": ".titleScreen-design-2",
-          "allowed": ["edit"],
-          "current": "Lorem ipsum sit amet"
+          "allowed": [
+            "edit"
+          ],
+          "current": "Lorem ipsum sit amet",
+          "maxLines": 2
         },
         {
           "id": "description",
           "type": "text",
           "selector": ".container-text-design-2 p",
-          "allowed": ["edit"],
-          "current": "Lorem ipsum dolor sit amet"
+          "allowed": [
+            "edit"
+          ],
+          "current": "Lorem ipsum dolor sit amet",
+          "maxLines": 1
         },
         {
           "id": "mockup",
           "type": "image",
           "selector": ".mockup-iphone-design-2",
-          "allowed": ["replace"],
+          "allowed": [
+            "replace"
+          ],
           "current": "/assets/mockup/adam-mockup-2bis.png"
         },
         {
           "id": "screenshot",
           "type": "image",
           "selector": ".visual-on-mockup",
-          "allowed": ["upload", "replace"],
+          "allowed": [
+            "upload",
+            "replace"
+          ],
           "current": "/assets/tmp/screenshot1.jpg"
         }
       ]
@@ -93,35 +119,48 @@
           "id": "background",
           "type": "background",
           "selector": ".myScreen-design-2",
-          "allowed": ["color"],
+          "allowed": [
+            "color"
+          ],
           "current": "#ffffff"
         },
         {
           "id": "title",
           "type": "text",
           "selector": ".titleScreen-design-2",
-          "allowed": ["edit"],
-          "current": "Lorem ipsum sit amet"
+          "allowed": [
+            "edit"
+          ],
+          "current": "Lorem ipsum sit amet",
+          "maxLines": 2
         },
         {
           "id": "description",
           "type": "text",
           "selector": ".container-text-design-2 p",
-          "allowed": ["edit"],
-          "current": "Lorem ipsum dolor sit amet"
+          "allowed": [
+            "edit"
+          ],
+          "current": "Lorem ipsum dolor sit amet",
+          "maxLines": 1
         },
         {
           "id": "mockup",
           "type": "image",
           "selector": ".mockup-iphone-design-2",
-          "allowed": ["replace"],
+          "allowed": [
+            "replace"
+          ],
           "current": "/assets/mockup/adam-mockup-2bis.png"
         },
         {
           "id": "screenshot",
           "type": "image",
           "selector": ".visual-on-mockup",
-          "allowed": ["upload", "replace"],
+          "allowed": [
+            "upload",
+            "replace"
+          ],
           "current": "/assets/tmp/screenshot1.jpg"
         }
       ]
@@ -134,35 +173,48 @@
           "id": "background",
           "type": "background",
           "selector": ".myScreen-design-2",
-          "allowed": ["color"],
+          "allowed": [
+            "color"
+          ],
           "current": "#ffffff"
         },
         {
           "id": "title",
           "type": "text",
           "selector": ".titleScreen-design-2",
-          "allowed": ["edit"],
-          "current": "Lorem ipsum sit amet"
+          "allowed": [
+            "edit"
+          ],
+          "current": "Lorem ipsum sit amet",
+          "maxLines": 2
         },
         {
           "id": "description",
           "type": "text",
           "selector": ".container-text-design-2 p",
-          "allowed": ["edit"],
-          "current": "Lorem ipsum dolor sit amet"
+          "allowed": [
+            "edit"
+          ],
+          "current": "Lorem ipsum dolor sit amet",
+          "maxLines": 1
         },
         {
           "id": "mockup",
           "type": "image",
           "selector": ".mockup-iphone-design-2",
-          "allowed": ["replace"],
+          "allowed": [
+            "replace"
+          ],
           "current": "/assets/mockup/adam-mockup-2bis.png"
         },
         {
           "id": "screenshot",
           "type": "image",
           "selector": ".visual-on-mockup",
-          "allowed": ["upload", "replace"],
+          "allowed": [
+            "upload",
+            "replace"
+          ],
           "current": "/assets/tmp/screenshot1.jpg"
         }
       ]
@@ -175,35 +227,48 @@
           "id": "background",
           "type": "background",
           "selector": ".myScreen-design-2",
-          "allowed": ["color"],
+          "allowed": [
+            "color"
+          ],
           "current": "#ffffff"
         },
         {
           "id": "title",
           "type": "text",
           "selector": ".titleScreen-design-2",
-          "allowed": ["edit"],
-          "current": "Lorem ipsum sit amet"
+          "allowed": [
+            "edit"
+          ],
+          "current": "Lorem ipsum sit amet",
+          "maxLines": 2
         },
         {
           "id": "description",
           "type": "text",
           "selector": ".container-text-design-2 p",
-          "allowed": ["edit"],
-          "current": "Lorem ipsum dolor sit amet"
+          "allowed": [
+            "edit"
+          ],
+          "current": "Lorem ipsum dolor sit amet",
+          "maxLines": 1
         },
         {
           "id": "mockup",
           "type": "image",
           "selector": ".mockup-iphone-design-2",
-          "allowed": ["replace"],
+          "allowed": [
+            "replace"
+          ],
           "current": "/assets/mockup/adam-mockup-2bis.png"
         },
         {
           "id": "screenshot",
           "type": "image",
           "selector": ".visual-on-mockup",
-          "allowed": ["upload", "replace"],
+          "allowed": [
+            "upload",
+            "replace"
+          ],
           "current": "/assets/tmp/screenshot1.jpg"
         }
       ]

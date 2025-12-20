@@ -238,3 +238,53 @@
 .myScreen-design-7[data-shade='emerald'] {
   --accent-bg: linear-gradient(180deg, #7ddc7c 0%, #28b04f 100%);
 }
+
+/* ========================================
+   LINE CLAMP - Protection contre les débordements
+   ======================================== */
+
+/* Step number - 3 caractères max (géré par maxChars dans JSON, mais overflow hidden en CSS) */
+.design-7-step {
+    max-width: 3ch;
+    overflow: hidden !important;
+    text-overflow: clip;
+}
+
+/* Titre écran 1 : 2 lignes max */
+.myScreen-design-7[data-screen="1"] .design-7-text h3 {
+    line-height: 1.3;
+    min-height: 2.6em; /* 2 lignes × 1.3 */
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
+/* Titre écrans 2-5 : 2 lignes max */
+.myScreen-design-7[data-screen="2"] .design-7-heading h3,
+.myScreen-design-7[data-screen="3"] .design-7-heading h3,
+.myScreen-design-7[data-screen="4"] .design-7-heading h3,
+.myScreen-design-7[data-screen="5"] .design-7-heading h3 {
+    line-height: 1.3;
+    min-height: 1.6em; /* 2 lignes × 1.3 */
+    display: -webkit-box !important;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
+/* Description écrans 2-5 : 2 lignes max */
+.myScreen-design-7[data-screen="2"] .design-7-text p,
+.myScreen-design-7[data-screen="3"] .design-7-text p,
+.myScreen-design-7[data-screen="4"] .design-7-text p,
+.myScreen-design-7[data-screen="5"] .design-7-text p {
+    line-height: 1.3;
+    min-height: 2.6em; /* 2 lignes × 1.3 */
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}

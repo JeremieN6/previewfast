@@ -258,3 +258,24 @@
   margin: -10px;
   padding: 0 20px;
 }
+
+/* ========================================
+   LINE CLAMP - Protection contre les débordements
+   ======================================== */
+
+/* Titre - défaut 2 lignes */
+.myScreen-design-4 h3.titleScreen.titleScreen-design-4 {
+    line-height: 1.3;
+    min-height: 2.6em; /* 2 lignes × 1.3 */
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
+/* Écran 3 (variant jumbo) : 3 lignes */
+.myScreen-design-4[data-screen="3"] h3.titleScreen.titleScreen-design-4 {
+    min-height: 3.9em; /* 3 lignes × 1.3 */
+    -webkit-line-clamp: 3;
+}

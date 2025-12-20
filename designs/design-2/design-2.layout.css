@@ -62,3 +62,30 @@
   pointer-events: none;
   z-index: 2;
 }
+
+/* ========================================
+   LINE CLAMP - Protection contre les débordements
+   ======================================== */
+
+/* Titre 2 lignes max */
+.myScreen-design-2 h3.titleScreen.titleScreen-design-2 {
+    line-height: 1.3;
+    min-height: 2.6em; /* 2 lignes × 1.3 */
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
+/* Description (sous-titre) 1 ligne max */
+.myScreen-design-2 .container-text-design-2 p {
+    line-height: 1.3;
+    min-height: 1.3em; /* 1 ligne × 1.3 */
+    display: -webkit-box !important;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+

@@ -176,3 +176,44 @@
 .myScreen-design-5 .upFontSize{
   font-size: 1.25rem !important;
 }
+
+/* ========================================
+   LINE CLAMP - Protection contre les débordements
+   ======================================== */
+
+/* Titre - défaut 1 ligne, mais 2 lignes pour certains écrans */
+.myScreen-design-5 .design-5-text h3 {
+    line-height: 1.3;
+    min-height: 1.3em; /* 1 ligne × 1.3 */
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
+/* Écrans 2, 4, 5 : Titre 2 lignes */
+.myScreen-design-5[data-screen="2"] .design-5-text h3,
+.myScreen-design-5[data-screen="4"] .design-5-text h3,
+.myScreen-design-5[data-screen="5"] .design-5-text h3 {
+    min-height: 2.6em; /* 2 lignes × 1.3 */
+    -webkit-line-clamp: 2;
+}
+
+/* Description - 1 ligne par défaut, 2 lignes pour écran 5 */
+.myScreen-design-5 .design-5-text p {
+    line-height: 1.3;
+    min-height: 1.3em; /* 1 ligne × 1.3 */
+    display: -webkit-box !important;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
+/* Écran 5 : Description 2 lignes */
+.myScreen-design-5[data-screen="5"] .design-5-text p {
+    min-height: 2.6em; /* 2 lignes × 1.3 */
+    -webkit-line-clamp: 2;
+}
+

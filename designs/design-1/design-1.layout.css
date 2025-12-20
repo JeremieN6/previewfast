@@ -53,4 +53,12 @@
     margin: 1em 0;
     font-size: 1.17em;
     font-weight: bold;
+    line-height: 1.3;
+    min-height: 2.6em; /* 2 lignes × 1.3 line-height */
+    /* Line clamp pour limiter à 2 lignes */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
