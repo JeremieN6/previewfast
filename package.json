@@ -9,8 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.4.21",
-    "flowbite": "^2.2.1"
+    "flowbite": "^2.2.1",
+    "html-to-image": "^1.11.13",
+    "jszip": "^3.10.1",
+    "vue": "^3.4.21"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",

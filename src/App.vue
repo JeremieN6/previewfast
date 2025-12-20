@@ -48,7 +48,8 @@
     </main>
 
     <!-- Bouton Modifier (uniquement si écran sélectionné) -->
-    <div v-if="selectedDesign && selectedScreenId" class="fixed right-4 bottom-20 z-50">
+    <div v-if="selectedDesign && selectedScreenId" class="fixed right-4 bottom-20 z-50 flex flex-col gap-3">
+      <!-- Bouton Modifier -->
       <button
         @click="openEditModal"
         type="button"
@@ -60,9 +61,36 @@
         Modifier
       </button>
       
-      <!-- Bouton Réinitialiser (visible uniquement si un design est sélectionné) -->
+      <!-- Bouton Exporter cet écran -->
       <button
-        v-if="selectedDesign"
+        @click="handleExportScreen"
+        type="button"
+        :disabled="isExporting"
+        class="bg-green-600 hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium px-6 py-3 rounded-lg shadow-lg transition-all flex items-center gap-2"
+        title="Exporter cet écran en PNG"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+        </svg>
+        {{ isExporting ? 'Export...' : 'Exporter écran' }}
+      </button>
+      
+      <!-- Bouton Exporter tous les écrans du design -->
+      <button
+        @click="handleExportAllScreens"
+        type="button"
+        :disabled="isExporting"
+        class="bg-purple-600 hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium px-6 py-3 rounded-lg shadow-lg transition-all flex items-center gap-2"
+        title="Exporter tous les écrans de ce design en ZIP"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path>
+        </svg>
+        {{ isExporting ? 'Export...' : 'Exporter tout' }}
+      </button>
+      
+      <!-- Bouton Réinitialiser -->
+      <button
         @click="resetCurrentDesign"
         type="button"
         class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl"
@@ -116,6 +144,9 @@ import EditModal from './components/EditModal.vue';
 // Import du module de persistance
 import { saveDesignState, loadDesignState, resetDesignState } from './utils/persistence.js';
 
+// Import du module d'export
+import { exportScreen, exportAllScreens } from './utils/export.js';
+
 // Import des configs JSON
 import design1Config from '../configs/designs/design-1.json';
 import design2Config from '../configs/designs/design-2.json';
@@ -143,6 +174,7 @@ export default {
       selectedDesign: null,
       selectedScreenId: null,
       isEditModalOpen: false,
+      isExporting: false, // État d'export
       designConfigs: {
         'design-1': design1Config,
         'design-2': design2Config,
@@ -310,6 +342,49 @@ export default {
       
       // Recharger la page pour restaurer l'état par défaut
       window.location.reload()
+    },
+    
+    async handleExportScreen() {
+      if (!this.selectedDesign || !this.selectedScreenId) {
+        alert('Aucun écran sélectionné')
+        return
+      }
+      
+      this.isExporting = true
+      
+      try {
+        await exportScreen(this.selectedDesign, this.selectedScreenId)
+        
+        // Feedback de succès (simple, pas de toast pour l'instant)
+        console.log('✅ Export réussi')
+      } catch (error) {
+        console.error('❌ Erreur d\'export:', error)
+        alert(`Erreur lors de l'export : ${error.message}`)
+      } finally {
+        this.isExporting = false
+      }
+    },
+    
+    async handleExportAllScreens() {
+      if (!this.selectedDesign) {
+        alert('Aucun design sélectionné')
+        return
+      }
+      
+      this.isExporting = true
+      
+      try {
+        const config = this.designConfigs[this.selectedDesign]
+        await exportAllScreens(this.selectedDesign, config)
+        
+        // Feedback de succès
+        console.log('✅ Export de tous les écrans réussi')
+      } catch (error) {
+        console.error('❌ Erreur d\'export:', error)
+        alert(`Erreur lors de l'export : ${error.message}`)
+      } finally {
+        this.isExporting = false
+      }
     },
     
     toggleDarkMode() {
