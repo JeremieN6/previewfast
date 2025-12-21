@@ -49,17 +49,108 @@
 
     <!-- Bouton Modifier (uniquement si écran sélectionné) -->
     <div v-if="selectedDesign && selectedScreenId" class="fixed right-4 bottom-20 z-50 flex flex-col gap-3">
-      <!-- Bouton Modifier -->
-      <button
-        @click="openEditModal"
-        type="button"
-        class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg shadow-lg transition-all flex items-center gap-2"
-      >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-        </svg>
-        Modifier
-      </button>
+      <!-- Menu Modifier avec dropdown -->
+      <div class="relative">
+        <button
+          @click="isEditDropdownOpen = !isEditDropdownOpen"
+          type="button"
+          class="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl flex items-center justify-between gap-2"
+          title="Options d'édition"
+          aria-label="Ouvrir le menu d'édition"
+        >
+          <span class="flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+            </svg>
+            Modifier
+          </span>
+          <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': isEditDropdownOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        
+        <!-- Menu dropdown édition -->
+        <div
+          v-show="isEditDropdownOpen"
+          class="absolute bottom-full right-0 mb-2 w-72 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-600 overflow-hidden"
+        >
+          <!-- Option 1 : Modifier cet écran -->
+          <button
+            @click="openEditModal"
+            type="button"
+            class="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors border-b border-gray-200 dark:border-gray-600"
+          >
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 mt-0.5 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+              </svg>
+              <div>
+                <div class="font-medium text-gray-900 dark:text-white">Modifier cet écran</div>
+                <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                  Éditer les valeurs de l'écran {{ selectedScreenId }}
+                </div>
+              </div>
+            </div>
+          </button>
+          
+          <!-- Option 2 : Dupliquer vers un autre écran -->
+          <button
+            @click="openDuplicateModal"
+            type="button"
+            class="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors border-b border-gray-200 dark:border-gray-600"
+          >
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 mt-0.5 text-indigo-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+              </svg>
+              <div>
+                <div class="font-medium text-gray-900 dark:text-white">Dupliquer vers...</div>
+                <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                  Copier cet écran sur un autre écran
+                </div>
+              </div>
+            </div>
+          </button>
+          
+          <!-- Option 3 : Appliquer à tous (désactivée pour l'instant) -->
+          <button
+            type="button"
+            disabled
+            class="w-full px-4 py-3 text-left opacity-50 cursor-not-allowed border-b border-gray-200 dark:border-gray-600"
+          >
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 mt-0.5 text-purple-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
+              </svg>
+              <div>
+                <div class="font-medium text-gray-400 dark:text-gray-500">Appliquer à tous</div>
+                <div class="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
+                  Prochainement disponible
+                </div>
+              </div>
+            </div>
+          </button>
+          
+          <!-- Option 4 : Presets -->
+          <button
+            @click="openPresetModal"
+            type="button"
+            class="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          >
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 mt-0.5 text-amber-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
+              </svg>
+              <div>
+                <div class="font-medium text-gray-900 dark:text-white">Presets</div>
+                <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                  Sauvegarder ou charger des configurations
+                </div>
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
       
       <!-- Bouton Exporter cet écran -->
       <button
@@ -198,10 +289,30 @@
     <EditModal
       :isOpen="isEditModalOpen"
       :screenData="currentScreenData"
+      :designConfig="selectedDesign ? designConfigs[selectedDesign] : null"
       @close="closeEditModal"
       @apply-changes="applyChanges"
+      @apply-to-all="applyChangesToAll"
     />
-  </div>
+    
+    <!-- Modale de duplication -->
+    <DuplicateModal
+      :isOpen="isDuplicateModalOpen"
+      :sourceDesign="selectedDesign"
+      :sourceScreen="selectedScreenId"
+      :designConfig="selectedDesign ? designConfigs[selectedDesign] : null"
+      @close="closeDuplicateModal"
+      @duplicate="handleDuplicate"
+    />    
+    <!-- Modal des presets -->
+    <PresetModal
+      :isOpen="isPresetModalOpen"
+      :designId="selectedDesign"
+      :currentScreen="selectedScreenId"
+      :currentEdits="selectedDesign && selectedScreenId ? modifications[`${selectedDesign}-screen-${selectedScreenId}`] || {} : {}"
+      @close="closePresetModal"
+      @load-preset="handleLoadPreset"
+    />  </div>
 </template>
 
 <script>
@@ -213,6 +324,8 @@ import Design5 from './components/designs/Design5.vue';
 import Design6 from './components/designs/Design6.vue';
 import Design7 from './components/designs/Design7.vue';
 import EditModal from './components/EditModal.vue';
+import DuplicateModal from './components/DuplicateModal.vue';
+import PresetModal from './components/PresetModal.vue';
 
 // Import du module de persistance
 import { saveDesignState, loadDesignState, resetDesignState } from './utils/persistence.js';
@@ -239,7 +352,9 @@ export default {
     Design5,
     Design6,
     Design7,
-    EditModal
+    EditModal,
+    DuplicateModal,
+    PresetModal
   },
   data() {
     return {
@@ -247,6 +362,9 @@ export default {
       selectedDesign: null,
       selectedScreenId: null,
       isEditModalOpen: false,
+      isEditDropdownOpen: false, // État du dropdown d'édition
+      isDuplicateModalOpen: false, // État de la modal de duplication
+      isPresetModalOpen: false, // État de la modal des presets
       isExporting: false, // État d'export
       isResetDropdownOpen: false, // État du dropdown de réinitialisation
       designConfigs: {
@@ -314,10 +432,15 @@ export default {
   },
   methods: {
     handleClickOutside(event) {
-      // Vérifier si le clic est en dehors du dropdown
+      // Vérifier si le clic est en dehors des dropdowns
       const dropdown = event.target.closest('.relative');
-      if (!dropdown && this.isResetDropdownOpen) {
-        this.isResetDropdownOpen = false;
+      if (!dropdown) {
+        if (this.isResetDropdownOpen) {
+          this.isResetDropdownOpen = false;
+        }
+        if (this.isEditDropdownOpen) {
+          this.isEditDropdownOpen = false;
+        }
       }
     },
     
@@ -327,11 +450,121 @@ export default {
     },
     
     openEditModal() {
+      this.isEditDropdownOpen = false // Fermer le dropdown
       this.isEditModalOpen = true
     },
     
     closeEditModal() {
       this.isEditModalOpen = false
+    },
+    
+    openDuplicateModal() {
+      this.isEditDropdownOpen = false // Fermer le dropdown
+      this.isDuplicateModalOpen = true
+    },
+    
+    closeDuplicateModal() {
+      this.isDuplicateModalOpen = false
+    },
+    
+    openPresetModal() {
+      // Fermer le dropdown d'édition
+      this.isEditDropdownOpen = false
+      // Ouvrir la modal des presets
+      this.isPresetModalOpen = true
+    },
+    
+    closePresetModal() {
+      this.isPresetModalOpen = false
+    },
+    
+    handleLoadPreset(preset) {
+      if (!preset || !preset.values) {
+        alert('❌ Preset invalide')
+        return
+      }
+      
+      // Fermer la modal
+      this.closePresetModal()
+      
+      if (preset.scope === 'screen') {
+        // Appliquer à l'écran actuel uniquement
+        this.applyPresetToScreen(preset.values, this.selectedScreenId)
+      } else if (preset.scope === 'design') {
+        // Appliquer à tous les écrans compatibles du design
+        this.applyPresetToDesign(preset.values)
+      }
+      
+      // Recharger pour appliquer visuellement
+      window.location.reload()
+    },
+    
+    applyPresetToScreen(presetValues, targetScreenId) {
+      if (!this.selectedDesign || !targetScreenId) return
+      
+      // Sauvegarder dans localStorage
+      const screenId = `screen-${targetScreenId}`
+      saveDesignState(this.selectedDesign, screenId, presetValues)
+      
+      console.log(`✅ Preset appliqué à l'écran ${targetScreenId}`)
+    },
+    
+    applyPresetToDesign(presetValues) {
+      if (!this.selectedDesign) return
+      
+      const config = this.designConfigs[this.selectedDesign]
+      
+      // Pour chaque écran du design
+      config.screens.forEach(screen => {
+        // Filtrer uniquement les zones qui existent dans cet écran
+        const compatibleEdits = {}
+        
+        Object.keys(presetValues).forEach(zoneId => {
+          const zoneExists = screen.editableZones.some(z => z.id === zoneId)
+          
+          if (zoneExists) {
+            compatibleEdits[zoneId] = presetValues[zoneId]
+          }
+        })
+        
+        // Sauvegarder uniquement si des zones compatibles existent
+        if (Object.keys(compatibleEdits).length > 0) {
+          saveDesignState(this.selectedDesign, screen.id, compatibleEdits)
+          
+          console.log(`✅ ${screen.id}: ${Object.keys(compatibleEdits).length} zone(s) du preset appliquée(s)`)
+        }
+      })
+      
+      console.log(`✅ Preset appliqué à tout le design ${this.selectedDesign}`)
+    },
+    
+    handleDuplicate({ targetScreen }) {
+      if (!this.selectedDesign || !this.selectedScreenId) return
+      
+      // Récupérer l'état source
+      const sourceKey = `${this.selectedDesign}_screen-${this.selectedScreenId}`
+      const sourceState = this.modifications[sourceKey] || loadDesignState(this.selectedDesign)?.[`screen-${this.selectedScreenId}`]
+      
+      if (!sourceState) {
+        alert('Aucune modification à dupliquer')
+        return
+      }
+      
+      // Copier l'état vers la cible
+      const targetKey = `${this.selectedDesign}_screen-${targetScreen}`
+      this.modifications[targetKey] = { ...sourceState }
+      
+      // Sauvegarder dans localStorage
+      const screenId = `screen-${targetScreen}`
+      saveDesignState(this.selectedDesign, screenId, sourceState)
+      
+      // Fermer la modal
+      this.closeDuplicateModal()
+      
+      // Recharger la page pour appliquer visuellement
+      window.location.reload()
+      
+      console.log(`✅ Écran ${this.selectedScreenId} dupliqué vers écran ${targetScreen}`)
     },
     
     applyChanges(edits) {
@@ -347,6 +580,52 @@ export default {
         const screenId = `screen-${this.selectedScreenId}`
         saveDesignState(this.selectedDesign, screenId, edits)
       }
+    },
+    
+    applyChangesToAll(edits) {
+      if (!this.selectedDesign) return
+      
+      const config = this.designConfigs[this.selectedDesign]
+      const allScreens = config.screens || []
+      
+      console.log(`[App] Application des modifications à tous les écrans du ${this.selectedDesign}`)
+      
+      // Pour chaque écran du design
+      allScreens.forEach(screen => {
+        const match = screen.id.match(/screen-(\d+)/)
+        const screenNum = match ? parseInt(match[1]) : null
+        
+        if (!screenNum) return
+        
+        // Filtrer les éditions pour ne garder que celles compatibles avec cet écran
+        const compatibleEdits = {}
+        
+        Object.keys(edits).forEach(zoneId => {
+          const zoneExists = screen.editableZones.some(z => z.id === zoneId)
+          if (zoneExists) {
+            compatibleEdits[zoneId] = edits[zoneId]
+          }
+        })
+        
+        // Si des éditions compatibles existent, les sauvegarder
+        if (Object.keys(compatibleEdits).length > 0) {
+          const key = `${this.selectedDesign}_screen-${screenNum}`
+          
+          // Fusionner avec les modifications existantes
+          this.modifications[key] = {
+            ...(this.modifications[key] || {}),
+            ...compatibleEdits
+          }
+          
+          // Sauvegarder dans localStorage
+          saveDesignState(this.selectedDesign, screen.id, compatibleEdits)
+          
+          console.log(`✅ ${screen.id}: ${Object.keys(compatibleEdits).length} zone(s) modifiée(s)`)
+        }
+      })
+      
+      // Recharger la page pour appliquer visuellement
+      window.location.reload()
     },
     
     applyModificationsToDOM(edits) {

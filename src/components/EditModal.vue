@@ -111,7 +111,20 @@
       </div>
       
       <div class="modal-footer">
-        <button @click="apply" class="btn-primary">Appliquer</button>
+        <div class="flex items-center gap-3">
+          <button @click="apply" class="btn-primary">Appliquer</button>
+          <button 
+            @click="applyToAll" 
+            class="btn-apply-all"
+            :disabled="!hasCompatibleZones"
+            :title="compatibleZonesTooltip"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
+            </svg>
+            Appliquer à tous
+          </button>
+        </div>
         <button @click="close" class="btn-secondary">Annuler</button>
       </div>
     </div>
@@ -129,11 +142,47 @@ export default {
     screenData: {
       type: Object,
       default: () => ({ id: '', editableZones: [] })
+    },
+    designConfig: {
+      type: Object,
+      default: null
     }
   },
   data() {
     return {
       localEdits: {}
+    }
+  },
+  computed: {
+    // Analyser les zones communes entre tous les écrans
+    compatibleZones() {
+      if (!this.designConfig || !this.localEdits || Object.keys(this.localEdits).length === 0) {
+        return []
+      }
+      
+      const modifiedZones = Object.keys(this.localEdits)
+      const allScreens = this.designConfig.screens || []
+      
+      // Pour chaque zone modifiée, vérifier si elle existe dans tous les écrans
+      return modifiedZones.filter(zoneId => {
+        return allScreens.every(screen => {
+          return screen.editableZones.some(zone => zone.id === zoneId)
+        })
+      })
+    },
+    
+    hasCompatibleZones() {
+      return this.compatibleZones.length > 0
+    },
+    
+    compatibleZonesTooltip() {
+      if (!this.hasCompatibleZones) {
+        return "Aucune modification compatible avec tous les écrans"
+      }
+      
+      const count = this.compatibleZones.length
+      const zones = this.compatibleZones.join(', ')
+      return `${count} zone(s) compatible(s) : ${zones}`
     }
   },
   methods: {
@@ -170,6 +219,35 @@ export default {
     
     apply() {
       this.$emit('apply-changes', this.localEdits)
+      this.localEdits = {}
+      this.close()
+    },
+    
+    applyToAll() {
+      if (!this.hasCompatibleZones) {
+        alert('Aucune modification compatible avec tous les écrans')
+        return
+      }
+      
+      // Filtrer pour ne garder que les modifications compatibles
+      const compatibleEdits = {}
+      this.compatibleZones.forEach(zoneId => {
+        compatibleEdits[zoneId] = this.localEdits[zoneId]
+      })
+      
+      // Confirmation
+      const count = this.compatibleZones.length
+      const zones = this.compatibleZones.join(', ')
+      const confirm = window.confirm(
+        `Appliquer ces modifications à TOUS les écrans du design ?\n\n` +
+        `${count} zone(s) seront modifiées : ${zones}\n\n` +
+        `Cela affectera les 5 écrans de ce design.`
+      )
+      
+      if (!confirm) return
+      
+      // Émettre l'événement avec les modifications compatibles
+      this.$emit('apply-to-all', compatibleEdits)
       this.localEdits = {}
       this.close()
     },
@@ -352,11 +430,13 @@ export default {
   border-top: 1px solid #e5e7eb;
   display: flex;
   gap: 0.75rem;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .btn-primary,
-.btn-secondary {
+.btn-secondary,
+.btn-apply-all {
   padding: 0.5rem 1rem;
   border-radius: 4px;
   font-size: 0.875rem;
@@ -364,6 +444,9 @@ export default {
   cursor: pointer;
   border: none;
   transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .btn-primary {
@@ -373,6 +456,21 @@ export default {
 
 .btn-primary:hover {
   background: #2563eb;
+}
+
+.btn-apply-all {
+  background: #8b5cf6;
+  color: white;
+}
+
+.btn-apply-all:hover:not(:disabled) {
+  background: #7c3aed;
+}
+
+.btn-apply-all:disabled {
+  background: #d1d5db;
+  color: #9ca3af;
+  cursor: not-allowed;
 }
 
 .btn-secondary {
