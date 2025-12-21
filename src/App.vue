@@ -49,6 +49,57 @@
 
     <!-- Badge Plan + Bouton Upgrade (toujours visible) -->
     <div class="fixed top-4 right-4 z-40 flex items-center gap-3">
+      <!-- Bouton Auth / User Info -->
+      <div v-if="isAuthenticated" class="relative">
+        <button
+          @click="isUserMenuOpen = !isUserMenuOpen"
+          class="px-4 py-2 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg font-medium text-sm shadow-lg flex items-center gap-2 border border-gray-200 dark:border-gray-600 transition-all"
+        >
+          <div class="w-6 h-6 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center text-white text-xs font-bold">
+            {{ userEmail ? userEmail[0].toUpperCase() : 'U' }}
+          </div>
+          <span class="text-gray-700 dark:text-gray-300">{{ userEmail }}</span>
+          <svg class="w-4 h-4" :class="{ 'rotate-180': isUserMenuOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        
+        <!-- User dropdown menu -->
+        <div
+          v-show="isUserMenuOpen"
+          class="absolute top-full right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-600 overflow-hidden"
+        >
+          <div class="px-4 py-3 border-b border-gray-200 dark:border-gray-600">
+            <div class="text-xs text-gray-500 dark:text-gray-400">Connecté en tant que</div>
+            <div class="font-medium text-gray-900 dark:text-white">{{ userEmail }}</div>
+            <div v-if="syncStatus.lastSyncTime" class="text-xs text-green-600 dark:text-green-400 mt-1">
+              ✓ Synchronisé {{ formatSyncTime(syncStatus.lastSyncTime) }}
+            </div>
+          </div>
+          <button
+            @click="handleLogout"
+            class="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center gap-2 text-red-600 dark:text-red-400"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+            </svg>
+            Se déconnecter
+          </button>
+        </div>
+      </div>
+      
+      <!-- Bouton connexion (si non authentifié) -->
+      <button
+        v-else
+        @click="openAuthModal"
+        class="px-4 py-2 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2 border border-gray-200 dark:border-gray-600"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"></path>
+        </svg>
+        Sauvegarder mes projets
+      </button>
+      
       <!-- Badge plan actuel -->
       <div :class="[
         'px-4 py-2 rounded-lg font-medium text-sm shadow-lg flex items-center gap-2',
@@ -368,6 +419,13 @@
       :feature="upgradeFeature || 'duplicateScreens'"
       @close="closeUpgradeModal"
     />
+    
+    <!-- Modal d'authentification -->
+    <AuthModal
+      :isOpen="isAuthModalOpen"
+      @close="closeAuthModal"
+      @success="handleAuthSuccess"
+    />
   </div>
 </template>
 
@@ -383,6 +441,7 @@ import EditModal from './components/EditModal.vue';
 import DuplicateModal from './components/DuplicateModal.vue';
 import PresetModal from './components/PresetModal.vue';
 import UpgradeModal from './components/UpgradeModal.vue';
+import AuthModal from './components/AuthModal.vue';
 
 // Import du module de persistance
 import { saveDesignState, loadDesignState, resetDesignState } from './utils/persistence.js';
@@ -393,6 +452,10 @@ import { exportScreen, exportAllScreens } from './utils/export.js';
 // Import du système de plans
 import { getUserPlan, isPro, canExport, getRemainingExports, getExportCount } from './utils/planManager.js';
 import { canAccess } from './utils/plans.config.js';
+
+// Import des services d'authentification et de synchronisation
+import authService from './services/authService.js';
+import syncService from './services/syncService.js';
 
 // Import des configs JSON
 import design1Config from '../configs/designs/design-1.json';
@@ -416,7 +479,8 @@ export default {
     EditModal,
     DuplicateModal,
     PresetModal,
-    UpgradeModal
+    UpgradeModal,
+    AuthModal
   },
   data() {
     return {
@@ -428,10 +492,21 @@ export default {
       isDuplicateModalOpen: false, // État de la modal de duplication
       isPresetModalOpen: false, // État de la modal des presets
       isUpgradeModalOpen: false, // État de la modal d'upgrade
+      isAuthModalOpen: false, // État de la modal d'authentification
+      isUserMenuOpen: false, // État du menu utilisateur
       upgradeFeature: null, // Fonctionnalité à débloquer
       isExporting: false, // État d'export
       isResetDropdownOpen: false, // État du dropdown de réinitialisation
       userPlan: 'free', // Plan utilisateur (free/pro)
+      isAuthenticated: false, // État d'authentification
+      userEmail: null, // Email de l'utilisateur connecté
+      syncStatus: {
+        isAuthenticated: false,
+        hasMigrated: false,
+        lastSyncTime: null,
+        syncing: false,
+      },
+      syncDebounceTimer: null, // Timer pour debounce de sync
       designConfigs: {
         'design-1': design1Config,
         'design-2': design2Config,
@@ -596,6 +671,9 @@ export default {
         this.applyPresetToDesign(preset.values)
       }
       
+      // Synchroniser avec le cloud si authentifié
+      this.debouncedSync()
+      
       // Recharger pour appliquer visuellement
       window.location.reload()
     },
@@ -659,6 +737,9 @@ export default {
       const screenId = `screen-${targetScreen}`
       saveDesignState(this.selectedDesign, screenId, sourceState)
       
+      // Synchroniser avec le cloud si authentifié
+      this.debouncedSync()
+      
       // Fermer la modal
       this.closeDuplicateModal()
       
@@ -681,6 +762,9 @@ export default {
         const screenId = `screen-${this.selectedScreenId}`
         saveDesignState(this.selectedDesign, screenId, edits)
       }
+      
+      // Synchroniser avec le cloud si authentifié
+      this.debouncedSync()
     },
     
     applyChangesToAll(edits) {
@@ -724,6 +808,9 @@ export default {
           console.log(`✅ ${screen.id}: ${Object.keys(compatibleEdits).length} zone(s) modifiée(s)`)
         }
       })
+      
+      // Synchroniser avec le cloud si authentifié
+      this.debouncedSync()
       
       // Recharger la page pour appliquer visuellement
       window.location.reload()
@@ -985,6 +1072,174 @@ export default {
       }
     },
     
+    // ============================================
+    // MÉTHODES D'AUTHENTIFICATION
+    // ============================================
+    
+    async initAuth() {
+      // Vérifier si on est sur la page de vérification magic link
+      const urlParams = new URLSearchParams(window.location.search);
+      const token = urlParams.get('token');
+      
+      if (token) {
+        // On est dans le callback du magic link
+        await this.verifyMagicLinkToken(token);
+        return;
+      }
+      
+      // Sinon, vérifier si l'utilisateur est déjà authentifié
+      this.isAuthenticated = authService.isAuthenticated();
+      
+      if (this.isAuthenticated) {
+        this.userEmail = authService.getUserEmail();
+        this.syncStatus = syncService.getSyncStatus();
+        
+        // Charger les données du cloud au démarrage
+        try {
+          await syncService.loadCloudData();
+          this.syncStatus = syncService.getSyncStatus();
+          console.log('✅ Données chargées depuis le cloud');
+        } catch (error) {
+          console.error('Erreur chargement cloud:', error);
+          // Continuer même si erreur (mode hors ligne)
+        }
+      }
+    },
+    
+    async verifyMagicLinkToken(token) {
+      try {
+        // Afficher un message de chargement (on pourrait aussi afficher une modal)
+        console.log('🔐 Vérification du magic link...');
+        
+        // Vérifier le token
+        const result = await authService.verifyMagicLink(token);
+        
+        if (!result.success) {
+          throw new Error('Token invalide');
+        }
+        
+        // Migration automatique si première connexion
+        let migrationDone = false;
+        if (!syncService.hasMigrated()) {
+          console.log('📦 Migration des données locales...');
+          await syncService.migrateLocalData();
+          migrationDone = true;
+        } else {
+          // Sinon, charger les données du cloud
+          await syncService.loadCloudData();
+        }
+        
+        // Mettre à jour l'état
+        this.isAuthenticated = true;
+        this.userEmail = authService.getUserEmail();
+        this.syncStatus = syncService.getSyncStatus();
+        
+        // Nettoyer l'URL (retirer le token)
+        window.history.replaceState({}, document.title, '/');
+        
+        // Afficher un message de succès
+        const message = migrationDone 
+          ? '✅ Connexion réussie ! Vos projets ont été sauvegardés dans le cloud.'
+          : '✅ Connexion réussie ! Vos données ont été chargées.';
+        
+        alert(message);
+        
+        // Recharger pour appliquer les changements
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      } catch (error) {
+        console.error('❌ Erreur vérification magic link:', error);
+        alert('Erreur de connexion : ' + error.message);
+        
+        // Nettoyer l'URL
+        window.history.replaceState({}, document.title, '/');
+      }
+    },
+    
+    openAuthModal() {
+      this.isAuthModalOpen = true;
+      this.isUserMenuOpen = false;
+    },
+    
+    closeAuthModal() {
+      this.isAuthModalOpen = false;
+    },
+    
+    async handleAuthSuccess(data) {
+      console.log('✅ Authentification réussie:', data);
+      
+      // Mettre à jour l'état
+      this.isAuthenticated = true;
+      this.userEmail = data.email;
+      this.syncStatus = syncService.getSyncStatus();
+      
+      // Fermer la modal
+      this.closeAuthModal();
+      
+      // Recharger la page pour appliquer les données du cloud
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    },
+    
+    async handleLogout() {
+      if (!confirm('Voulez-vous vraiment vous déconnecter ? Vos données locales seront conservées.')) {
+        return;
+      }
+      
+      authService.logout();
+      this.isAuthenticated = false;
+      this.userEmail = null;
+      this.isUserMenuOpen = false;
+      this.syncStatus = {
+        isAuthenticated: false,
+        hasMigrated: false,
+        lastSyncTime: null,
+        syncing: false,
+      };
+      
+      console.log('✅ Déconnexion réussie');
+    },
+    
+    formatSyncTime(timestamp) {
+      if (!timestamp) return 'jamais';
+      
+      const now = Date.now();
+      const diff = now - timestamp;
+      
+      if (diff < 60000) return 'à l\'instant';
+      if (diff < 3600000) return `il y a ${Math.floor(diff / 60000)} min`;
+      if (diff < 86400000) return `il y a ${Math.floor(diff / 3600000)} h`;
+      return `il y a ${Math.floor(diff / 86400000)} j`;
+    },
+    
+    /**
+     * Synchronisation avec debounce (2 secondes)
+     * Évite de bombarder le serveur à chaque modification
+     */
+    debouncedSync() {
+      // Ne rien faire si non authentifié
+      if (!this.isAuthenticated) return;
+      
+      // Annuler le timer précédent
+      if (this.syncDebounceTimer) {
+        clearTimeout(this.syncDebounceTimer);
+      }
+      
+      // Lancer un nouveau timer
+      this.syncDebounceTimer = setTimeout(async () => {
+        try {
+          console.log('[App] 🔄 Synchronisation avec le cloud...');
+          await syncService.syncProjects();
+          this.syncStatus = syncService.getSyncStatus();
+          console.log('[App] ✅ Synchronisation réussie');
+        } catch (error) {
+          console.error('[App] ❌ Erreur synchronisation:', error);
+        }
+      }, 2000); // 2 secondes de délai
+    },
+    
     restoreAllDesigns() {
       // Restaurer tous les designs sauvegardés
       Object.keys(this.designConfigs).forEach(designId => {
@@ -1066,6 +1321,9 @@ export default {
     // Charger le plan utilisateur
     this.userPlan = getUserPlan();
     console.log(`[App] Plan utilisateur: ${this.userPlan}`);
+    
+    // Initialiser l'authentification
+    this.initAuth();
     
     // Restaurer les modifications sauvegardées
     this.$nextTick(() => {

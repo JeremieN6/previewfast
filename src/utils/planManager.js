@@ -1,9 +1,11 @@
 /**
  * Gestionnaire de l'état du plan utilisateur
  * 
- * Stockage dans localStorage
- * Pas d'auth, pas de backend (pour l'instant)
+ * Stockage dans localStorage + synchronisation cloud si authentifié
  */
+
+import authService from '../services/authService.js'
+import syncService from '../services/syncService.js'
 
 const STORAGE_KEY_PLAN = 'previewfaster_user_plan'
 const STORAGE_KEY_EXPORTS = 'previewfaster_export_count'
@@ -74,15 +76,26 @@ export function isFree() {
 /**
  * Passer en Pro (mode dev / mock)
  * En production, cela sera fait après paiement Stripe
- * @returns {boolean}
+ * @returns {Promise<boolean>}
  */
-export function upgradeToPro() {
+export async function upgradeToPro() {
   const success = setUserPlan(PLAN_PRO)
   
   if (success) {
     // Réinitialiser le compteur d'exports
     resetExportCount()
     console.log('[PlanManager] 🎉 Upgrade vers Pro réussi')
+    
+    // Synchroniser avec le backend si authentifié
+    if (authService.isAuthenticated()) {
+      try {
+        await syncService.syncPlan(PLAN_PRO)
+        console.log('[PlanManager] ✅ Plan synchronisé avec le cloud')
+      } catch (error) {
+        console.error('[PlanManager] Erreur sync plan:', error)
+        // Continue quand même en mode local
+      }
+    }
   }
   
   return success
@@ -114,15 +127,31 @@ export function getExportCount() {
 
 /**
  * Incrémenter le compteur d'exports
- * @returns {number} Nouveau nombre d'exports
+ * @returns {Promise<number>} Nouveau nombre d'exports
  */
-export function incrementExportCount() {
+export async function incrementExportCount() {
   try {
     const current = getExportCount()
     const newCount = current + 1
     
     localStorage.setItem(STORAGE_KEY_EXPORTS, newCount.toString())
     console.log(`[PlanManager] Export #${newCount}`)
+    
+    // Synchroniser avec le backend si authentifié
+    if (authService.isAuthenticated()) {
+      try {
+        const serverCount = await syncService.syncExportCount()
+        if (serverCount !== null) {
+          // Utiliser le compteur du serveur comme source de vérité
+          localStorage.setItem(STORAGE_KEY_EXPORTS, serverCount.toString())
+          console.log(`[PlanManager] ✅ Export synchronisé (serveur: ${serverCount})`)
+          return serverCount
+        }
+      } catch (error) {
+        console.error('[PlanManager] Erreur sync export:', error)
+        // Continue avec le compteur local
+      }
+    }
     
     return newCount
   } catch (error) {
