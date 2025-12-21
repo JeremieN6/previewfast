@@ -47,6 +47,43 @@
       />
     </main>
 
+    <!-- Badge Plan + Bouton Upgrade (toujours visible) -->
+    <div class="fixed top-4 right-4 z-40 flex items-center gap-3">
+      <!-- Badge plan actuel -->
+      <div :class="[
+        'px-4 py-2 rounded-lg font-medium text-sm shadow-lg flex items-center gap-2',
+        userPlan === 'pro' 
+          ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+          : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
+      ]">
+        <svg v-if="userPlan === 'pro'" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+        </svg>
+        <span>{{ userPlan === 'pro' ? 'Plan Pro' : 'Plan Free' }}</span>
+      </div>
+      
+      <!-- Bouton upgrade (uniquement si Free) -->
+      <button
+        v-if="userPlan === 'free'"
+        @click="openUpgradeModal(null)"
+        class="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+        </svg>
+        Passer en Pro
+      </button>
+      
+      <!-- Compteur exports (uniquement si Free) -->
+      <div 
+        v-if="userPlan === 'free'" 
+        class="px-3 py-2 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 rounded-lg text-sm font-medium"
+        :title="`${remainingExports} export(s) restant(s)`"
+      >
+        📊 {{ exportCount }}/5 exports
+      </div>
+    </div>
+
     <!-- Bouton Modifier (uniquement si écran sélectionné) -->
     <div v-if="selectedDesign && selectedScreenId" class="fixed right-4 bottom-20 z-50 flex flex-col gap-3">
       <!-- Menu Modifier avec dropdown -->
@@ -95,18 +132,28 @@
           
           <!-- Option 2 : Dupliquer vers un autre écran -->
           <button
-            @click="openDuplicateModal"
+            @click="handleDuplicateClick"
             type="button"
-            class="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors border-b border-gray-200 dark:border-gray-600"
+            :disabled="!canDuplicate"
+            :class="[
+              'w-full px-4 py-3 text-left transition-colors border-b border-gray-200 dark:border-gray-600',
+              canDuplicate 
+                ? 'hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer'
+                : 'opacity-50 cursor-not-allowed'
+            ]"
           >
             <div class="flex items-start gap-3">
               <svg class="w-5 h-5 mt-0.5 text-indigo-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
               </svg>
-              <div>
-                <div class="font-medium text-gray-900 dark:text-white">Dupliquer vers...</div>
+              <div class="flex-1">
+                <div class="font-medium text-gray-900 dark:text-white flex items-center gap-2">
+                  Dupliquer vers...
+                  <span v-if="!canDuplicate" class="text-xs px-2 py-0.5 bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 rounded-full">PRO</span>
+                </div>
                 <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                  Copier cet écran sur un autre écran
+                  <template v-if="canDuplicate">Copier cet écran sur un autre écran</template>
+                  <template v-else>Fonctionnalité réservée au plan Pro</template>
                 </div>
               </div>
             </div>
@@ -293,6 +340,7 @@
       @close="closeEditModal"
       @apply-changes="applyChanges"
       @apply-to-all="applyChangesToAll"
+      @upgrade-required="openUpgradeModal"
     />
     
     <!-- Modale de duplication -->
@@ -312,7 +360,15 @@
       :currentEdits="selectedDesign && selectedScreenId ? modifications[`${selectedDesign}-screen-${selectedScreenId}`] || {} : {}"
       @close="closePresetModal"
       @load-preset="handleLoadPreset"
-    />  </div>
+    />
+    
+    <!-- Modal d'upgrade -->
+    <UpgradeModal
+      :isOpen="isUpgradeModalOpen"
+      :feature="upgradeFeature || 'duplicateScreens'"
+      @close="closeUpgradeModal"
+    />
+  </div>
 </template>
 
 <script>
@@ -326,12 +382,17 @@ import Design7 from './components/designs/Design7.vue';
 import EditModal from './components/EditModal.vue';
 import DuplicateModal from './components/DuplicateModal.vue';
 import PresetModal from './components/PresetModal.vue';
+import UpgradeModal from './components/UpgradeModal.vue';
 
 // Import du module de persistance
 import { saveDesignState, loadDesignState, resetDesignState } from './utils/persistence.js';
 
 // Import du module d'export
 import { exportScreen, exportAllScreens } from './utils/export.js';
+
+// Import du système de plans
+import { getUserPlan, isPro, canExport, getRemainingExports, getExportCount } from './utils/planManager.js';
+import { canAccess } from './utils/plans.config.js';
 
 // Import des configs JSON
 import design1Config from '../configs/designs/design-1.json';
@@ -354,7 +415,8 @@ export default {
     Design7,
     EditModal,
     DuplicateModal,
-    PresetModal
+    PresetModal,
+    UpgradeModal
   },
   data() {
     return {
@@ -365,8 +427,11 @@ export default {
       isEditDropdownOpen: false, // État du dropdown d'édition
       isDuplicateModalOpen: false, // État de la modal de duplication
       isPresetModalOpen: false, // État de la modal des presets
+      isUpgradeModalOpen: false, // État de la modal d'upgrade
+      upgradeFeature: null, // Fonctionnalité à débloquer
       isExporting: false, // État d'export
       isResetDropdownOpen: false, // État du dropdown de réinitialisation
+      userPlan: 'free', // Plan utilisateur (free/pro)
       designConfigs: {
         'design-1': design1Config,
         'design-2': design2Config,
@@ -380,6 +445,21 @@ export default {
     }
   },
   computed: {
+    // Vérifier si l'utilisateur peut utiliser la duplication
+    canDuplicate() {
+      return this.userPlan === 'pro' || canAccess(this.userPlan, 'canDuplicateScreens')
+    },
+    
+    // Compteur d'exports pour Free
+    exportCount() {
+      return getExportCount()
+    },
+    
+    // Exports restants pour Free
+    remainingExports() {
+      return getRemainingExports()
+    },
+    
     currentScreenData() {
       if (!this.selectedDesign || !this.selectedScreenId) {
         return { id: '', editableZones: [] }
@@ -463,8 +543,29 @@ export default {
       this.isDuplicateModalOpen = true
     },
     
+    handleDuplicateClick() {
+      // Vérifier si l'utilisateur peut utiliser cette fonctionnalité
+      if (!this.canDuplicate) {
+        this.openUpgradeModal('duplicateScreens')
+        return
+      }
+      
+      // Si autorisé, ouvrir la modal
+      this.openDuplicateModal()
+    },
+    
     closeDuplicateModal() {
       this.isDuplicateModalOpen = false
+    },
+    
+    openUpgradeModal(feature) {
+      this.upgradeFeature = feature
+      this.isUpgradeModalOpen = true
+    },
+    
+    closeUpgradeModal() {
+      this.isUpgradeModalOpen = false
+      this.upgradeFeature = null
     },
     
     openPresetModal() {
@@ -809,11 +910,29 @@ export default {
       try {
         await exportScreen(this.selectedDesign, this.selectedScreenId)
         
-        // Feedback de succès (simple, pas de toast pour l'instant)
-        console.log('✅ Export réussi')
+        // Mise à jour du compteur (si Free)
+        if (this.userPlan === 'free') {
+          // Le compteur est déjà incrémenté dans export.js
+          // On force juste un re-render pour mettre à jour l'affichage
+          this.$forceUpdate()
+        }
+        
+        // Feedback de succès
+        const remaining = getRemainingExports()
+        if (this.userPlan === 'free' && remaining <= 2) {
+          alert(`✅ Export réussi !\n\n⚠️ Attention : il vous reste ${remaining} export(s) gratuit(s).`)
+        } else {
+          console.log('✅ Export réussi')
+        }
       } catch (error) {
         console.error('❌ Erreur d\'export:', error)
-        alert(`Erreur lors de l'export : ${error.message}`)
+        
+        // Vérifier si c'est une erreur de quota
+        if (error.message.startsWith('QUOTA_EXCEEDED:')) {
+          this.openUpgradeModal('exportLimit')
+        } else {
+          alert(`Erreur lors de l'export : ${error.message}`)
+        }
       } finally {
         this.isExporting = false
       }
@@ -943,6 +1062,10 @@ export default {
 
   mounted() {
     this.initDarkMode();
+    
+    // Charger le plan utilisateur
+    this.userPlan = getUserPlan();
+    console.log(`[App] Plan utilisateur: ${this.userPlan}`);
     
     // Restaurer les modifications sauvegardées
     this.$nextTick(() => {

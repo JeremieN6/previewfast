@@ -111,17 +111,23 @@
                 
                 <button
                   @click="newPresetScope = 'design'"
+                  :disabled="!canUseDesignPresets"
                   :class="[
                     'flex-1 px-4 py-3 rounded-lg border-2 transition-all',
                     newPresetScope === 'design'
                       ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20'
-                      : 'border-gray-200 dark:border-gray-600 hover:border-blue-300'
+                      : 'border-gray-200 dark:border-gray-600 hover:border-blue-300',
+                    !canUseDesignPresets && 'opacity-50 cursor-not-allowed'
                   ]"
                 >
                   <div class="text-left">
-                    <div class="font-medium text-gray-900 dark:text-white">Design complet</div>
+                    <div class="font-medium text-gray-900 dark:text-white flex items-center gap-2">
+                      Design complet
+                      <span v-if="!canUseDesignPresets" class="text-xs px-2 py-0.5 bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 rounded-full">PRO</span>
+                    </div>
                     <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                      Zones communes à tous les écrans
+                      <template v-if="canUseDesignPresets">Zones communes à tous les écrans</template>
+                      <template v-else>Fonctionnalité réservée au plan Pro</template>
                     </div>
                   </div>
                 </button>
@@ -288,6 +294,7 @@
 
 <script>
 import { getDesignPresets, savePreset, deletePreset } from '../utils/presets.js'
+import { getUserPlan, canAccess } from '../utils/planManager.js'
 
 export default {
   name: 'PresetModal',
@@ -318,7 +325,17 @@ export default {
     }
   },
   computed: {
+    canUseDesignPresets() {
+      const userPlan = getUserPlan()
+      return userPlan === 'pro' || canAccess(userPlan, 'canUseDesignPresets')
+    },
+    
     canSavePreset() {
+      // Vérifier si le preset design est autorisé
+      if (this.newPresetScope === 'design' && !this.canUseDesignPresets) {
+        return false
+      }
+      
       return this.newPresetName.trim().length > 0 && 
              this.currentEdits && 
              Object.keys(this.currentEdits).length > 0

@@ -123,6 +123,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
             </svg>
             Appliquer à tous
+            <span v-if="!canApplyGlobal" class="text-xs px-2 py-0.5 bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 rounded-full ml-1">PRO</span>
           </button>
         </div>
         <button @click="close" class="btn-secondary">Annuler</button>
@@ -132,6 +133,8 @@
 </template>
 
 <script>
+import { getUserPlan, canAccess } from '../utils/planManager.js'
+
 export default {
   name: 'EditModal',
   props: {
@@ -154,6 +157,12 @@ export default {
     }
   },
   computed: {
+    // Vérifier si l'utilisateur peut utiliser "Appliquer à tous"
+    canApplyGlobal() {
+      const userPlan = getUserPlan()
+      return userPlan === 'pro' || canAccess(userPlan, 'canApplyGlobalChanges')
+    },
+    
     // Analyser les zones communes entre tous les écrans
     compatibleZones() {
       if (!this.designConfig || !this.localEdits || Object.keys(this.localEdits).length === 0) {
@@ -172,10 +181,14 @@ export default {
     },
     
     hasCompatibleZones() {
-      return this.compatibleZones.length > 0
+      return this.compatibleZones.length > 0 && this.canApplyGlobal
     },
     
     compatibleZonesTooltip() {
+      if (!this.canApplyGlobal) {
+        return "Fonctionnalité réservée au plan Pro"
+      }
+      
       if (!this.hasCompatibleZones) {
         return "Aucune modification compatible avec tous les écrans"
       }
@@ -224,6 +237,12 @@ export default {
     },
     
     applyToAll() {
+      // Vérifier d'abord l'accès
+      if (!this.canApplyGlobal) {
+        this.$emit('upgrade-required', 'applyGlobalChanges')
+        return
+      }
+      
       if (!this.hasCompatibleZones) {
         alert('Aucune modification compatible avec tous les écrans')
         return

@@ -5,14 +5,20 @@
 
 import { toPng } from 'html-to-image'
 import JSZip from 'jszip'
+import { canExport, incrementExportCount, getUserPlan, getRemainingExports } from './planManager.js'
+import { PLANS_CONFIG } from './plans.config.js'
 
-// Options par défaut pour la capture d'image
-const DEFAULT_OPTIONS = {
-  quality: 1, // Qualité maximale
-  pixelRatio: 2, // Résolution × 2 pour écrans HD
-  cacheBust: true, // Éviter le cache des images
-  skipFonts: false, // Inclure les polices
-  includeQueryParams: true // Inclure les query params des URLs
+// Options pour la capture d'image selon le plan
+function getExportOptions(userPlan = 'free') {
+  const config = PLANS_CONFIG[userPlan] || PLANS_CONFIG.free
+  
+  return {
+    quality: 1,
+    pixelRatio: config.exportHD ? 2 : 1, // HD pour Pro, SD pour Free
+    cacheBust: true,
+    skipFonts: false,
+    includeQueryParams: true
+  }
 }
 
 /**
@@ -22,9 +28,19 @@ const DEFAULT_OPTIONS = {
  * @returns {Promise<{success: boolean, filename: string}>}
  */
 export async function exportScreen(designId, screenNum) {
+  // Vérifier le quota d'exports
+  if (!canExport()) {
+    const remaining = getRemainingExports()
+    throw new Error(`QUOTA_EXCEEDED:Limite d'exports atteinte (${remaining} restants). Passez en Pro pour des exports illimités.`)
+  }
+  
   console.log(`[Export] Capture de ${designId}, écran ${screenNum}...`)
   
   try {
+    // Obtenir le plan et les options d'export
+    const userPlan = getUserPlan()
+    const exportOptions = getExportOptions(userPlan)
+    
     // Extraire le numéro du design (ex: "design-1" → "1")
     const designNum = designId.split('-')[1]
     
@@ -52,7 +68,7 @@ export async function exportScreen(designId, screenNum) {
     await sleep(50)
     
     // Capturer l'élément en PNG
-    const dataUrl = await toPng(screenElement, DEFAULT_OPTIONS)
+    const dataUrl = await toPng(screenElement, exportOptions)
     
     // Remettre les classes si elles étaient présentes
     if (hadSelectableClass) {
@@ -62,11 +78,18 @@ export async function exportScreen(designId, screenNum) {
       screenElement.classList.add('screen-selected')
     }
     
+    // Note: Le watermark est volontairement désactivé pour simplifier l'implémentation
+    // Il pourrait être ajouté ici en créant une nouvelle image avec le watermark superposé
+    
+    // Incrémenter le compteur d'exports (uniquement pour Free)
+    incrementExportCount()
+    
     // Télécharger l'image
-    const filename = `${designId}_screen-${screenNum}.png`
+    const qualitySuffix = userPlan === 'pro' ? '_HD' : ''
+    const filename = `${designId}_screen-${screenNum}${qualitySuffix}.png`
     downloadImage(dataUrl, filename)
     
-    console.log(`[Export] ✅ ${filename} téléchargé`)
+    console.log(`[Export] ✅ ${filename} téléchargé (${userPlan})`)
     
     return {
       success: true,
