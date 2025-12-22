@@ -2,10 +2,9 @@
  * Base de données SQLite pour PreviewFaster
  * 
  * Structure:
- * - users: identité utilisateur minimale
+ * - users: identité utilisateur + abonnement Stripe
  * - user_data: stockage clé-valeur des données utilisateur (projets, presets, etc.)
- * 
- * Pas de gestion d'abonnements ici (prévu pour Module 10 avec Stripe)
+ * - magic_tokens: tokens d'authentification temporaires
  */
 
 import Database from 'better-sqlite3'
@@ -31,6 +30,12 @@ export function initDatabase() {
       email TEXT UNIQUE NOT NULL,
       plan TEXT DEFAULT 'free' CHECK(plan IN ('free', 'pro')),
       stripe_customer_id TEXT DEFAULT NULL,
+      subscription_id TEXT DEFAULT NULL,
+      subscription_status TEXT DEFAULT NULL CHECK(
+        subscription_status IS NULL OR 
+        subscription_status IN ('active', 'canceled', 'incomplete', 'incomplete_expired', 'past_due', 'trialing', 'unpaid')
+      ),
+      current_period_end DATETIME DEFAULT NULL,
       export_count INTEGER DEFAULT 0,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -73,6 +78,20 @@ export function initDatabase() {
   db.exec(`
     DELETE FROM magic_tokens 
     WHERE expires_at < datetime('now') OR used = 1
+  `)
+  
+  // Table des événements webhook (idempotence)
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS webhook_events (
+      event_id TEXT PRIMARY KEY,
+      processed_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `)
+  
+  // Nettoyer les anciens événements webhook (+ de 30 jours)
+  db.exec(`
+    DELETE FROM webhook_events 
+    WHERE processed_at < datetime('now', '-30 days')
   `)
   
   console.log('[DB] ✅ Base de données initialisée')

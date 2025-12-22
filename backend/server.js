@@ -6,20 +6,49 @@
  * - Stockage des données utilisateur
  * - Sync localStorage → cloud
  * - Gestion du plan Free/Pro
+ * - Intégration Stripe (abonnement Pro)
  * 
  * Port: 3001 (frontend sur 3000)
  */
 
-import 'dotenv/config'
+// IMPORTANT: Charger config.js en PREMIER pour peupler process.env
+// avant que les autres modules (stripeService, etc.) ne s'initialisent
+import './config.js'
+
 import express from 'express'
 import cors from 'cors'
 import { sendMagicLink, verifyMagicLink, verifyJWT, getUserInfo } from './authService.js'
 import { saveUserData, getUserData, updateUserPlan, incrementUserExportCount } from './userDataService.js'
+import stripeService from './stripeService.js'
+import webhookHandler from './webhookHandler.js'
 
 const app = express()
 const PORT = process.env.PORT || 3001
 
-// Middleware
+// ============================================================================
+// MIDDLEWARE SPÉCIAL POUR WEBHOOKS STRIPE
+// Les webhooks Stripe nécessitent le body brut, pas du JSON parsé
+// ============================================================================
+app.post('/stripe/webhooks', express.raw({ type: 'application/json' }), async (req, res) => {
+  const signature = req.headers['stripe-signature']
+  
+  try {
+    // Vérifier la signature et parser l'événement
+    const event = webhookHandler.verifyWebhookSignature(req.body, signature)
+    
+    // Traiter l'événement
+    const result = await webhookHandler.handleWebhookEvent(event)
+    
+    res.json(result)
+  } catch (error) {
+    console.error('[Webhook] Erreur:', error)
+    return res.status(400).json({ error: error.message })
+  }
+})
+
+// ============================================================================
+// MIDDLEWARE STANDARD (APRÈS LES WEBHOOKS)
+// ============================================================================
 app.use(cors())
 app.use(express.json({ limit: '10mb' }))
 
@@ -86,6 +115,80 @@ app.get('/auth/me', verifyJWT, (req, res) => {
     res.json(userInfo)
   } catch (error) {
     console.error('[API] Erreur /auth/me:', error)
+    res.status(500).json({ error: error.message })
+  }
+})
+
+// ============================================================================
+// ROUTES STRIPE
+// ============================================================================
+
+/**
+ * POST /stripe/create-checkout-session
+ * Créer une session Stripe Checkout pour l'upgrade PRO
+ * Protégé par JWT
+ */
+app.post('/stripe/create-checkout-session', verifyJWT, async (req, res) => {
+  try {
+    const userId = req.user.userId
+    const email = req.user.email
+    
+    console.log(`[Stripe] Création checkout session pour user ${userId}`)
+    
+    // Créer la session Checkout
+    const checkoutUrl = await stripeService.createCheckoutSession(userId, email)
+    
+    res.json({ 
+      success: true, 
+      url: checkoutUrl 
+    })
+  } catch (error) {
+    console.error('[Stripe] Erreur création checkout:', error)
+    res.status(500).json({ error: error.message })
+  }
+})
+
+/**
+ * POST /stripe/create-portal-session
+ * Créer une session Stripe Billing Portal
+ * Protégé par JWT
+ */
+app.post('/stripe/create-portal-session', verifyJWT, async (req, res) => {
+  try {
+    const userId = req.user.userId
+    
+    console.log(`[Stripe] Création portal session pour user ${userId}`)
+    
+    // Créer la session Portal
+    const portalUrl = await stripeService.createBillingPortalSession(userId)
+    
+    res.json({ 
+      success: true, 
+      url: portalUrl 
+    })
+  } catch (error) {
+    console.error('[Stripe] Erreur création portal:', error)
+    res.status(500).json({ error: error.message })
+  }
+})
+
+/**
+ * GET /stripe/subscription-info
+ * Récupérer les informations d'abonnement de l'utilisateur
+ * Protégé par JWT
+ */
+app.get('/stripe/subscription-info', verifyJWT, (req, res) => {
+  try {
+    const userId = req.user.userId
+    
+    const subscriptionInfo = stripeService.getUserSubscriptionInfo(userId)
+    
+    res.json({ 
+      success: true, 
+      subscription: subscriptionInfo 
+    })
+  } catch (error) {
+    console.error('[Stripe] Erreur récupération subscription info:', error)
     res.status(500).json({ error: error.message })
   }
 })

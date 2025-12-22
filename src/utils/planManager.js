@@ -234,3 +234,23 @@ export function getPlanInfo() {
     canExport: canExport()
   }
 }
+
+/**
+ * Vérifier si un plan a accès à une fonctionnalité
+ * @param {string} plan - Le plan de l'utilisateur ('free' ou 'pro')
+ * @param {string} feature - Le nom de la fonctionnalité
+ * @returns {boolean}
+ */
+export function canAccess(plan, feature) {
+  // Pro a accès à tout
+  if (plan === PLAN_PRO) return true
+  
+  // Features disponibles pour Free
+  const freeFeatures = [
+    'basicExport',
+    'basicEditing',
+    'singleScreen'
+  ]
+  
+  return freeFeatures.includes(feature)
+}

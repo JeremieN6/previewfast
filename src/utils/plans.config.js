@@ -146,7 +146,7 @@ export const PLANS_PRICING = {
     price: 9,
     currency: '€',
     period: 'month',
-    label: '9€/mois'
+    label: '9,90€/mois'
   }
 }
 

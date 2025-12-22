@@ -184,4 +184,17 @@ class AuthService {
   }
 }
 
-export default new AuthService();
+const authServiceInstance = new AuthService();
+
+// Export default pour usage comme service
+export default authServiceInstance;
+
+// Exports nommés pour compatibilité
+export const sendMagicLink = (email) => authServiceInstance.sendMagicLink(email);
+export const verifyMagicLink = (token) => authServiceInstance.verifyMagicLink(token);
+export const logout = () => authServiceInstance.logout();
+export const isAuthenticated = () => authServiceInstance.isAuthenticated();
+export const getAuthToken = () => authServiceInstance.getToken();
+export const getCurrentUser = () => authServiceInstance.getCurrentUser();
+export const getUserEmail = () => authServiceInstance.getUserEmail();
+export const getUserId = () => authServiceInstance.getUserId();

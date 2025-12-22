@@ -63,7 +63,7 @@
         <div class="p-4 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
           <div class="flex items-center justify-between mb-2">
             <span class="text-lg font-bold text-gray-900 dark:text-white">Plan Pro</span>
-            <span class="text-2xl font-bold text-blue-600 dark:text-blue-400">9€<span class="text-sm font-normal">/mois</span></span>
+            <span class="text-2xl font-bold text-blue-600 dark:text-blue-400">9,90€<span class="text-sm font-normal">/mois</span></span>
           </div>
           <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-1">
             <li>✓ Exports illimités en HD</li>
@@ -86,12 +86,17 @@
         
         <button
           @click="handleUpgrade"
-          class="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium rounded-lg transition-all shadow-lg hover:shadow-xl flex items-center gap-2"
+          :disabled="isLoading"
+          class="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium rounded-lg transition-all shadow-lg hover:shadow-xl flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg v-if="!isLoading" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
           </svg>
-          Passer en Pro
+          <svg v-else class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          {{ isLoading ? 'Chargement...' : 'Passer en Pro' }}
         </button>
       </div>
     </div>
@@ -99,8 +104,11 @@
 </template>
 
 <script>
-import { upgradeToPro, getExportCount } from '../utils/planManager.js'
+import { getExportCount } from '../utils/planManager.js'
 import { UPGRADE_MESSAGES } from '../utils/plans.config.js'
+import { getAuthToken } from '../services/authService.js'
+
+const BACKEND_URL = 'http://localhost:3001'
 
 export default {
   name: 'UpgradeModal',
@@ -115,6 +123,11 @@ export default {
       validator: (value) => {
         return ['duplicateScreens', 'applyGlobalChanges', 'designPresets', 'exportLimit', 'exportZIP', 'hdExport'].includes(value)
       }
+    }
+  },
+  data() {
+    return {
+      isLoading: false
     }
   },
   computed: {
@@ -135,21 +148,43 @@ export default {
     }
   },
   methods: {
-    handleUpgrade() {
-      // Mode mock : passer directement en Pro
-      // En production, cela ouvrira Stripe Checkout
-      const success = upgradeToPro()
+    async handleUpgrade() {
+      const token = getAuthToken()
       
-      if (success) {
-        alert('🎉 Bienvenue dans le plan Pro !\n\nVous avez maintenant accès à toutes les fonctionnalités premium.')
-        
-        // Fermer la modal
+      // Si pas connecté, ouvrir la modal d'auth
+      if (!token) {
+        alert('Veuillez vous connecter pour passer en Pro')
         this.$emit('close')
+        // Émettre un événement pour ouvrir la modal d'auth
+        window.dispatchEvent(new CustomEvent('open-auth-modal'))
+        return
+      }
+      
+      try {
+        this.isLoading = true
         
-        // Recharger pour appliquer les changements
-        window.location.reload()
-      } else {
-        alert('❌ Erreur lors du changement de plan')
+        // Appel backend pour créer une Checkout Session
+        const response = await fetch(`${BACKEND_URL}/stripe/create-checkout-session`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        
+        if (!response.ok) {
+          throw new Error('Erreur lors de la création de la session Stripe')
+        }
+        
+        const data = await response.json()
+        
+        // Rediriger vers Stripe Checkout
+        window.location.href = data.url
+        
+      } catch (error) {
+        console.error('[Upgrade] Erreur:', error)
+        alert('❌ Erreur lors de la redirection vers le paiement. Veuillez réessayer.')
+        this.isLoading = false
       }
     }
   }

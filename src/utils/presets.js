@@ -228,3 +228,19 @@ export function importPresets(jsonString, merge = true) {
     return false
   }
 }
+
+/**
+ * Sauvegarder tous les presets (utilisé pour sync cloud)
+ * @param {Object} presetsData - Structure complète des presets { "design-1": [...], ... }
+ * @returns {boolean} Succès
+ */
+export function saveAllPresets(presetsData) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(presetsData))
+    console.log('[Presets] Tous les presets sauvegardés')
+    return true
+  } catch (error) {
+    console.error('[Presets] Erreur lors de la sauvegarde globale:', error)
+    return false
+  }
+}

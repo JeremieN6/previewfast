@@ -76,6 +76,10 @@
               ✓ Synchronisé {{ formatSyncTime(syncStatus.lastSyncTime) }}
             </div>
           </div>
+          
+          <!-- Bouton Billing Portal (si Pro) -->
+          <BillingButton v-if="userPlan === 'pro'" />
+          
           <button
             @click="handleLogout"
             class="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center gap-2 text-red-600 dark:text-red-400"
@@ -442,6 +446,8 @@ import DuplicateModal from './components/DuplicateModal.vue';
 import PresetModal from './components/PresetModal.vue';
 import UpgradeModal from './components/UpgradeModal.vue';
 import AuthModal from './components/AuthModal.vue';
+import BillingButton from './components/BillingButton.vue';
+
 
 // Import du module de persistance
 import { saveDesignState, loadDesignState, resetDesignState } from './utils/persistence.js';
@@ -480,7 +486,8 @@ export default {
     DuplicateModal,
     PresetModal,
     UpgradeModal,
-    AuthModal
+    AuthModal,
+    BillingButton
   },
   data() {
     return {
@@ -1191,15 +1198,57 @@ export default {
       authService.logout();
       this.isAuthenticated = false;
       this.userEmail = null;
+      this.syncStatus = { isSyncing: false, lastSyncTime: null };
       this.isUserMenuOpen = false;
-      this.syncStatus = {
-        isAuthenticated: false,
-        hasMigrated: false,
-        lastSyncTime: null,
-        syncing: false,
-      };
       
-      console.log('✅ Déconnexion réussie');
+      alert('✅ Déconnecté avec succès');
+    },
+    
+    /**
+     * Vérifier si on revient de Stripe Checkout (success ou canceled)
+     */
+    checkStripeReturn() {
+      const urlParams = new URLSearchParams(window.location.search);
+      
+      // Success
+      if (urlParams.has('session_id')) {
+        const sessionId = urlParams.get('session_id');
+        console.log(`[Stripe] Retour de checkout (session: ${sessionId})`)
+        
+        // Afficher un message de succès
+        alert('🎉 Abonnement activé !\n\nVotre statut sera mis à jour dans quelques instants.\n\nVeuillez rafraîchir la page après quelques secondes.')
+        
+        // Nettoyer l'URL
+        window.history.replaceState({}, document.title, window.location.pathname)
+        
+        // Recharger après 3 secondes pour récupérer le nouveau statut
+        setTimeout(() => {
+          window.location.reload()
+        }, 3000)
+      }
+      
+      // Canceled
+      if (urlParams.has('canceled') && urlParams.get('canceled') === 'true') {
+        console.log('[Stripe] Checkout annulé')
+        alert('❌ Paiement annulé\n\nVous pouvez réessayer à tout moment.')
+        
+        // Nettoyer l'URL
+        window.history.replaceState({}, document.title, window.location.pathname)
+      }
+    },
+    
+    async handleLogout() {
+      if (!confirm('Voulez-vous vraiment vous déconnecter ? Vos données locales seront conservées.')) {
+        return;
+      }
+      
+      authService.logout();
+      this.isAuthenticated = false;
+      this.userEmail = null;
+      this.isUserMenuOpen = false;
+      this.syncStatus = { isSyncing: false, lastSyncTime: null };
+      
+      alert('✅ Déconnexion réussie');
     },
     
     formatSyncTime(timestamp) {
@@ -1324,6 +1373,9 @@ export default {
     
     // Initialiser l'authentification
     this.initAuth();
+    
+    // Vérifier si on revient de Stripe Checkout (success)
+    this.checkStripeReturn();
     
     // Restaurer les modifications sauvegardées
     this.$nextTick(() => {
