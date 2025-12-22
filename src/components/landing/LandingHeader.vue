@@ -1,0 +1,179 @@
+<template>
+    <!-- Header with Navigation -->
+    <header>
+        <nav class="bg-gray-50 border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+            <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+                <RouterLink to="/" class="flex items-center">
+                    <span class="text-4xl">🚀</span>
+                    <span class="self-center text-xl font-semibold text-gray-700 whitespace-nowrap dark:text-white">PreviewFaster</span>
+                </RouterLink>
+                <div class="flex items-center gap-3 lg:order-2">
+                    <template v-if="!isAuthenticated">
+                        <RouterLink
+                            to="/inscription"
+                            class="py-2.5 px-5 me-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                        >
+                            Inscription
+                        </RouterLink>
+                        <RouterLink
+                            to="/connexion"
+                            class="inline-flex justify-center items-center py-3 px-5 text-white font-medium text-center rounded-lg bg-blue-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
+                        >
+                            Connexion
+                        </RouterLink>
+                    </template>
+                    <template v-else>
+                        <RouterLink
+                            to="/mon-compte"
+                            class="py-2.5 px-5 me-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                        >
+                            Mon compte
+                        </RouterLink>
+                        <button
+                            type="button"
+                            class="inline-flex justify-center items-center py-3 px-5 text-white font-medium text-center rounded-lg bg-blue-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
+                            @click="handleLogout"
+                        >
+                            Déconnexion
+                        </button>
+                    </template>
+                    <button @click="toggleMenu" type="button"
+                        class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                        :aria-expanded="isMenuOpen">
+                        <span class="sr-only">Ouvrir le menu</span>
+                        <svg :class="{'hidden': isMenuOpen, 'block': !isMenuOpen}" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <svg :class="{'hidden': !isMenuOpen, 'block': isMenuOpen}" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div :class="{'hidden': !isMenuOpen}" class="justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
+                    <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                        <li>
+                            <RouterLink to="/"
+                                class="block py-2 pr-4 pl-3 text-gray-700 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
+                                aria-current="page"
+                                @click="closeMenu">Accueil</RouterLink>
+                        </li>
+                        <li v-for="link in navLinks" :key="link.href">
+                            <a
+                                :href="link.href"
+                                class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                                @click="closeMenu"
+                            >
+                                {{ link.label }}
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="mailto:csvtoppt@sassify.com"
+                                class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+                                @click.prevent="openEmail"
+                            >
+                                Contact
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- Header with Navigation -->
+</template>
+
+<script setup>
+import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { RouterLink, useRouter } from 'vue-router'
+
+const AUTH_EVENT = 'csvtoppt-auth-changed'
+const CONTACT_EMAIL = 'contact@previewfaster.com'
+const isMenuOpen = ref(false)
+const isAuthenticated = ref(false)
+const router = useRouter()
+const navLinks = [
+    { href: '/template', label: 'Builder' },
+    { href: '/#features', label: 'Fonctionnalités' },
+    { href: '/#benefits', label: 'Bénéfices' },
+    { href: '/#pricing', label: 'Tarifs' },
+]
+
+const syncAuthState = () => {
+    if (typeof window === 'undefined') {
+        isAuthenticated.value = false
+        return
+    }
+    isAuthenticated.value = Boolean(window.localStorage.getItem('access_token'))
+}
+
+const dispatchAuthEvent = (authenticated) => {
+    if (typeof window === 'undefined') {
+        return
+    }
+    window.dispatchEvent(
+        new CustomEvent(AUTH_EVENT, {
+            detail: { authenticated: Boolean(authenticated) },
+        }),
+    )
+}
+
+const handleAuthChanged = (event) => {
+    if (event?.detail && typeof event.detail.authenticated === 'boolean') {
+        isAuthenticated.value = event.detail.authenticated
+    } else {
+        syncAuthState()
+    }
+}
+
+const handleStorageAuthChange = (event) => {
+    if (event.key === 'access_token') {
+        syncAuthState()
+    }
+}
+
+const toggleMenu = () => {
+    isMenuOpen.value = !isMenuOpen.value
+}
+
+const closeMenu = () => {
+    isMenuOpen.value = false
+}
+
+const openEmail = () => {
+    if (typeof window === 'undefined') {
+        return
+    }
+    window.location.href = `mailto:${CONTACT_EMAIL}`
+    closeMenu()
+}
+
+const handleLogout = () => {
+    if (typeof window === 'undefined') {
+        return
+    }
+    window.localStorage.removeItem('access_token')
+    window.localStorage.removeItem('user')
+    syncAuthState()
+    dispatchAuthEvent(false)
+    closeMenu()
+    router.push('/')
+}
+
+onMounted(() => {
+    syncAuthState()
+    window.addEventListener(AUTH_EVENT, handleAuthChanged)
+    window.addEventListener('storage', handleStorageAuthChange)
+})
+
+onBeforeUnmount(() => {
+    window.removeEventListener(AUTH_EVENT, handleAuthChanged)
+    window.removeEventListener('storage', handleStorageAuthChange)
+})
+
+</script>
