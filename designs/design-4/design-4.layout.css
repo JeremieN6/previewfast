@@ -178,11 +178,11 @@
   width: 110%;
 }
 
-/* .myScreen-design-4[data-screen='3'] .mockup-iphone-design-4{
+.myScreen-design-4[data-screen='3'] .mockup-iphone-design-4{
   width: 110%;
   max-width: none;
-  transform: translateY(34px); 
-} */
+  transform: translateY(17px); 
+}
 
 .myScreen-design-4--jumbo .container-img-design-4 {
   position: relative;
@@ -231,10 +231,10 @@
 }
 
 .myScreen-design-4 .container-img-design-4-screen-3 .visual-on-mockup {
-  top: 52px;
-  left: 20px;
-  width: 70%;
-  border-radius: 22px;
+  top: 35px;
+  left: 23px;
+  width: 68%;
+  border-radius: 18px;
   transform: rotate(-0deg) skewY(-17deg);
 }
 

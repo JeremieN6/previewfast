@@ -111,6 +111,10 @@ export async function exportAllScreens(designId, designConfig) {
   console.log(`[Export] Export de tous les écrans du ${designId}...`)
   
   try {
+    // Obtenir le plan et les options d'export
+    const userPlan = getUserPlan()
+    const exportOptions = getExportOptions(userPlan)
+    
     const designNum = designId.split('-')[1]
     
     // Récupérer tous les numéros d'écrans depuis la config
@@ -171,7 +175,7 @@ export async function exportAllScreens(designId, designConfig) {
       await sleep(50)
       
       // Capturer l'écran
-      const dataUrl = await toPng(screenElement, DEFAULT_OPTIONS)
+      const dataUrl = await toPng(screenElement, exportOptions)
       
       // Convertir dataUrl en blob
       const blob = await dataUrlToBlob(dataUrl)
