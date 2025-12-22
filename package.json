@@ -12,7 +12,8 @@
     "flowbite": "^2.2.1",
     "html-to-image": "^1.11.13",
     "jszip": "^3.10.1",
-    "vue": "^3.4.21"
+    "vue": "^3.4.21",
+    "vue-router": "^4.6.4"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",

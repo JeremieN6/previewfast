@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import router from './router'
 
 // Import Tailwind CSS
 import './style.css'
@@ -16,4 +17,5 @@ import '/designs/design-6/design-6.layout.css'
 import '/designs/design-7/design-7.layout.css'
 
 const app = createApp(App)
+app.use(router)
 app.mount('#app')
