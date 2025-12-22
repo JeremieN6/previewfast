@@ -15,6 +15,7 @@ dist-ssr
 *.local
 .github/instructions
 .vscode
+.mcp-server
 
 # Editor directories and files
 .vscode/*
