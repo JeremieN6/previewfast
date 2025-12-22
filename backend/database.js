@@ -93,6 +93,16 @@ export function initDatabase() {
     DELETE FROM webhook_events 
     WHERE processed_at < datetime('now', '-30 days')
   `)
+
+  // Table des inscriptions newsletter
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS newsletter (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      email TEXT UNIQUE NOT NULL,
+      subscribed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      active BOOLEAN DEFAULT 1
+    )
+  `)
   
   console.log('[DB] ✅ Base de données initialisée')
 }

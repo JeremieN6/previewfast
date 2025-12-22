@@ -17,6 +17,7 @@ import './config.js'
 
 import express from 'express'
 import cors from 'cors'
+import db from './database.js'
 import { sendMagicLink, verifyMagicLink, verifyJWT, getUserInfo } from './authService.js'
 import { saveUserData, getUserData, updateUserPlan, incrementUserExportCount } from './userDataService.js'
 import stripeService from './stripeService.js'
@@ -350,6 +351,58 @@ app.get('/api/exports/quota', verifyJWT, async (req, res) => {
   } catch (error) {
     console.error('[Exports] Erreur quota:', error)
     res.status(500).json({ error: error.message })
+  }
+})
+
+// ============================================================================
+// NEWSLETTER
+// ============================================================================
+
+/**
+ * POST /newsletter/subscribe
+ * Inscription à la newsletter
+ * Body: { email: string }
+ */
+app.post('/newsletter/subscribe', async (req, res) => {
+  try {
+    const { email } = req.body
+    
+    if (!email) {
+      return res.status(400).json({ error: 'Email requis' })
+    }
+    
+    // Valider le format email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: 'Format email invalide' })
+    }
+    
+    // Insérer dans la base de données
+    const stmt = db.prepare(`
+      INSERT INTO newsletter (email, subscribed_at, active)
+      VALUES (?, datetime('now'), 1)
+    `)
+    
+    try {
+      stmt.run(email.toLowerCase())
+      console.log(`[Newsletter] Nouvelle inscription: ${email}`)
+      
+      res.json({
+        success: true,
+        message: 'Votre email a bien été ajouté à la newsletter'
+      })
+    } catch (dbError) {
+      if (dbError.code === 'SQLITE_CONSTRAINT_UNIQUE') {
+        return res.status(409).json({ 
+          error: 'Cet email est déjà inscrit à la newsletter' 
+        })
+      }
+      throw dbError
+    }
+    
+  } catch (error) {
+    console.error('[Newsletter] Erreur:', error)
+    res.status(500).json({ error: 'Erreur lors de l\'inscription' })
   }
 })
 
