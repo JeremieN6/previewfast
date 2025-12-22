@@ -189,13 +189,14 @@
           <button
             @click="handleDuplicateClick"
             type="button"
-            :disabled="!canDuplicate"
+            :disabled="planGuards.isFeatureDisabled('DUPLICATE_SCREEN')"
             :class="[
               'w-full px-4 py-3 text-left transition-colors border-b border-gray-200 dark:border-gray-600',
-              canDuplicate 
+              !planGuards.isFeatureDisabled('DUPLICATE_SCREEN')
                 ? 'hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer'
                 : 'opacity-50 cursor-not-allowed'
             ]"
+            :title="planGuards.getFeatureTooltip('DUPLICATE_SCREEN')"
           >
             <div class="flex items-start gap-3">
               <svg class="w-5 h-5 mt-0.5 text-indigo-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -204,11 +205,10 @@
               <div class="flex-1">
                 <div class="font-medium text-gray-900 dark:text-white flex items-center gap-2">
                   Dupliquer vers...
-                  <span v-if="!canDuplicate" class="text-xs px-2 py-0.5 bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 rounded-full">PRO</span>
+                  <span v-html="planGuards.getFeatureBadge('DUPLICATE_SCREEN')"></span>
                 </div>
                 <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                  <template v-if="canDuplicate">Copier cet écran sur un autre écran</template>
-                  <template v-else>Fonctionnalité réservée au plan Pro</template>
+                  Copier cet écran sur un autre écran
                 </div>
               </div>
             </div>
@@ -237,14 +237,24 @@
           <button
             @click="openPresetModal"
             type="button"
-            class="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            :disabled="planGuards.isFeatureDisabled('CREATE_PRESET')"
+            :class="[
+              'w-full px-4 py-3 text-left transition-colors',
+              !planGuards.isFeatureDisabled('CREATE_PRESET')
+                ? 'hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer'
+                : 'opacity-50 cursor-not-allowed'
+            ]"
+            :title="planGuards.getFeatureTooltip('CREATE_PRESET')"
           >
             <div class="flex items-start gap-3">
               <svg class="w-5 h-5 mt-0.5 text-amber-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
               </svg>
-              <div>
-                <div class="font-medium text-gray-900 dark:text-white">Presets</div>
+              <div class="flex-1">
+                <div class="font-medium text-gray-900 dark:text-white flex items-center gap-2">
+                  Presets
+                  <span v-html="planGuards.getFeatureBadge('CREATE_PRESET')"></span>
+                </div>
                 <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                   Sauvegarder ou charger des configurations
                 </div>
@@ -455,6 +465,10 @@ import { saveDesignState, loadDesignState, resetDesignState } from './utils/pers
 // Import du MODULE 11 : Export Service (couche métier)
 import exportService from './services/exportService.js';
 
+// Import du MODULE 12 : Plan Guards + Toast System
+import planGuards from './utils/planGuards.js';
+import toast, { initToastContainer } from './utils/toast.js';
+
 // Import du système de plans
 import { getUserPlan, isPro, canExport, getRemainingExports, getExportCount } from './utils/planManager.js';
 import { canAccess } from './utils/plans.config.js';
@@ -503,6 +517,7 @@ export default {
       isUserMenuOpen: false, // État du menu utilisateur
       upgradeFeature: null, // Fonctionnalité à débloquer
       isExporting: false, // État d'export
+      exportQuotaInfo: null, // Informations sur le quota d'export
       isResetDropdownOpen: false, // État du dropdown de réinitialisation
       userPlan: 'free', // Plan utilisateur (free/pro)
       isAuthenticated: false, // État d'authentification
@@ -593,6 +608,14 @@ export default {
     }
   },
   methods: {
+    async loadExportQuota() {
+      try {
+        this.exportQuotaInfo = await exportService.getExportQuota()
+      } catch (error) {
+        console.error('Erreur lors du chargement du quota:', error)
+      }
+    },
+    
     handleClickOutside(event) {
       // Vérifier si le clic est en dehors des dropdowns
       const dropdown = event.target.closest('.relative');
@@ -651,6 +674,11 @@ export default {
     },
     
     openPresetModal() {
+      // ⛔ Guard: Vérifier le plan avant d'ouvrir la création de preset
+      if (!planGuards.canCreateDesignPreset()) {
+        return
+      }
+      
       // Fermer le dropdown d'édition
       this.isEditDropdownOpen = false
       // Ouvrir la modal des presets
@@ -663,7 +691,7 @@ export default {
     
     handleLoadPreset(preset) {
       if (!preset || !preset.values) {
-        alert('❌ Preset invalide')
+        toast.error('Preset invalide')
         return
       }
       
@@ -698,6 +726,11 @@ export default {
     applyPresetToDesign(presetValues) {
       if (!this.selectedDesign) return
       
+      // ⛔ Guard: Vérifier le plan avant d'appliquer le preset à tout le design
+      if (!planGuards.canApplyToAllScreens()) {
+        return
+      }
+      
       const config = this.designConfigs[this.selectedDesign]
       
       // Pour chaque écran du design
@@ -727,12 +760,17 @@ export default {
     handleDuplicate({ targetScreen }) {
       if (!this.selectedDesign || !this.selectedScreenId) return
       
+      // ⛔ Guard: Vérifier le plan avant de dupliquer
+      if (!planGuards.canDuplicateScreen()) {
+        return
+      }
+      
       // Récupérer l'état source
       const sourceKey = `${this.selectedDesign}_screen-${this.selectedScreenId}`
       const sourceState = this.modifications[sourceKey] || loadDesignState(this.selectedDesign)?.[`screen-${this.selectedScreenId}`]
       
       if (!sourceState) {
-        alert('Aucune modification à dupliquer')
+        toast.warning('Aucune modification à dupliquer')
         return
       }
       
@@ -776,6 +814,11 @@ export default {
     
     applyChangesToAll(edits) {
       if (!this.selectedDesign) return
+      
+      // ⛔ Guard: Vérifier le plan avant "Appliquer à tous"
+      if (!planGuards.canApplyToAllScreens()) {
+        return
+      }
       
       const config = this.designConfigs[this.selectedDesign]
       const allScreens = config.screens || []
@@ -999,7 +1042,7 @@ export default {
      */
     async handleExportScreen() {
       if (!this.selectedDesign || !this.selectedScreenId) {
-        alert('⚠️ Veuillez sélectionner un écran avant d\'exporter')
+        toast.warning('Veuillez sélectionner un écran avant d\'exporter')
         return
       }
       
@@ -1049,7 +1092,10 @@ export default {
           message += '\n\n💧 Watermark appliqué (version FREE)'
         }
         
-        alert(message)
+        toast.success(message.replace(/\n\n/g, ' - '))
+        
+        // Recharger le quota après l'export
+        await this.loadExportQuota()
         
       } catch (error) {
         console.error('❌ Erreur d\'export:', error)
@@ -1058,7 +1104,7 @@ export default {
         if (error.message.startsWith('QUOTA_EXCEEDED:')) {
           this.openUpgradeModal('exportLimit')
         } else {
-          alert(`❌ Erreur lors de l'export\n\n${error.message}`)
+          toast.error(`Erreur lors de l'export: ${error.message}`)
         }
       } finally {
         this.isExporting = false
@@ -1071,7 +1117,7 @@ export default {
      */
     async handleExportAllScreens() {
       if (!this.selectedDesign) {
-        alert('⚠️ Veuillez sélectionner un design avant d\'exporter')
+        toast.warning('Veuillez sélectionner un design avant d\'exporter')
         return
       }
       
@@ -1109,7 +1155,10 @@ export default {
           message += `\n\n📊 Exports restants : ${quota.remaining}/5`
         }
         
-        alert(message)
+        toast.success(message.replace(/\n\n/g, ' - '))
+        
+        // Recharger le quota après l'export
+        await this.loadExportQuota()
         
       } catch (error) {
         console.error('❌ Erreur d\'export:', error)
@@ -1117,7 +1166,7 @@ export default {
         if (error.message.startsWith('QUOTA_EXCEEDED:')) {
           this.openUpgradeModal('exportLimit')
         } else {
-          alert(`❌ Erreur lors de l'export\n\n${error.message}`)
+          toast.error(`Erreur lors de l'export: ${error.message}`)
         }
       } finally {
         this.isExporting = false
@@ -1219,7 +1268,7 @@ export default {
           ? '✅ Connexion réussie ! Vos projets ont été sauvegardés dans le cloud.'
           : '✅ Connexion réussie ! Vos données ont été chargées.';
         
-        alert(message);
+        toast.success(message.replace(/\n/g, ' - '));
         
         // Recharger pour appliquer les changements
         setTimeout(() => {
@@ -1227,7 +1276,7 @@ export default {
         }, 500);
       } catch (error) {
         console.error('❌ Erreur vérification magic link:', error);
-        alert('Erreur de connexion : ' + error.message);
+        toast.error('Erreur de connexion : ' + error.message);
         
         // Nettoyer l'URL
         window.history.replaceState({}, document.title, '/');
@@ -1271,7 +1320,7 @@ export default {
       this.syncStatus = { isSyncing: false, lastSyncTime: null };
       this.isUserMenuOpen = false;
       
-      alert('✅ Déconnecté avec succès');
+      toast.success('Déconnecté avec succès');
     },
     
     /**
@@ -1286,7 +1335,7 @@ export default {
         console.log(`[Stripe] Retour de checkout (session: ${sessionId})`)
         
         // Afficher un message de succès
-        alert('🎉 Abonnement activé !\n\nVotre statut sera mis à jour dans quelques instants.\n\nVeuillez rafraîchir la page après quelques secondes.')
+        toast.success('🎉 Abonnement activé ! Votre statut sera mis à jour dans quelques instants.', { duration: 5000 })
         
         // Nettoyer l'URL
         window.history.replaceState({}, document.title, window.location.pathname)
@@ -1300,7 +1349,7 @@ export default {
       // Canceled
       if (urlParams.has('canceled') && urlParams.get('canceled') === 'true') {
         console.log('[Stripe] Checkout annulé')
-        alert('❌ Paiement annulé\n\nVous pouvez réessayer à tout moment.')
+        toast.warning('Paiement annulé. Vous pouvez réessayer à tout moment.')
         
         // Nettoyer l'URL
         window.history.replaceState({}, document.title, window.location.pathname)
@@ -1318,7 +1367,7 @@ export default {
       this.isUserMenuOpen = false;
       this.syncStatus = { isSyncing: false, lastSyncTime: null };
       
-      alert('✅ Déconnexion réussie');
+      toast.success('Déconnexion réussie');
     },
     
     formatSyncTime(timestamp) {
@@ -1437,9 +1486,21 @@ export default {
   mounted() {
     this.initDarkMode();
     
+    // MODULE 12 : Initialiser le conteneur de toasts
+    initToastContainer();
+    
+    // Écouter les événements d'upgrade depuis les guards
+    window.addEventListener('open-upgrade-modal', (event) => {
+      const feature = event.detail?.feature
+      this.openUpgradeModal(feature)
+    });
+    
     // Charger le plan utilisateur
     this.userPlan = getUserPlan();
     console.log(`[App] Plan utilisateur: ${this.userPlan}`);
+    
+    // MODULE 11 & 12 : Charger le quota d'export
+    this.loadExportQuota();
     
     // Initialiser l'authentification
     this.initAuth();
