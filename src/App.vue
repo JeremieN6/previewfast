@@ -452,8 +452,8 @@ import BillingButton from './components/BillingButton.vue';
 // Import du module de persistance
 import { saveDesignState, loadDesignState, resetDesignState } from './utils/persistence.js';
 
-// Import du module d'export
-import { exportScreen, exportAllScreens } from './utils/export.js';
+// Import du MODULE 11 : Export Service (couche métier)
+import exportService from './services/exportService.js';
 
 // Import du système de plans
 import { getUserPlan, isPro, canExport, getRemainingExports, getExportCount } from './utils/planManager.js';
@@ -993,48 +993,85 @@ export default {
       console.log(`✅ Tous les designs ont été réinitialisés`)
     },
     
+    /**
+     * 🎯 MODULE 11 : Export d'un écran unique
+     * Utilise la couche métier exportService
+     */
     async handleExportScreen() {
       if (!this.selectedDesign || !this.selectedScreenId) {
-        alert('Aucun écran sélectionné')
+        alert('⚠️ Veuillez sélectionner un écran avant d\'exporter')
         return
       }
       
       this.isExporting = true
+      let progressMessage = ''
       
       try {
-        await exportScreen(this.selectedDesign, this.selectedScreenId)
+        // Appel de la couche métier centralisée
+        const result = await exportService.requestExport({
+          type: exportService.EXPORT_TYPE.SINGLE,
+          designId: this.selectedDesign,
+          screenId: this.selectedScreenId,
+          onProgress: (progress) => {
+            // Feedback visuel en temps réel
+            progressMessage = progress.message
+            console.log(`[App] Export progress: ${progress.status} - ${progress.message}`)
+            
+            if (progress.status === exportService.EXPORT_STATUS.QUOTA_EXCEEDED) {
+              // Quota dépassé : ouvrir la modal d'upgrade
+              this.openUpgradeModal('exportLimit')
+            }
+          }
+        })
         
-        // Mise à jour du compteur (si Free)
-        if (this.userPlan === 'free') {
-          // Le compteur est déjà incrémenté dans export.js
-          // On force juste un re-render pour mettre à jour l'affichage
-          this.$forceUpdate()
+        // Mise à jour de l'affichage du compteur
+        this.$forceUpdate()
+        
+        // Feedback de succès adapté
+        const quota = exportService.getExportQuota()
+        let message = '✅ Export réussi !'
+        
+        if (!quota.unlimited && quota.remaining !== null) {
+          if (quota.remaining === 0) {
+            message += '\n\n🚫 Vous avez atteint la limite de 5 exports gratuits.'
+            message += '\n💎 Passez PRO pour des exports illimités en HD !'
+            
+            // Ouvrir automatiquement la modal d'upgrade
+            setTimeout(() => this.openUpgradeModal('exportLimit'), 500)
+          } else if (quota.remaining <= 2) {
+            message += `\n\n⚠️ Attention : il vous reste ${quota.remaining} export(s) gratuit(s).`
+          } else {
+            message += `\n\n📊 Exports restants : ${quota.remaining}/5`
+          }
         }
         
-        // Feedback de succès
-        const remaining = getRemainingExports()
-        if (this.userPlan === 'free' && remaining <= 2) {
-          alert(`✅ Export réussi !\n\n⚠️ Attention : il vous reste ${remaining} export(s) gratuit(s).`)
-        } else {
-          console.log('✅ Export réussi')
+        if (result.data.watermarkApplied) {
+          message += '\n\n💧 Watermark appliqué (version FREE)'
         }
+        
+        alert(message)
+        
       } catch (error) {
         console.error('❌ Erreur d\'export:', error)
         
-        // Vérifier si c'est une erreur de quota
+        // Gestion des erreurs avec messages clairs
         if (error.message.startsWith('QUOTA_EXCEEDED:')) {
           this.openUpgradeModal('exportLimit')
         } else {
-          alert(`Erreur lors de l'export : ${error.message}`)
+          alert(`❌ Erreur lors de l'export\n\n${error.message}`)
         }
       } finally {
         this.isExporting = false
       }
     },
     
+    /**
+     * 🎯 MODULE 11 : Export de tous les écrans d'un design
+     * Utilise la couche métier exportService
+     */
     async handleExportAllScreens() {
       if (!this.selectedDesign) {
-        alert('Aucun design sélectionné')
+        alert('⚠️ Veuillez sélectionner un design avant d\'exporter')
         return
       }
       
@@ -1042,13 +1079,46 @@ export default {
       
       try {
         const config = this.designConfigs[this.selectedDesign]
-        await exportAllScreens(this.selectedDesign, config)
+        
+        // Appel de la couche métier centralisée
+        const result = await exportService.requestExport({
+          type: exportService.EXPORT_TYPE.ALL,
+          designId: this.selectedDesign,
+          designConfig: config,
+          onProgress: (progress) => {
+            console.log(`[App] Export all progress: ${progress.status} - ${progress.message}`)
+            
+            if (progress.status === exportService.EXPORT_STATUS.QUOTA_EXCEEDED) {
+              this.openUpgradeModal('exportLimit')
+            }
+          }
+        })
+        
+        // Mise à jour de l'affichage
+        this.$forceUpdate()
         
         // Feedback de succès
-        console.log('✅ Export de tous les écrans réussi')
+        const quota = exportService.getExportQuota()
+        let message = `✅ Export réussi !\n\n${result.data.screenCount} écran(s) exporté(s) en ZIP`
+        
+        if (result.data.watermarkApplied) {
+          message += '\n\n💧 Watermarks appliqués (version FREE)'
+        }
+        
+        if (!quota.unlimited && quota.remaining !== null) {
+          message += `\n\n📊 Exports restants : ${quota.remaining}/5`
+        }
+        
+        alert(message)
+        
       } catch (error) {
         console.error('❌ Erreur d\'export:', error)
-        alert(`Erreur lors de l'export : ${error.message}`)
+        
+        if (error.message.startsWith('QUOTA_EXCEEDED:')) {
+          this.openUpgradeModal('exportLimit')
+        } else {
+          alert(`❌ Erreur lors de l'export\n\n${error.message}`)
+        }
       } finally {
         this.isExporting = false
       }

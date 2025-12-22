@@ -290,6 +290,70 @@ app.get('/health', (req, res) => {
 })
 
 // ============================================================================
+// MODULE 11 : EXPORT TRACKING
+// ============================================================================
+
+/**
+ * POST /api/exports/log
+ * Logger un export effectué par l'utilisateur
+ */
+app.post('/api/exports/log', verifyJWT, async (req, res) => {
+  try {
+    const { designId, type, screenId, plan, timestamp } = req.body
+    const userId = req.user.userId
+    
+    console.log(`[Exports] Log export: user=${userId}, design=${designId}, type=${type}`)
+    
+    // Incrémenter le compteur d'exports si FREE
+    if (plan === 'free') {
+      await incrementUserExportCount(userId)
+    }
+    
+    // Vous pouvez ajouter une table exports_log si vous voulez tracker l'historique
+    // Pour l'instant, on se contente d'incrémenter le compteur
+    
+    res.json({
+      success: true,
+      message: 'Export loggé avec succès'
+    })
+  } catch (error) {
+    console.error('[Exports] Erreur log:', error)
+    res.status(500).json({ error: error.message })
+  }
+})
+
+/**
+ * GET /api/exports/quota
+ * Obtenir le quota d'exports de l'utilisateur
+ */
+app.get('/api/exports/quota', verifyJWT, async (req, res) => {
+  try {
+    const userId = req.user.userId
+    const userInfo = getUserInfo(userId)
+    
+    if (!userInfo) {
+      return res.status(404).json({ error: 'Utilisateur non trouvé' })
+    }
+    
+    const isPro = userInfo.plan === 'pro'
+    const limit = 5
+    const remaining = isPro ? null : Math.max(0, limit - userInfo.exportCount)
+    
+    res.json({
+      plan: userInfo.plan,
+      unlimited: isPro,
+      exportCount: userInfo.exportCount,
+      remaining,
+      limit: isPro ? null : limit,
+      canExport: isPro || userInfo.exportCount < limit
+    })
+  } catch (error) {
+    console.error('[Exports] Erreur quota:', error)
+    res.status(500).json({ error: error.message })
+  }
+})
+
+// ============================================================================
 // GESTION DES ERREURS 404
 // ============================================================================
 
