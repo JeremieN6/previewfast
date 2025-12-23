@@ -2,7 +2,7 @@
   <section class="bg-white dark:bg-gray-900">
     <div class="mx-auto flex max-w-screen-xl flex-col items-center px-4 py-12 text-center lg:py-8 lg:px-12">
       <RouterLink
-        to="/builder"
+        to="/atelier"
         class="inline-flex justify-between items-center py-1 px-1 pr-4 mb-7 text-sm text-gray-700 bg-gray-100 rounded-full dark:bg-gray-800 dark:text-white hover:bg-gray-200 hover:text-gray-700 dark:hover:bg-gray-700"
       >
         <span class="rounded-full bg-blue-600 px-4 py-1.5 text-xs text-white">Nouveau</span>
@@ -16,7 +16,7 @@
       </p>
       <div class="flex flex-col gap-4 sm:flex-row sm:justify-center">
         <RouterLink
-          to="/builder"
+          to="/atelier"
           class="inline-flex items-center justify-center rounded-lg bg-blue-700 px-6 py-3 text-base font-medium text-white hover:bg-blue-600"
         >
           Découvrir

@@ -42,7 +42,7 @@
           
           <!-- Bouton Lancer le builder -->
           <RouterLink
-            to="/template"
+            to="/atelier"
             class="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
           >
             Lancer le builder
@@ -89,7 +89,7 @@
             <RouterLink to="/" class="block rounded px-3 py-2 hover:text-blue-600" @click="closeMenu">Accueil</RouterLink>
           </li>
           <li>
-            <RouterLink to="/template" class="block rounded px-3 py-2 hover:text-blue-600" @click="closeMenu">Builder</RouterLink>
+            <RouterLink to="/atelier" class="block rounded px-3 py-2 hover:text-blue-600" @click="closeMenu">Atelier</RouterLink>
           </li>
           <li>
             <a href="/#features" class="block rounded px-3 py-2 hover:text-blue-600" @click="closeMenu">Fonctionnalités</a>

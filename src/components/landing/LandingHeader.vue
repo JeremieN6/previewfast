@@ -98,7 +98,7 @@ const isMenuOpen = ref(false)
 const isAuthenticated = ref(false)
 const router = useRouter()
 const navLinks = [
-    { href: '/template', label: 'Builder' },
+    { href: '/atelier', label: 'Atelier' },
     { href: '/#features', label: 'Fonctionnalités' },
     { href: '/#benefits', label: 'Bénéfices' },
     { href: '/#pricing', label: 'Tarifs' },

@@ -28,6 +28,20 @@
   justify-content: flex-end;
 }
 
+.myScreen-design-3 .visual-on-mockup {
+    position: absolute;
+    top: 10px;
+    left: 50.5%;
+    transform: translateX(-50%);
+    width: 81%;
+    height: 105%;
+    border-radius: 21px;
+    object-fit: cover;
+    pointer-events: none;
+    z-index: 1;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
 .myScreen-design-3 .mockup-iphone-design-3{
   width: 90%;
 }

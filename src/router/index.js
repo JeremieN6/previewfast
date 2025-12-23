@@ -23,7 +23,7 @@ const routes = [
     }
   },
     {
-    path: '/template',
+    path: '/atelier',
     name: 'New Builder',
     component: NewBuilder,
     meta: {

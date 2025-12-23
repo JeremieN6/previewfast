@@ -1,382 +1,288 @@
 <template>
   <!-- Wrapper Tailwind pour toute la page -->
-  <div class="bg-gray-100 dark:bg-gray-900 min-h-screen">
+  <div class="bg-gray-100 dark:bg-gray-900">
     <!-- Navigation -->
     <LandingNav />
     
     <!-- Titre et description -->
-    <div class="py-8 px-4 mx-auto max-w-screen-lg sm:py-16 lg:px-6">
-      <div class="title">
-        <h1 class="mb-4 text-3xl font-extrabold text-center tracking-tight leading-none text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
-          Créez des mockups professionnels en quelques clics
-        </h1>
-        <p class="mb-8 text-lg font-normal text-center text-gray-500 lg:text-xl sm:px-16 xl:px-28 dark:text-gray-400">
-          Créez des mockups professionnels en quelques clics grâce à PreviewFaster. Uploadez vos fichiers, choisissez un design, et générez des présentations impeccables en un instant.
-        </p>
-      </div>
-    </div>
-    
-    <!-- Container du builder avec la structure CSS custom -->
-    <section class="container-builder">
-      <div id="previewfaster-app">
-        <main class="hero" aria-labelledby="hero-title">
-          <Design1 
-            :screensCount="5" 
-            @screen-selected="handleScreenSelection('design-1', $event)"
-            :selectedScreenId="selectedDesign === 'design-1' ? selectedScreenId : null"
-          />
-          <Design2 
-            :screensCount="5"
-            @screen-selected="handleScreenSelection('design-2', $event)"
-            :selectedScreenId="selectedDesign === 'design-2' ? selectedScreenId : null"
-          />
-          <Design3 
-            :screensCount="5"
-            @screen-selected="handleScreenSelection('design-3', $event)"
-            :selectedScreenId="selectedDesign === 'design-3' ? selectedScreenId : null"
-          />
-          <Design4 
-            :screensCount="5"
-            @screen-selected="handleScreenSelection('design-4', $event)"
-            :selectedScreenId="selectedDesign === 'design-4' ? selectedScreenId : null"
-          />
-          <Design5 
-            :screensCount="5"
-            @screen-selected="handleScreenSelection('design-5', $event)"
-            :selectedScreenId="selectedDesign === 'design-5' ? selectedScreenId : null"
-          />
-          <Design6 
-            :screensCount="5"
-            @screen-selected="handleScreenSelection('design-6', $event)"
-            :selectedScreenId="selectedDesign === 'design-6' ? selectedScreenId : null"
-          />
-          <Design7 
-            :screensCount="5"
-            @screen-selected="handleScreenSelection('design-7', $event)"
-            :selectedScreenId="selectedDesign === 'design-7' ? selectedScreenId : null"
-          />
-        </main>
+    <main class="bg-gradient-to-b from-gray-50 via-white to-white py-12 dark:from-gray-900 dark:via-gray-900 dark:to-gray-950">
+      <div class="mx-auto px-4 sm:px-6 lg:px-8">
+        <div class=""><!--rounded-3xl bg-white/80 p-8 shadow-xl backdrop-blur dark:bg-gray-900/70-->
+          <div class="mb-10">
+            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-500">Builder Flowbite</p>
+            <h1 class="mt-3 text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">Mockups prêts en 3 étapes.</h1>
+            <p class="mt-4 max-w-3xl text-lg text-gray-600 dark:text-gray-300">
+              Uploade 5 à 10 captures, ajoutes tes cartes texte, filtre une catégorie et exporte instantanément 10 slides HD.
+            </p>
+          </div>
 
-    <!-- Badge Plan + Bouton Upgrade (fixed en haut à droite) -->
-    <div class="fixed top-4 right-4 z-40 flex items-center gap-3">
-      <!-- Badge plan actuel -->
-      <!--<div :class="[
-        'px-4 py-2 rounded-lg font-medium text-sm shadow-lg flex items-center gap-2',
-        userPlan === 'pro' 
-          ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
-          : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
-      ]">
-        <svg v-if="userPlan === 'pro'" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-        </svg>
-        <span>{{ userPlan === 'pro' ? 'Plan Pro' : 'Plan Free' }}</span>
-      </div>-->
-      
-      <!-- Bouton upgrade (uniquement si Free) -->
-      <button
-        v-if="userPlan === 'free'"
-        @click="openUpgradeModal(null)"
-        class="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
-      >
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-        </svg>
-        Passer en Pro
-      </button>
-      
-      <!-- Compteur exports (uniquement si Free) -->
-      <div 
-        v-if="userPlan === 'free'" 
-        class="px-3 py-2 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 rounded-lg text-sm font-medium"
-        :title="`${remainingExports} export(s) restant(s)`"
-      >
-        📊 {{ exportCount }}/5 exports
-      </div>
-    </div>
+          <div class="grid gap-10 lg:grid-cols-[340px,1fr]">
+            <div class="space-y-8">
+              <div class="space-y-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Importer vos assets</h2>
+                <ScreenshotUploader />
+              </div>
+            </div>
+            <!-- Container du builder avec la structure CSS custom -->
+            <div class="space-y-12 overflow-x-auto overflow-y-hidden">
+                <section class="container-builder">
+                <div id="previewfaster-app">
+                    <main class="hero" aria-labelledby="hero-title">
+                    <Design1 
+                        :screensCount="5" 
+                        @screen-selected="handleScreenSelection('design-1', $event)"
+                        :selectedScreenId="selectedDesign === 'design-1' ? selectedScreenId : null"
+                    />
+                    <Design2 
+                        :screensCount="5"
+                        @screen-selected="handleScreenSelection('design-2', $event)"
+                        :selectedScreenId="selectedDesign === 'design-2' ? selectedScreenId : null"
+                    />
+                    <Design3 
+                        :screensCount="5"
+                        @screen-selected="handleScreenSelection('design-3', $event)"
+                        :selectedScreenId="selectedDesign === 'design-3' ? selectedScreenId : null"
+                    />
+                    <Design4 
+                        :screensCount="5"
+                        @screen-selected="handleScreenSelection('design-4', $event)"
+                        :selectedScreenId="selectedDesign === 'design-4' ? selectedScreenId : null"
+                    />
+                    <Design5 
+                        :screensCount="5"
+                        @screen-selected="handleScreenSelection('design-5', $event)"
+                        :selectedScreenId="selectedDesign === 'design-5' ? selectedScreenId : null"
+                    />
+                    <Design6 
+                        :screensCount="5"
+                        @screen-selected="handleScreenSelection('design-6', $event)"
+                        :selectedScreenId="selectedDesign === 'design-6' ? selectedScreenId : null"
+                    />
+                    <Design7 
+                        :screensCount="5"
+                        @screen-selected="handleScreenSelection('design-7', $event)"
+                        :selectedScreenId="selectedDesign === 'design-7' ? selectedScreenId : null"
+                    />
+                    </main>
 
-    <!-- Bouton Modifier (uniquement si écran sélectionné) -->
-    <div v-if="selectedDesign && selectedScreenId" class="fixed right-4 bottom-20 z-50 flex flex-col gap-3">
-      <!-- Menu Modifier avec dropdown -->
-      <div class="relative" data-dropdown="edit">
-        <button
-          @click="isEditDropdownOpen = !isEditDropdownOpen"
-          type="button"
-          class="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl flex items-center justify-between gap-2"
-          title="Options d'édition"
-          aria-label="Ouvrir le menu d'édition"
-        >
-          <span class="flex items-center gap-2">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-            </svg>
-            Modifier
-          </span>
-          <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': isEditDropdownOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-          </svg>
-        </button>
-        
-        <!-- Menu dropdown édition -->
-        <div
-          v-show="isEditDropdownOpen"
-          class="absolute bottom-full right-0 mb-2 w-72 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-600 overflow-hidden"
-        >
-          <!-- Option 1 : Modifier cet écran -->
-          <button
-            @click="openEditModal"
-            type="button"
-            class="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors border-b border-gray-200 dark:border-gray-600"
-          >
-            <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 mt-0.5 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-              </svg>
-              <div>
-                <div class="font-medium text-gray-900 dark:text-white">Modifier cet écran</div>
-                <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                  Éditer les valeurs de l'écran {{ selectedScreenId }}
+                <!-- Badge Plan + Bouton Upgrade (fixed en haut à droite) -->
+                <div class="fixed top-4 right-4 z-40 flex items-center gap-3">
+                <!-- Badge plan actuel -->
+                
+                <!-- Bouton upgrade (uniquement si Free) -->
+                <button
+                    v-if="userPlan === 'free'"
+                    @click="openUpgradeModal(null)"
+                    class="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
+                >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    Passer en Pro
+                </button>
+                
+                <!-- Compteur exports (uniquement si Free) -->
+                <div 
+                    v-if="userPlan === 'free'" 
+                    class="px-3 py-2 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 rounded-lg text-sm font-medium"
+                    :title="`${remainingExports} export(s) restant(s)`"
+                >
+                    📊 {{ exportCount }}/5 exports
                 </div>
-              </div>
+                </div>
+
+                <!-- Actions flottantes : un seul bouton qui ouvre une modale regroupant tout -->
+                <div v-if="selectedDesign && selectedScreenId" class="fixed right-4 bottom-20 z-50">
+                  <button
+                    type="button"
+                    class="flex items-center gap-2 rounded-full bg-blue-600 px-5 py-3 text-white shadow-lg transition hover:translate-y-[-1px] hover:bg-blue-700 hover:shadow-xl"
+                    @click="openActionsModal"
+                  >
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                    Actions (écran {{ selectedScreenId }})
+                  </button>
+                </div>
+
+                <!-- Modale unique d'actions -->
+                <div v-if="isActionsModalOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+                  <div class="relative w-full max-w-4xl rounded-2xl bg-white p-6 shadow-2xl dark:bg-gray-900">
+                    <button
+                      type="button"
+                      class="absolute right-3 top-3 rounded-full p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-800"
+                      @click="closeActionsModal"
+                      aria-label="Fermer la modale"
+                    >
+                      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+
+                    <header class="mb-6">
+                      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-500">Actions rapides</p>
+                      <h3 class="mt-2 text-2xl font-bold text-gray-900 dark:text-white">Écran {{ selectedScreenId }} · {{ selectedDesign }}</h3>
+                      <p class="text-sm text-gray-500 dark:text-gray-400">Choisis une action pour l'écran sélectionné.</p>
+                    </header>
+
+                    <div class="grid gap-6 md:grid-cols-3">
+                      <!-- Section Édition -->
+                      <div class="rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-gray-800 dark:bg-gray-800/60">
+                        <div class="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-800 dark:text-gray-100">
+                          <span class="text-base">📝</span> Édition
+                        </div>
+                        <div class="space-y-2">
+                          <button
+                            class="flex w-full items-center justify-between rounded-lg bg-white px-3 py-2 text-left text-sm font-medium text-gray-800 shadow-sm ring-1 ring-gray-200 transition hover:-translate-y-0.5 hover:shadow-md dark:bg-gray-900 dark:text-gray-100 dark:ring-gray-700"
+                            @click="triggerEdit"
+                          >
+                            <span>✏️ Modifier cet écran</span>
+                            <span class="text-gray-400">↵</span>
+                          </button>
+                          <button
+                            class="flex w-full items-center justify-between rounded-lg bg-white px-3 py-2 text-left text-sm font-medium text-gray-800 shadow-sm ring-1 ring-gray-200 transition hover:-translate-y-0.5 hover:shadow-md dark:bg-gray-900 dark:text-gray-100 dark:ring-gray-700"
+                            @click="triggerDuplicate"
+                          >
+                            <span>📋 Dupliquer vers...</span>
+                            <span class="text-gray-400">↵</span>
+                          </button>
+                          <button
+                            class="flex w-full items-center justify-between rounded-lg bg-white px-3 py-2 text-left text-sm font-medium text-gray-800 shadow-sm ring-1 ring-gray-200 transition hover:-translate-y-0.5 hover:shadow-md dark:bg-gray-900 dark:text-gray-100 dark:ring-gray-700"
+                            @click="triggerApplyAll"
+                          >
+                            <span>📱 Appliquer à tous (🔒 Pro)</span>
+                            <span class="text-gray-400">↵</span>
+                          </button>
+                          <button
+                            class="flex w-full items-center justify-between rounded-lg bg-white px-3 py-2 text-left text-sm font-medium text-gray-800 shadow-sm ring-1 ring-gray-200 transition hover:-translate-y-0.5 hover:shadow-md dark:bg-gray-900 dark:text-gray-100 dark:ring-gray-700"
+                            @click="triggerPreset"
+                          >
+                            <span>🔖 Presets (🔒 Pro)</span>
+                            <span class="text-gray-400">↵</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      <!-- Section Export -->
+                      <div class="rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-gray-800 dark:bg-gray-800/60">
+                        <div class="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-800 dark:text-gray-100">
+                          <span class="text-base">📤</span> Export
+                        </div>
+                        <div class="space-y-2">
+                          <button
+                            class="flex w-full items-center justify-between rounded-lg bg-white px-3 py-2 text-left text-sm font-medium text-gray-800 shadow-sm ring-1 ring-gray-200 transition hover:-translate-y-0.5 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60 dark:bg-gray-900 dark:text-gray-100 dark:ring-gray-700"
+                            @click="triggerExportScreen"
+                            :disabled="isExporting"
+                          >
+                            <span>🖼️ Exporter cet écran</span>
+                            <span class="text-gray-400">↵</span>
+                          </button>
+                          <button
+                            class="flex w-full items-center justify-between rounded-lg bg-white px-3 py-2 text-left text-sm font-medium text-gray-800 shadow-sm ring-1 ring-gray-200 transition hover:-translate-y-0.5 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60 dark:bg-gray-900 dark:text-gray-100 dark:ring-gray-700"
+                            @click="triggerExportDesign"
+                            :disabled="isExporting"
+                          >
+                            <span>📦 Exporter ce design (zip)</span>
+                            <span class="text-gray-400">↵</span>
+                          </button>
+                          <button
+                            class="flex w-full items-center justify-between rounded-lg bg-white px-3 py-2 text-left text-sm font-medium text-gray-800 shadow-sm ring-1 ring-gray-200 transition hover:-translate-y-0.5 hover:shadow-md dark:bg-gray-900 dark:text-gray-100 dark:ring-gray-700"
+                            @click="triggerExportAll"
+                          >
+                            <span>🌍 Exporter tous (🔒 Pro)</span>
+                            <span class="text-gray-400">↵</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      <!-- Section Réinitialisation -->
+                      <div class="rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-gray-800 dark:bg-gray-800/60">
+                        <div class="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-800 dark:text-gray-100">
+                          <span class="text-base">🔄</span> Réinitialisation
+                        </div>
+                        <div class="space-y-2">
+                          <button
+                            class="flex w-full items-center justify-between rounded-lg bg-white px-3 py-2 text-left text-sm font-medium text-gray-800 shadow-sm ring-1 ring-gray-200 transition hover:-translate-y-0.5 hover:shadow-md dark:bg-gray-900 dark:text-gray-100 dark:ring-gray-700"
+                            @click="triggerResetScreen"
+                          >
+                            <span>↩️ Cet écran uniquement</span>
+                            <span class="text-gray-400">↵</span>
+                          </button>
+                          <button
+                            class="flex w-full items-center justify-between rounded-lg bg-white px-3 py-2 text-left text-sm font-medium text-gray-800 shadow-sm ring-1 ring-gray-200 transition hover:-translate-y-0.5 hover:shadow-md dark:bg-gray-900 dark:text-gray-100 dark:ring-gray-700"
+                            @click="triggerResetDesign"
+                          >
+                            <span>🎨 Ce design complet</span>
+                            <span class="text-gray-400">↵</span>
+                          </button>
+                          <button
+                            class="flex w-full items-center justify-between rounded-lg bg-white px-3 py-2 text-left text-sm font-medium text-gray-800 shadow-sm ring-1 ring-gray-200 transition hover:-translate-y-0.5 hover:shadow-md dark:bg-gray-900 dark:text-gray-100 dark:ring-gray-700"
+                            @click="triggerResetAll"
+                          >
+                            <span>⚠️ Tous les designs</span>
+                            <span class="text-gray-400">↵</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Modale d'édition -->
+                <EditModal
+                :isOpen="isEditModalOpen"
+                :screenData="currentScreenData"
+                :designConfig="selectedDesign ? designConfigs[selectedDesign] : null"
+                @close="closeEditModal"
+                @apply-changes="applyChanges"
+                @apply-to-all="applyChangesToAll"
+                @upgrade-required="openUpgradeModal"
+                />
+                
+                <!-- Modale de duplication -->
+                <DuplicateModal
+                :isOpen="isDuplicateModalOpen"
+                :sourceDesign="selectedDesign"
+                :sourceScreen="selectedScreenId"
+                :designConfig="selectedDesign ? designConfigs[selectedDesign] : null"
+                @close="closeDuplicateModal"
+                @duplicate="handleDuplicate"
+                />    
+                <!-- Modal des presets -->
+                <PresetModal
+                :isOpen="isPresetModalOpen"
+                :designId="selectedDesign"
+                :currentScreen="selectedScreenId"
+                :currentEdits="selectedDesign && selectedScreenId ? modifications[`${selectedDesign}-screen-${selectedScreenId}`] || {} : {}"
+                @close="closePresetModal"
+                @load-preset="handleLoadPreset"
+                />
+                
+                <!-- Modal d'upgrade -->
+                <UpgradeModal
+                :isOpen="isUpgradeModalOpen"
+                :feature="upgradeFeature || 'duplicateScreens'"
+                @close="closeUpgradeModal"
+                />
+                
+                <!-- Modal d'authentification -->
+                <AuthModal
+                :isOpen="isAuthModalOpen"
+                @close="closeAuthModal"
+                @success="handleAuthSuccess"
+                />
+                    </div> <!-- Close #previewfaster-app -->
+                </section>
             </div>
-          </button>
-          
-          <!-- Option 2 : Dupliquer vers un autre écran -->
-          <button
-            @click="handleDuplicateClick"
-            type="button"
-            :disabled="planGuards.isFeatureDisabled('DUPLICATE_SCREEN')"
-            :class="[
-              'w-full px-4 py-3 text-left transition-colors border-b border-gray-200 dark:border-gray-600',
-              !planGuards.isFeatureDisabled('DUPLICATE_SCREEN')
-                ? 'hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer'
-                : 'opacity-50 cursor-not-allowed'
-            ]"
-            :title="planGuards.getFeatureTooltip('DUPLICATE_SCREEN')"
-          >
-            <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 mt-0.5 text-indigo-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-              </svg>
-              <div class="flex-1">
-                <div class="font-medium text-gray-900 dark:text-white flex items-center gap-2">
-                  Dupliquer vers...
-                  <span v-html="planGuards.getFeatureBadge('DUPLICATE_SCREEN')"></span>
-                </div>
-                <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                  Copier cet écran sur un autre écran
-                </div>
-              </div>
-            </div>
-          </button>
-          
-          <!-- Option 3 : Appliquer à tous (désactivée pour l'instant) -->
-          <button
-            type="button"
-            disabled
-            class="w-full px-4 py-3 text-left opacity-50 cursor-not-allowed border-b border-gray-200 dark:border-gray-600"
-          >
-            <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 mt-0.5 text-purple-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
-              </svg>
-              <div>
-                <div class="font-medium text-gray-400 dark:text-gray-500">Appliquer à tous</div>
-                <div class="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
-                  Prochainement disponible
-                </div>
-              </div>
-            </div>
-          </button>
-          
-          <!-- Option 4 : Presets -->
-          <button
-            @click="openPresetModal"
-            type="button"
-            :disabled="planGuards.isFeatureDisabled('CREATE_PRESET')"
-            :class="[
-              'w-full px-4 py-3 text-left transition-colors',
-              !planGuards.isFeatureDisabled('CREATE_PRESET')
-                ? 'hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer'
-                : 'opacity-50 cursor-not-allowed'
-            ]"
-            :title="planGuards.getFeatureTooltip('CREATE_PRESET')"
-          >
-            <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 mt-0.5 text-amber-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
-              </svg>
-              <div class="flex-1">
-                <div class="font-medium text-gray-900 dark:text-white flex items-center gap-2">
-                  Presets
-                  <span v-html="planGuards.getFeatureBadge('CREATE_PRESET')"></span>
-                </div>
-                <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                  Sauvegarder ou charger des configurations
-                </div>
-              </div>
-            </div>
-          </button>
+            <!-- Close container-builder -->
+          </div>
         </div>
       </div>
-      
-      <!-- Bouton Exporter cet écran -->
-      <button
-        @click="handleExportScreen"
-        type="button"
-        :disabled="isExporting"
-        class="bg-green-600 hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium px-6 py-3 rounded-lg shadow-lg transition-all flex items-center gap-2"
-        title="Exporter cet écran en PNG"
-      >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-        </svg>
-        {{ isExporting ? 'Export...' : 'Exporter écran' }}
-      </button>
-      
-      <!-- Bouton Exporter tous les écrans du design -->
-      <button
-        @click="handleExportAllScreens"
-        type="button"
-        :disabled="isExporting"
-        class="bg-purple-600 hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium px-6 py-3 rounded-lg shadow-lg transition-all flex items-center gap-2"
-        title="Exporter tous les écrans de ce design en ZIP"
-      >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path>
-        </svg>
-        {{ isExporting ? 'Export...' : 'Exporter tout' }}
-      </button>
-      
-      <!-- Bouton Réinitialiser avec dropdown -->
-      <div class="relative" data-dropdown="reset">
-        <button
-          @click="isResetDropdownOpen = !isResetDropdownOpen"
-          type="button"
-          class="w-full px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl flex items-center justify-between gap-2"
-          title="Options de réinitialisation"
-          aria-label="Ouvrir le menu de réinitialisation"
-        >
-          <span class="flex items-center gap-2">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-            </svg>
-            Réinitialiser
-          </span>
-          <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': isResetDropdownOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-          </svg>
-        </button>
-        
-        <!-- Menu dropdown -->
-        <div
-          v-show="isResetDropdownOpen"
-          class="absolute bottom-full right-0 mb-2 w-72 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-600 overflow-hidden"
-        >
-          <!-- Option 1 : Cet écran -->
-          <button
-            @click="resetCurrentScreen"
-            type="button"
-            class="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors border-b border-gray-200 dark:border-gray-600"
-          >
-            <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 mt-0.5 text-orange-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-              </svg>
-              <div>
-                <div class="font-medium text-gray-900 dark:text-white">Cet écran uniquement</div>
-                <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                  {{ selectedDesign }}, écran {{ selectedScreenId }}
-                </div>
-              </div>
-            </div>
-          </button>
-          
-          <!-- Option 2 : Ce design -->
-          <button
-            @click="resetCurrentDesign"
-            type="button"
-            class="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors border-b border-gray-200 dark:border-gray-600"
-          >
-            <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 mt-0.5 text-yellow-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
-              </svg>
-              <div>
-                <div class="font-medium text-gray-900 dark:text-white">Ce design complet</div>
-                <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                  {{ selectedDesign }} (5 écrans)
-                </div>
-              </div>
-            </div>
-          </button>
-          
-          <!-- Option 3 : Tous les designs -->
-          <button
-            @click="resetAllDesigns"
-            type="button"
-            class="w-full px-4 py-3 text-left hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
-          >
-            <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 mt-0.5 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-              </svg>
-              <div>
-                <div class="font-medium text-red-600 dark:text-red-400">⚠️ Tous les designs</div>
-                <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                  7 designs × 5 écrans = 35 écrans
-                </div>
-              </div>
-            </div>
-          </button>
-        </div>
-      </div>
-    </div>
+    </main>
 
-    <!-- Modale d'édition -->
-    <EditModal
-      :isOpen="isEditModalOpen"
-      :screenData="currentScreenData"
-      :designConfig="selectedDesign ? designConfigs[selectedDesign] : null"
-      @close="closeEditModal"
-      @apply-changes="applyChanges"
-      @apply-to-all="applyChangesToAll"
-      @upgrade-required="openUpgradeModal"
-    />
+    <LandingNewsletter />
+    <LandingFooter />
     
-    <!-- Modale de duplication -->
-    <DuplicateModal
-      :isOpen="isDuplicateModalOpen"
-      :sourceDesign="selectedDesign"
-      :sourceScreen="selectedScreenId"
-      :designConfig="selectedDesign ? designConfigs[selectedDesign] : null"
-      @close="closeDuplicateModal"
-      @duplicate="handleDuplicate"
-    />    
-    <!-- Modal des presets -->
-    <PresetModal
-      :isOpen="isPresetModalOpen"
-      :designId="selectedDesign"
-      :currentScreen="selectedScreenId"
-      :currentEdits="selectedDesign && selectedScreenId ? modifications[`${selectedDesign}-screen-${selectedScreenId}`] || {} : {}"
-      @close="closePresetModal"
-      @load-preset="handleLoadPreset"
-    />
-    
-    <!-- Modal d'upgrade -->
-    <UpgradeModal
-      :isOpen="isUpgradeModalOpen"
-      :feature="upgradeFeature || 'duplicateScreens'"
-      @close="closeUpgradeModal"
-    />
-    
-    <!-- Modal d'authentification -->
-    <AuthModal
-      :isOpen="isAuthModalOpen"
-      @close="closeAuthModal"
-      @success="handleAuthSuccess"
-    />
-        </div> <!-- Close #previewfaster-app -->
-      </section> <!-- Close container-builder -->
   </div> <!-- Close min-h-screen wrapper -->
 </template>
 
@@ -398,6 +304,9 @@ import UpgradeModal from '../components/UpgradeModal.vue';
 import AuthModal from '../components/AuthModal.vue';
 import BillingButton from '../components/BillingButton.vue';
 import LandingNav from '../components/landing/LandingNav.vue';
+import LandingNewsletter from '../components/landing/LandingNewsletter.vue';
+import LandingFooter from '../components/landing/LandingFooter.vue';
+import ScreenshotUploader from '../components/ScreenshotUploader.vue';
 
 
 // Import du module de persistance
@@ -443,7 +352,10 @@ export default {
     UpgradeModal,
     AuthModal,
     BillingButton,
-    LandingNav
+    LandingNav,
+    LandingNewsletter,
+    LandingFooter,
+    ScreenshotUploader
   },
   data() {
     return {
@@ -459,6 +371,7 @@ export default {
       isExporting: false, // État d'export
       exportQuotaInfo: null, // Informations sur le quota d'export
       isResetDropdownOpen: false, // État du dropdown de réinitialisation
+      isActionsModalOpen: false, // Modale unique d'actions
       userPlan: 'free', // Plan utilisateur (free/pro)
       isAuthenticated: false, // État d'authentification
       userEmail: null, // Email de l'utilisateur connecté
@@ -574,10 +487,73 @@ export default {
         }
       }
     },
+
+    openActionsModal() {
+      this.isActionsModalOpen = true
+    },
+
+    closeActionsModal() {
+      this.isActionsModalOpen = false
+    },
     
     handleScreenSelection(designId, screenNum) {
       this.selectedDesign = designId
       this.selectedScreenId = screenNum
+    },
+
+    triggerEdit() {
+      this.closeActionsModal()
+      this.openEditModal()
+    },
+
+    triggerDuplicate() {
+      this.closeActionsModal()
+      this.handleDuplicateClick()
+    },
+
+    triggerApplyAll() {
+      this.closeActionsModal()
+      if (!planGuards.canApplyToAllScreens()) {
+        this.openUpgradeModal('applyToAllScreens')
+        return
+      }
+      // S'il n'y a pas d'édition en cours, on avertit simplement.
+      toast.info('Appliquer à tous nécessite des modifications sur un écran source.')
+    },
+
+    triggerPreset() {
+      this.closeActionsModal()
+      this.openPresetModal()
+    },
+
+    triggerExportScreen() {
+      this.closeActionsModal()
+      this.handleExportScreen()
+    },
+
+    triggerExportDesign() {
+      this.closeActionsModal()
+      this.handleExportAllScreens()
+    },
+
+    triggerExportAll() {
+      this.closeActionsModal()
+      this.openUpgradeModal('exportAllDesigns')
+    },
+
+    triggerResetScreen() {
+      this.closeActionsModal()
+      this.resetCurrentScreen()
+    },
+
+    triggerResetDesign() {
+      this.closeActionsModal()
+      this.resetCurrentDesign()
+    },
+
+    triggerResetAll() {
+      this.closeActionsModal()
+      this.resetAllDesigns()
     },
     
     openEditModal() {
