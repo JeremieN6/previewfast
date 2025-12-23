@@ -17,7 +17,7 @@
         <div class="container-img-design-4 container-img-design-4-screen-1">
           <div class="mockup-wrapper-design-4" data-screen="1">
             <img src="/assets/mockup/adam-mockup-9.png" alt="mockup-iphone" class="mockup-iphone-design-4">
-            <img src="/assets/tmp/screenshot1.jpg" alt="default-visual" class="visual-on-mockup">
+            <img :src="imageFor(1)" alt="visual" class="visual-on-mockup">
           </div>
         </div>
       </div>
@@ -38,7 +38,7 @@
         <div class="container-img-design-4 container-img-design-4-screen-2">
           <div class="mockup-wrapper-design-4" data-screen="2">
             <img src="/assets/mockup/adam-mockup-9.png" alt="mockup-iphone" class="mockup-iphone-design-4">
-            <img src="/assets/tmp/screenshot1.jpg" alt="default-visual" class="visual-on-mockup">
+            <img :src="imageFor(2)" alt="visual" class="visual-on-mockup">
           </div>
         </div>
       </div>
@@ -59,7 +59,7 @@
         <div class="container-img-design-4 container-img-design-4-screen-3">
           <img src="/assets/mockup/adam-mockup-4.png" alt="mockup-iphone" class="mockup-iphone-design-4">
           <span class="default-design-notch" aria-hidden="true"></span>
-          <img src="/assets/tmp/screenshot.jpg" alt="default-visual" class="visual-on-mockup">
+          <img :src="imageFor(3)" alt="visual" class="visual-on-mockup">
         </div>
       </div>
 
@@ -79,7 +79,7 @@
         <div class="container-img-design-4 container-img-design-4-screen-4">
           <img src="/assets/mockup/adam-mockup-5.png" alt="mockup-iphone" class="mockup-iphone-design-4">
           <span class="default-design-notch" aria-hidden="true"></span>
-          <img src="/assets/tmp/screenshot.jpg" alt="default-visual" class="visual-on-mockup">
+          <img :src="imageFor(4)" alt="visual" class="visual-on-mockup">
         </div>
       </div>
 
@@ -99,7 +99,7 @@
         <div class="container-img-design-4 container-img-design-4-screen-5">
           <img src="/assets/mockup/adam-mockup-2bis.png" alt="mockup-iphone" class="mockup-iphone-design-4 mockup-iphone-design-4-screen-5">
           <span class="default-design-notch" aria-hidden="true"></span>
-          <img src="/assets/tmp/screenshot.jpg" alt="default-visual" class="visual-on-mockup">
+          <img :src="imageFor(5)" alt="visual" class="visual-on-mockup">
         </div>
       </div>
     </div>
@@ -107,6 +107,7 @@
 </template>
 
 <script>
+import { useBuilderStore } from '../../store/builderStore'
 import designConfig from '../../../configs/designs/design-4.json'
 
 export default {
@@ -123,12 +124,39 @@ export default {
   },
   data() {
     return {
-      config: designConfig
+      config: designConfig,
+      store: useBuilderStore(),
+      fallbackImages: {
+        1: '/assets/tmp/screenshot1.jpg',
+        2: '/assets/tmp/screenshot1.jpg',
+        3: '/assets/tmp/screenshot.jpg',
+        4: '/assets/tmp/screenshot.jpg',
+        5: '/assets/tmp/screenshot.jpg'
+      }
+    }
+  },
+  computed: {
+    screenshotUrls() {
+      return this.store.state.screenshots.map((s) => s.url)
+    },
+    hasEnoughShots() {
+      return this.screenshotUrls.length >= 5
     }
   },
   methods: {
     selectScreen(screenNum) {
       this.$emit('screen-selected', screenNum)
+    },
+    imageFor(screenNum) {
+      if (this.hasEnoughShots) {
+        const primary = this.screenshotUrls[0]
+        // Design 4: les écrans 1 et 2 doivent rester identiques, et les écrans 3/4 réutilisent aussi l'image 1
+        if ([1, 2, 3, 4].includes(screenNum)) {
+          return primary
+        }
+        return this.screenshotUrls[(screenNum - 1) % this.screenshotUrls.length]
+      }
+      return this.fallbackImages[screenNum] || '/assets/tmp/screenshot.jpg'
     }
   },
   mounted() {

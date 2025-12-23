@@ -20,7 +20,7 @@
         <div class="design-5-mockup">
           <img src="/assets/mockup/adam-mockup-2bis.png" alt="Mockup iPhone" />
           <span class="default-design-notch" aria-hidden="true"></span>
-          <img src="/assets/tmp/screenshot.jpg" alt="default-visual" class="visual-on-mockup" />
+          <img :src="imageFor(1)" alt="visual" class="visual-on-mockup" />
         </div>
       </div>
 
@@ -42,7 +42,7 @@
         <div class="design-5-mockup">
             <img src="/assets/mockup/adam-mockup-1bis.png" class="img-mockup" alt="Mockup iPhone">
             <span class="default-design-notch" aria-hidden="true"></span>
-            <img src="/assets/tmp/screenshot.jpg" alt="default-visual" class="visual-on-mockup">            
+            <img :src="imageFor(2)" alt="visual" class="visual-on-mockup">            
         </div>
       </div>
 
@@ -62,7 +62,7 @@
         <div class="design-5-mockup">
           <img src="/assets/mockup/adam-mockup-2bis.png" alt="Mockup iPhone" />
           <span class="default-design-notch" aria-hidden="true"></span>
-          <img src="/assets/tmp/screenshot.jpg" alt="default-visual" class="visual-on-mockup" />
+          <img :src="imageFor(3)" alt="visual" class="visual-on-mockup" />
         </div>
       </div>
 
@@ -82,7 +82,7 @@
         <div class="design-5-mockup">
           <img src="/assets/mockup/adam-mockup-1bis.png" class="img-mockup" alt="Mockup iPhone" />
           <span class="default-design-notch" aria-hidden="true"></span>
-          <img src="/assets/tmp/screenshot1.jpg" alt="default-visual" class="visual-on-mockup">
+          <img :src="imageFor(4)" alt="visual" class="visual-on-mockup">
         </div>
       </div>
 
@@ -103,7 +103,7 @@
         <div class="design-5-mockup">
           <img src="/assets/mockup/adam-mockup-2bis.png" alt="Mockup iPhone" />
           <span class="default-design-notch" aria-hidden="true"></span>
-          <img src="/assets/tmp/screenshot.jpg" alt="default-visual" class="visual-on-mockup" />            
+          <img :src="imageFor(5)" alt="visual" class="visual-on-mockup" />            
         </div>
       </div>
     </div>
@@ -111,6 +111,7 @@
 </template>
 
 <script>
+import { useBuilderStore } from '../../store/builderStore'
 import designConfig from '../../../configs/designs/design-5.json'
 
 export default {
@@ -127,12 +128,34 @@ export default {
   },
   data() {
     return {
-      config: designConfig
+      config: designConfig,
+      store: useBuilderStore(),
+      fallbackImages: {
+        1: '/assets/tmp/screenshot.jpg',
+        2: '/assets/tmp/screenshot.jpg',
+        3: '/assets/tmp/screenshot.jpg',
+        4: '/assets/tmp/screenshot1.jpg',
+        5: '/assets/tmp/screenshot.jpg'
+      }
+    }
+  },
+  computed: {
+    screenshotUrls() {
+      return this.store.state.screenshots.map((s) => s.url)
+    },
+    hasEnoughShots() {
+      return this.screenshotUrls.length >= 5
     }
   },
   methods: {
     selectScreen(screenNum) {
       this.$emit('screen-selected', screenNum)
+    },
+    imageFor(screenNum) {
+      if (this.hasEnoughShots) {
+        return this.screenshotUrls[(screenNum - 1) % this.screenshotUrls.length]
+      }
+      return this.fallbackImages[screenNum] || '/assets/tmp/screenshot.jpg'
     }
   },
   mounted() {

@@ -9,10 +9,10 @@
       <div class="mx-auto px-4 sm:px-6 lg:px-8">
         <div class=""><!--rounded-3xl bg-white/80 p-8 shadow-xl backdrop-blur dark:bg-gray-900/70-->
           <div class="mb-10">
-            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-500">Builder Flowbite</p>
+            <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-500">L'atelier previewfast</p>
             <h1 class="mt-3 text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">Mockups prêts en 3 étapes.</h1>
             <p class="mt-4 max-w-3xl text-lg text-gray-600 dark:text-gray-300">
-              Uploade 5 à 10 captures, ajoutes tes cartes texte, filtre une catégorie et exporte instantanément 10 slides HD.
+              Upload 5 à 10 captures, ajoutes tes textes, modifie la couleur, le dégradé ou l'image de fond et exporte instantanément 10 slides HD.
             </p>
           </div>
 
@@ -24,7 +24,10 @@
               </div>
             </div>
             <!-- Container du builder avec la structure CSS custom -->
-            <div class="space-y-12 overflow-x-auto overflow-y-hidden">
+            <div
+              class="space-y-12 overflow-x-auto overflow-y-hidden transition-opacity duration-300"
+              :class="assetsReady ? 'builder-loaded' : 'opacity-0 pointer-events-none'"
+            >
                 <section class="container-builder">
                 <div id="previewfaster-app">
                     <main class="hero" aria-labelledby="hero-title">
@@ -92,10 +95,10 @@
                 </div>
 
                 <!-- Actions flottantes : un seul bouton qui ouvre une modale regroupant tout -->
-                <div v-if="selectedDesign && selectedScreenId" class="fixed right-4 bottom-20 z-50">
+                <div v-if="selectedDesign && selectedScreenId" class="actions-fab fixed inset-x-0 bottom-6 z-50 flex justify-center">
                   <button
                     type="button"
-                    class="flex items-center gap-2 rounded-full bg-blue-600 px-5 py-3 text-white shadow-lg transition hover:translate-y-[-1px] hover:bg-blue-700 hover:shadow-xl"
+                    class="inline-flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:translate-y-[-2px] hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900"
                     @click="openActionsModal"
                   >
                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -106,7 +109,7 @@
                 </div>
 
                 <!-- Modale unique d'actions -->
-                <div v-if="isActionsModalOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+                <div v-if="isActionsModalOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4" @click.self="closeActionsModal">
                   <div class="relative w-full max-w-4xl rounded-2xl bg-white p-6 shadow-2xl dark:bg-gray-900">
                     <button
                       type="button"
@@ -382,6 +385,7 @@ export default {
         syncing: false,
       },
       syncDebounceTimer: null, // Timer pour debounce de sync
+      assetsReady: false, // Contrôle l'affichage des maquettes quand tout est chargé
       designConfigs: {
         'design-1': design1Config,
         'design-2': design2Config,
@@ -462,6 +466,47 @@ export default {
     }
   },
   methods: {
+    modKey(designId, screenId) {
+      return `${designId}-screen-${screenId}`
+    },
+
+    storageKey(designId) {
+      return `previewfaster_design_${designId}`
+    },
+
+    persistDesignStateObject(designId, state) {
+      const key = this.storageKey(designId)
+      if (!state || Object.keys(state).length === 0) {
+        localStorage.removeItem(key)
+      } else {
+        localStorage.setItem(key, JSON.stringify(state))
+      }
+    },
+
+    async waitForMockups() {
+      const mockupImgs = Array.from(document.querySelectorAll("img[src*='/assets/mockup']"))
+      if (!mockupImgs.length) {
+        this.assetsReady = true
+        return
+      }
+
+      const pending = mockupImgs
+        .filter((img) => !img.complete)
+        .map((img) => new Promise((resolve) => {
+          img.onload = () => resolve()
+          img.onerror = () => resolve()
+        }))
+
+      if (pending.length === 0) {
+        this.assetsReady = true
+        return
+      }
+
+      const timeout = new Promise((resolve) => setTimeout(resolve, 800))
+      await Promise.race([Promise.all(pending), timeout])
+      this.assetsReady = true
+    },
+
     async loadExportQuota() {
       try {
         this.exportQuotaInfo = await exportService.getExportQuota()
@@ -688,7 +733,7 @@ export default {
       }
       
       // Récupérer l'état source
-      const sourceKey = `${this.selectedDesign}_screen-${this.selectedScreenId}`
+      const sourceKey = this.modKey(this.selectedDesign, this.selectedScreenId)
       const sourceState = this.modifications[sourceKey] || loadDesignState(this.selectedDesign)?.[`screen-${this.selectedScreenId}`]
       
       if (!sourceState) {
@@ -697,7 +742,7 @@ export default {
       }
       
       // Copier l'état vers la cible
-      const targetKey = `${this.selectedDesign}_screen-${targetScreen}`
+      const targetKey = this.modKey(this.selectedDesign, targetScreen)
       this.modifications[targetKey] = { ...sourceState }
       
       // Sauvegarder dans localStorage
@@ -718,7 +763,7 @@ export default {
     
     applyChanges(edits) {
       // Stocker les modifications
-      const key = `${this.selectedDesign}-screen-${this.selectedScreenId}`
+      const key = this.modKey(this.selectedDesign, this.selectedScreenId)
       this.modifications[key] = edits
       
       // Appliquer les modifications au DOM
@@ -766,7 +811,7 @@ export default {
         
         // Si des éditions compatibles existent, les sauvegarder
         if (Object.keys(compatibleEdits).length > 0) {
-          const key = `${this.selectedDesign}_screen-${screenNum}`
+          const key = this.modKey(this.selectedDesign, screenNum)
           
           // Fusionner avec les modifications existantes
           this.modifications[key] = {
@@ -806,6 +851,11 @@ export default {
         
         if (!zone) {
           console.warn(`[App] Zone not found: ${zoneId}`)
+          return
+        }
+
+        if (zone.type === 'image' && zone.id.toLowerCase().includes('mockup')) {
+          console.warn(`[App] Modification ignorée sur mockup: ${zoneId}`)
           return
         }
         
@@ -855,18 +905,23 @@ export default {
       this.isResetDropdownOpen = false
       
       // Pas de confirmation pour un seul écran (risque faible)
-      const key = `${this.selectedDesign}_screen-${this.selectedScreenId}`
-      
+      const key = this.modKey(this.selectedDesign, this.selectedScreenId)
+      const legacyKey = `${this.selectedDesign}_screen-${this.selectedScreenId}`
+
       // Supprimer de l'état local
       if (this.modifications[key]) {
         delete this.modifications[key]
       }
+      if (this.modifications[legacyKey]) {
+        delete this.modifications[legacyKey]
+      }
       
       // Supprimer du localStorage
       const savedState = loadDesignState(this.selectedDesign)
-      if (savedState && savedState[`screen-${this.selectedScreenId}`]) {
-        delete savedState[`screen-${this.selectedScreenId}`]
-        saveDesignState(this.selectedDesign, savedState)
+      const screenKey = `screen-${this.selectedScreenId}`
+      if (savedState && savedState[screenKey]) {
+        delete savedState[screenKey]
+        this.persistDesignStateObject(this.selectedDesign, savedState)
       }
       
       // Recharger la page pour réinitialiser visuellement
@@ -916,45 +971,27 @@ export default {
     resetAllDesigns() {
       // Fermer le dropdown
       this.isResetDropdownOpen = false
-      
+
       // Compter toutes les modifications
       const totalModifications = Object.keys(this.modifications).length
-      
-      // Confirmation renforcée (toujours afficher, même sans modifications)
-      const message = totalModifications > 0
-        ? `🚨 ATTENTION : Réinitialiser TOUS les designs !\n\n` +
-          `Cela supprimera TOUTES les modifications sur les 7 designs (35 écrans).\n` +
-          `Vous avez actuellement ${totalModifications} modification(s).\n\n` +
-          `⚠️ Cette action est IRRÉVERSIBLE !\n\n` +
-          `Êtes-vous absolument certain de vouloir continuer ?`
-        : `🚨 Réinitialiser TOUS les designs ?\n\n` +
-          `Cela réinitialisera les 7 designs (35 écrans).\n\n` +
-          `Voulez-vous continuer ?`
-      
-      const confirm = window.confirm(message)
-      
-      if (!confirm) return
-      
-      // Double confirmation pour les actions critiques
-      const doubleConfirm = window.confirm(
-        `⚠️ Dernière confirmation\n\n` +
-        `Vous êtes sur le point de TOUT réinitialiser.\n` +
-        `Cliquez sur OK pour confirmer définitivement.`
-      )
-      
-      if (!doubleConfirm) return
-      
-      // Réinitialiser tous les designs
+      const warningText = totalModifications > 0
+        ? `🚨 Réinitialiser TOUS les designs : ${totalModifications} modification(s) seront supprimées.`
+        : '🚨 Réinitialiser TOUS les designs (35 écrans).'
+
+      toast.warning(warningText, {
+        duration: 8000,
+        action: 'Confirmer',
+        onAction: () => this.performResetAllDesigns()
+      })
+    },
+
+    performResetAllDesigns() {
       Object.keys(this.designConfigs).forEach(designId => {
         resetDesignState(designId)
       })
-      
-      // Vider l'état local
+
       this.modifications = {}
-      
-      // Recharger la page
       window.location.reload()
-      
       console.log(`✅ Tous les designs ont été réinitialisés`)
     },
     
@@ -1337,6 +1374,10 @@ export default {
               const zone = screen.editableZones.find(z => z.id === zoneId)
               
               if (!zone) return
+
+              if (zone.type === 'image' && zone.id.toLowerCase().includes('mockup')) {
+                return
+              }
               
               // Pour le background, si le sélecteur cible l'écran lui-même, appliquer directement
               let targetElement
@@ -1370,8 +1411,8 @@ export default {
             })
             
             // Stocker dans modifications locales
-            const key = `${designId}-${screenId}`
-            this.modifications[key] = edits
+            const modKey = this.modKey(designId, screenNum)
+            this.modifications[modKey] = edits
           })
         })
       })
@@ -1404,6 +1445,7 @@ export default {
     // Restaurer les modifications sauvegardées
     this.$nextTick(() => {
       this.restoreAllDesigns();
+      this.waitForMockups();
     });
     
     // Fermer le dropdown si on clique ailleurs
@@ -1416,3 +1458,24 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.actions-fab {
+  animation: fab-slide-up 0.35s ease-out;
+}
+
+.builder-loaded {
+  opacity: 1;
+}
+
+@keyframes fab-slide-up {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+</style>

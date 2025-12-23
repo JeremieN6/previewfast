@@ -21,7 +21,7 @@
         <div class="container-img-design-3">
           <img src="/assets/mockup/adam-mockup-2bis.png" alt="mockup-iphone" class="mockup-iphone-design-3">
           <span class="default-design-notch" aria-hidden="true"></span>
-          <img src="/assets/tmp/screenshot.jpg" alt="default-visual" class="visual-on-mockup">
+          <img :src="imageFor(screenNum)" alt="visual" class="visual-on-mockup">
         </div>
       </div>
     </div>
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { useBuilderStore } from '../../store/builderStore'
 import designConfig from '../../../configs/designs/design-3.json'
 
 export default {
@@ -45,12 +46,27 @@ export default {
   },
   data() {
     return {
-      config: designConfig
+      config: designConfig,
+      store: useBuilderStore()
+    }
+  },
+  computed: {
+    screenshotUrls() {
+      return this.store.state.screenshots.map((s) => s.url)
+    },
+    hasEnoughShots() {
+      return this.screenshotUrls.length >= 5
     }
   },
   methods: {
     selectScreen(screenNum) {
       this.$emit('screen-selected', screenNum)
+    },
+    imageFor(screenNum) {
+      if (this.hasEnoughShots) {
+        return this.screenshotUrls[(screenNum - 1) % this.screenshotUrls.length]
+      }
+      return '/assets/tmp/screenshot.jpg'
     }
   },
   mounted() {
