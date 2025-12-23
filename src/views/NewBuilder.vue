@@ -57,65 +57,10 @@
           />
         </main>
 
-    <!-- Badge Plan + Bouton Upgrade (toujours visible) -->
+    <!-- Badge Plan + Bouton Upgrade (fixed en haut à droite) -->
     <div class="fixed top-4 right-4 z-40 flex items-center gap-3">
-      <!-- Bouton Auth / User Info -->
-      <div v-if="isAuthenticated" class="relative" data-user-menu>
-        <button
-          @click="isUserMenuOpen = !isUserMenuOpen"
-          class="px-4 py-2 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg font-medium text-sm shadow-lg flex items-center gap-2 border border-gray-200 dark:border-gray-600 transition-all"
-        >
-          <div class="w-6 h-6 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center text-white text-xs font-bold">
-            {{ userEmail ? userEmail[0].toUpperCase() : 'U' }}
-          </div>
-          <span class="text-gray-700 dark:text-gray-300">{{ userEmail }}</span>
-          <svg class="w-4 h-4" :class="{ 'rotate-180': isUserMenuOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-          </svg>
-        </button>
-        
-        <!-- User dropdown menu -->
-        <div
-          v-show="isUserMenuOpen"
-          class="absolute top-full right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-600 overflow-hidden"
-        >
-          <div class="px-4 py-3 border-b border-gray-200 dark:border-gray-600">
-            <div class="text-xs text-gray-500 dark:text-gray-400">Connecté en tant que</div>
-            <div class="font-medium text-gray-900 dark:text-white">{{ userEmail }}</div>
-            <div v-if="syncStatus.lastSyncTime" class="text-xs text-green-600 dark:text-green-400 mt-1">
-              ✓ Synchronisé {{ formatSyncTime(syncStatus.lastSyncTime) }}
-            </div>
-          </div>
-          
-          <!-- Bouton Billing Portal (si Pro) -->
-          <BillingButton v-if="userPlan === 'pro'" />
-          
-          <button
-            @click="handleLogout"
-            class="w-full px-4 py-3 text-left hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center gap-2 text-red-600 dark:text-red-400"
-          >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-            </svg>
-            Se déconnecter
-          </button>
-        </div>
-      </div>
-      
-      <!-- Bouton connexion (si non authentifié) -->
-      <button
-        v-else
-        @click="openAuthModal"
-        class="px-4 py-2 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-medium rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2 border border-gray-200 dark:border-gray-600"
-      >
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"></path>
-        </svg>
-        Sauvegarder mes projets
-      </button>
-      
       <!-- Badge plan actuel -->
-      <div :class="[
+      <!--<div :class="[
         'px-4 py-2 rounded-lg font-medium text-sm shadow-lg flex items-center gap-2',
         userPlan === 'pro' 
           ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
@@ -125,7 +70,7 @@
           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
         </svg>
         <span>{{ userPlan === 'pro' ? 'Plan Pro' : 'Plan Free' }}</span>
-      </div>
+      </div>-->
       
       <!-- Bouton upgrade (uniquement si Free) -->
       <button
@@ -510,7 +455,6 @@ export default {
       isPresetModalOpen: false, // État de la modal des presets
       isUpgradeModalOpen: false, // État de la modal d'upgrade
       isAuthModalOpen: false, // État de la modal d'authentification
-      isUserMenuOpen: false, // État du menu utilisateur
       upgradeFeature: null, // Fonctionnalité à débloquer
       isExporting: false, // État d'export
       exportQuotaInfo: null, // Informations sur le quota d'export
@@ -627,14 +571,6 @@ export default {
         const editDropdown = document.querySelector('[data-dropdown="edit"]')?.closest('.relative')
         if (editDropdown && !editDropdown.contains(event.target)) {
           this.isEditDropdownOpen = false
-        }
-      }
-      
-      // Fermer le menu utilisateur si on clique en dehors
-      if (this.isUserMenuOpen) {
-        const userMenu = event.target.closest('[data-user-menu]')
-        if (!userMenu) {
-          this.isUserMenuOpen = false
         }
       }
     },
@@ -1270,7 +1206,6 @@ export default {
     
     openAuthModal() {
       this.isAuthModalOpen = true;
-      this.isUserMenuOpen = false;
     },
     
     closeAuthModal() {
@@ -1349,7 +1284,6 @@ export default {
       authService.logout();
       this.isAuthenticated = false;
       this.userEmail = null;
-      this.isUserMenuOpen = false;
       this.syncStatus = { isSyncing: false, lastSyncTime: null };
       
       toast.success('Déconnexion réussie');

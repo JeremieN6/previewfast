@@ -25,9 +25,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, provide, computed } from 'vue'
+import authService from './services/authService.js'
+import { getUserPlan } from './utils/planManager.js'
 
 const isDarkMode = ref(false)
+const isAuthenticated = ref(false)
+const userEmail = ref(null)
+const userPlan = ref('free')
+const lastSyncTime = ref(null)
 
 // Initialiser le mode sombre au chargement
 onMounted(() => {
@@ -41,7 +47,72 @@ onMounted(() => {
     isDarkMode.value = false
     document.documentElement.classList.remove('dark')
   }
+  
+  // Initialiser l'état d'authentification
+  initAuth()
 })
+
+// Initialiser l'authentification
+const initAuth = () => {
+  isAuthenticated.value = authService.isAuthenticated()
+  
+  if (isAuthenticated.value) {
+    userEmail.value = authService.getUserEmail()
+    userPlan.value = getUserPlan()
+    
+    // Formater le temps de sync (à adapter selon ton système)
+    const lastSync = localStorage.getItem('last-sync-time')
+    if (lastSync) {
+      lastSyncTime.value = formatSyncTime(lastSync)
+    }
+  }
+}
+
+// Formater le temps de synchronisation
+const formatSyncTime = (timestamp) => {
+  const now = Date.now()
+  const diff = now - parseInt(timestamp)
+  const minutes = Math.floor(diff / 60000)
+  const hours = Math.floor(minutes / 60)
+  const days = Math.floor(hours / 24)
+  
+  if (minutes < 1) return 'à l\'instant'
+  if (minutes < 60) return `il y a ${minutes} min`
+  if (hours < 24) return `il y a ${hours} h`
+  return `il y a ${days} j`
+}
+
+// Déconnexion
+const handleLogout = () => {
+  authService.logout()
+  isAuthenticated.value = false
+  userEmail.value = null
+  userPlan.value = 'free'
+  lastSyncTime.value = null
+  
+  // Rediriger vers la page d'accueil
+  window.location.href = '/'
+}
+
+// Gérer l'abonnement (Stripe billing portal)
+const handleBilling = async () => {
+  try {
+    const response = await fetch('http://localhost:3001/api/stripe/create-billing-portal-session', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('auth-token')}`
+      }
+    })
+    
+    const data = await response.json()
+    if (data.url) {
+      window.location.href = data.url
+    }
+  } catch (error) {
+    console.error('Erreur billing portal:', error)
+  }
+}
 
 // Toggle dark mode
 const toggleDarkMode = () => {
@@ -55,6 +126,17 @@ const toggleDarkMode = () => {
     localStorage.setItem('color-theme', 'light')
   }
 }
+
+// Provide auth state to all components
+provide('auth', {
+  isAuthenticated: computed(() => isAuthenticated.value),
+  userEmail: computed(() => userEmail.value),
+  userPlan: computed(() => userPlan.value),
+  lastSyncTime: computed(() => lastSyncTime.value),
+  logout: handleLogout,
+  billing: handleBilling,
+  refreshAuth: initAuth
+})
 </script>
 
 <style>
