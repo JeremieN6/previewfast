@@ -1,17 +1,22 @@
 <template>
-  <header class="border-b border-gray-100 bg-white dark:border-gray-800 dark:bg-gray-900">
+  <header class="border-b border-gray-100 bg-white dark:border-gray-800 dark:bg-gray-800">
     <nav class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between px-4 py-4 lg:px-6">
       <RouterLink to="/" class="flex items-center gap-2 text-xl font-semibold text-gray-700 dark:text-white">
         <span class="text-3xl">⚡</span>
         PreviewFast
       </RouterLink>
       <div class="flex items-center gap-3 lg:order-2">
-        <RouterLink
-          to="/builder"
-          class="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
-        >
-          Lancer le builder
-        </RouterLink>
+        <div class="hidden md:flex items-center space-x-3">
+            <a href="/" class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-4 py-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700">
+                Connexion
+            </a>
+          <RouterLink
+            to="/builder"
+            class="inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+          >
+            Lancer le builder
+          </RouterLink>
+        </div>
         <button
           type="button"
           class="inline-flex items-center rounded-lg p-2 text-sm text-gray-500 transition hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 lg:hidden"
@@ -56,10 +61,10 @@
             <RouterLink to="/builder" class="block rounded px-3 py-2 hover:text-blue-600" @click="closeMenu">Builder</RouterLink>
           </li>
           <li>
-            <a href="#features" class="block rounded px-3 py-2 hover:text-blue-600" @click="closeMenu">Fonctionnalités</a>
+            <a href="/#features" class="block rounded px-3 py-2 hover:text-blue-600" @click="closeMenu">Fonctionnalités</a>
           </li>
           <li>
-            <a href="#faq" class="block rounded px-3 py-2 hover:text-blue-600" @click="closeMenu">FAQ</a>
+            <a href="/#faq" class="block rounded px-3 py-2 hover:text-blue-600" @click="closeMenu">FAQ</a>
           </li>
           <li>
             <button type="button" class="px-3 py-2 text-left hover:text-blue-600" @click="openEmail">Contact</button>

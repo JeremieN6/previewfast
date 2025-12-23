@@ -1,47 +1,66 @@
 <template>
-  <div id="previewfaster-app">
-    <main class="hero" aria-labelledby="hero-title">
-      <Design1 
-        :screensCount="5" 
-        @screen-selected="handleScreenSelection('design-1', $event)"
-        :selectedScreenId="selectedDesign === 'design-1' ? selectedScreenId : null"
-      />
-      <Design2 
-        :screensCount="5"
-        @screen-selected="handleScreenSelection('design-2', $event)"
-        :selectedScreenId="selectedDesign === 'design-2' ? selectedScreenId : null"
-      />
-      <Design3 
-        :screensCount="5"
-        @screen-selected="handleScreenSelection('design-3', $event)"
-        :selectedScreenId="selectedDesign === 'design-3' ? selectedScreenId : null"
-      />
-      <Design4 
-        :screensCount="5"
-        @screen-selected="handleScreenSelection('design-4', $event)"
-        :selectedScreenId="selectedDesign === 'design-4' ? selectedScreenId : null"
-      />
-      <Design5 
-        :screensCount="5"
-        @screen-selected="handleScreenSelection('design-5', $event)"
-        :selectedScreenId="selectedDesign === 'design-5' ? selectedScreenId : null"
-      />
-      <Design6 
-        :screensCount="5"
-        @screen-selected="handleScreenSelection('design-6', $event)"
-        :selectedScreenId="selectedDesign === 'design-6' ? selectedScreenId : null"
-      />
-      <Design7 
-        :screensCount="5"
-        @screen-selected="handleScreenSelection('design-7', $event)"
-        :selectedScreenId="selectedDesign === 'design-7' ? selectedScreenId : null"
-      />
-    </main>
+  <!-- Wrapper Tailwind pour toute la page -->
+  <div class="bg-gray-100 dark:bg-gray-900 min-h-screen">
+    <!-- Navigation -->
+    <LandingNav />
+    
+    <!-- Titre et description -->
+    <div class="py-8 px-4 mx-auto max-w-screen-lg sm:py-16 lg:px-6">
+      <div class="title">
+        <h1 class="mb-4 text-3xl font-extrabold text-center tracking-tight leading-none text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
+          Créez des mockups professionnels en quelques clics
+        </h1>
+        <p class="mb-8 text-lg font-normal text-center text-gray-500 lg:text-xl sm:px-16 xl:px-28 dark:text-gray-400">
+          Créez des mockups professionnels en quelques clics grâce à PreviewFaster. Uploadez vos fichiers, choisissez un design, et générez des présentations impeccables en un instant.
+        </p>
+      </div>
+    </div>
+    
+    <!-- Container du builder avec la structure CSS custom -->
+    <section class="container-builder">
+      <div id="previewfaster-app">
+        <main class="hero" aria-labelledby="hero-title">
+          <Design1 
+            :screensCount="5" 
+            @screen-selected="handleScreenSelection('design-1', $event)"
+            :selectedScreenId="selectedDesign === 'design-1' ? selectedScreenId : null"
+          />
+          <Design2 
+            :screensCount="5"
+            @screen-selected="handleScreenSelection('design-2', $event)"
+            :selectedScreenId="selectedDesign === 'design-2' ? selectedScreenId : null"
+          />
+          <Design3 
+            :screensCount="5"
+            @screen-selected="handleScreenSelection('design-3', $event)"
+            :selectedScreenId="selectedDesign === 'design-3' ? selectedScreenId : null"
+          />
+          <Design4 
+            :screensCount="5"
+            @screen-selected="handleScreenSelection('design-4', $event)"
+            :selectedScreenId="selectedDesign === 'design-4' ? selectedScreenId : null"
+          />
+          <Design5 
+            :screensCount="5"
+            @screen-selected="handleScreenSelection('design-5', $event)"
+            :selectedScreenId="selectedDesign === 'design-5' ? selectedScreenId : null"
+          />
+          <Design6 
+            :screensCount="5"
+            @screen-selected="handleScreenSelection('design-6', $event)"
+            :selectedScreenId="selectedDesign === 'design-6' ? selectedScreenId : null"
+          />
+          <Design7 
+            :screensCount="5"
+            @screen-selected="handleScreenSelection('design-7', $event)"
+            :selectedScreenId="selectedDesign === 'design-7' ? selectedScreenId : null"
+          />
+        </main>
 
     <!-- Badge Plan + Bouton Upgrade (toujours visible) -->
     <div class="fixed top-4 right-4 z-40 flex items-center gap-3">
       <!-- Bouton Auth / User Info -->
-      <div v-if="isAuthenticated" class="relative">
+      <div v-if="isAuthenticated" class="relative" data-user-menu>
         <button
           @click="isUserMenuOpen = !isUserMenuOpen"
           class="px-4 py-2 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg font-medium text-sm shadow-lg flex items-center gap-2 border border-gray-200 dark:border-gray-600 transition-all"
@@ -133,7 +152,7 @@
     <!-- Bouton Modifier (uniquement si écran sélectionné) -->
     <div v-if="selectedDesign && selectedScreenId" class="fixed right-4 bottom-20 z-50 flex flex-col gap-3">
       <!-- Menu Modifier avec dropdown -->
-      <div class="relative">
+      <div class="relative" data-dropdown="edit">
         <button
           @click="isEditDropdownOpen = !isEditDropdownOpen"
           type="button"
@@ -284,7 +303,7 @@
       </button>
       
       <!-- Bouton Réinitialiser avec dropdown -->
-      <div class="relative">
+      <div class="relative" data-dropdown="reset">
         <button
           @click="isResetDropdownOpen = !isResetDropdownOpen"
           type="button"
@@ -368,26 +387,6 @@
       </div>
     </div>
 
-    <!-- Bouton toggle dark mode -->
-    <div class="fixed right-4 bottom-4 z-50">
-      <button
-        @click="toggleDarkMode"
-        type="button"
-        class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 transition-colors duration-300 bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-600"
-        title="Basculer le mode sombre"
-        aria-label="Basculer le thème"
-      >
-        <!-- Icône lune (mode dark) -->
-        <svg v-show="!isDarkMode" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-          <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-        </svg>
-        <!-- Icône soleil (mode light) -->
-        <svg v-show="isDarkMode" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-          <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
-        </svg>
-      </button>
-    </div>
-
     <!-- Modale d'édition -->
     <EditModal
       :isOpen="isEditModalOpen"
@@ -431,10 +430,15 @@
       @close="closeAuthModal"
       @success="handleAuthSuccess"
     />
-  </div>
+        </div> <!-- Close #previewfaster-app -->
+      </section> <!-- Close container-builder -->
+  </div> <!-- Close min-h-screen wrapper -->
 </template>
 
 <script>
+// Import styles.css uniquement pour le Builder
+import '/styles.css';
+
 import Design1 from '../components/designs/Design1.vue';
 import Design2 from '../components/designs/Design2.vue';
 import Design3 from '../components/designs/Design3.vue';
@@ -448,6 +452,7 @@ import PresetModal from '../components/PresetModal.vue';
 import UpgradeModal from '../components/UpgradeModal.vue';
 import AuthModal from '../components/AuthModal.vue';
 import BillingButton from '../components/BillingButton.vue';
+import LandingNav from '../components/landing/LandingNav.vue';
 
 
 // Import du module de persistance
@@ -492,11 +497,11 @@ export default {
     PresetModal,
     UpgradeModal,
     AuthModal,
-    BillingButton
+    BillingButton,
+    LandingNav
   },
   data() {
     return {
-      isDarkMode: false,
       selectedDesign: null,
       selectedScreenId: null,
       isEditModalOpen: false,
@@ -529,7 +534,8 @@ export default {
         'design-6': design6Config,
         'design-7': design7Config
       },
-      modifications: {} // Store des modifications locales
+      modifications: {}, // Store des modifications locales
+      planGuards: planGuards // Expose planGuards pour le template
     }
   },
   computed: {
@@ -608,14 +614,27 @@ export default {
     },
     
     handleClickOutside(event) {
-      // Vérifier si le clic est en dehors des dropdowns
-      const dropdown = event.target.closest('.relative');
-      if (!dropdown) {
-        if (this.isResetDropdownOpen) {
-          this.isResetDropdownOpen = false;
+      // Fermer le dropdown de réinitialisation si on clique en dehors
+      if (this.isResetDropdownOpen) {
+        const resetDropdown = document.querySelector('[data-dropdown="reset"]')?.closest('.relative')
+        if (resetDropdown && !resetDropdown.contains(event.target)) {
+          this.isResetDropdownOpen = false
         }
-        if (this.isEditDropdownOpen) {
-          this.isEditDropdownOpen = false;
+      }
+      
+      // Fermer le dropdown d'édition si on clique en dehors
+      if (this.isEditDropdownOpen) {
+        const editDropdown = document.querySelector('[data-dropdown="edit"]')?.closest('.relative')
+        if (editDropdown && !editDropdown.contains(event.target)) {
+          this.isEditDropdownOpen = false
+        }
+      }
+      
+      // Fermer le menu utilisateur si on clique en dehors
+      if (this.isUserMenuOpen) {
+        const userMenu = event.target.closest('[data-user-menu]')
+        if (!userMenu) {
+          this.isUserMenuOpen = false
         }
       }
     },
@@ -1164,31 +1183,6 @@ export default {
       }
     },
     
-    toggleDarkMode() {
-      this.isDarkMode = !this.isDarkMode;
-
-      if (this.isDarkMode) {
-        document.documentElement.classList.add('dark');
-        localStorage.setItem('color-theme', 'dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-        localStorage.setItem('color-theme', 'light');
-      }
-    },
-
-    initDarkMode() {
-      const savedTheme = localStorage.getItem('color-theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-        this.isDarkMode = true;
-        document.documentElement.classList.add('dark');
-      } else {
-        this.isDarkMode = false;
-        document.documentElement.classList.remove('dark');
-      }
-    },
-    
     // ============================================
     // MÉTHODES D'AUTHENTIFICATION
     // ============================================
@@ -1475,8 +1469,6 @@ export default {
   },
 
   mounted() {
-    this.initDarkMode();
-    
     // MODULE 12 : Initialiser le conteneur de toasts
     initToastContainer();
     

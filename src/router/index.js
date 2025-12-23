@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Builder from '../views/Builder.vue'
+import BuilderBackup from '../views/BuilderBackup.vue'
+import NewBuilder from '../views/NewBuilder.vue'
 import LandingPage from '../components/page/LandingPage.vue'
 
 const routes = [
@@ -13,9 +14,18 @@ const routes = [
     }
   },
   {
+    path: '/template-backup',
+    name: 'Builder Backup',
+    component: BuilderBackup,
+    meta: {
+      title: 'Builder Backup - PreviewFaster',
+      description: 'Créez vos mockups mobiles avec le builder PreviewFaster'
+    }
+  },
+    {
     path: '/template',
-    name: 'Builder',
-    component: Builder,
+    name: 'New Builder',
+    component: NewBuilder,
     meta: {
       title: 'Builder - PreviewFaster',
       description: 'Créez vos mockups mobiles avec le builder PreviewFaster'

@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-gray-100 dark:bg-gray-900">
+  <section class="bg-white dark:bg-gray-800">
     <div class="mx-auto max-w-screen-xl px-4 py-16 lg:px-6">
       <div class="mx-auto mb-12 max-w-2xl text-center">
         <span class="text-sm font-semibold uppercase tracking-widest text-blue-600">Comment ça marche</span>

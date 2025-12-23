@@ -6,7 +6,6 @@ import router from './router'
 import './style.css'
 
 // Import CSS existants (dans le même ordre que l'original)
-import '/styles.css'
 import '/styles/designer-shell.css'
 import '/designs/design-1/design-1.layout.css'
 import '/designs/design-2/design-2.layout.css'
