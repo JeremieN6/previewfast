@@ -1,15 +1,15 @@
 <template>
-  <section class="bg-white dark:bg-gray-900">
+  <section class="bg-gray-100 dark:bg-gray-900">
     <div class="mx-auto flex max-w-screen-xl flex-col items-center px-4 py-12 text-center lg:py-8 lg:px-12">
       <RouterLink
         to="/atelier"
-        class="inline-flex justify-between items-center py-1 px-1 pr-4 mb-7 text-sm text-gray-700 bg-gray-100 rounded-full dark:bg-gray-800 dark:text-white hover:bg-gray-200 hover:text-gray-700 dark:hover:bg-gray-700"
+        class="inline-flex justify-between items-center py-1 px-1 pr-4 mb-7 text-sm text-gray-800 bg-gray-200 rounded-full dark:bg-gray-800 dark:text-white hover:bg-gray-300 hover:text-gray-700 dark:hover:bg-gray-700"
       >
         <span class="rounded-full bg-blue-600 px-4 py-1.5 text-xs text-white">Nouveau</span>
-        <span class="px-3 text-sm font-medium italic">Le builder PreviewFast est dispo ⚡</span>
+        <span class="px-3 text-sm font-medium italic">Le Preset PreviewFast est sorti 🎉</span>
       </RouterLink>
       <h1 class="mb-4 text-4xl italic font-extrabold leading-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-        Créez des <span class="text-gradient">mockups mobiles</span> en 2 clics.
+        Créez des <br> <span class="text-gradient">mockups mobiles</span> en 2 clics.
       </h1>
       <p class="mb-10 max-w-3xl text-lg text-gray-600 dark:text-gray-300">
         Importez vos captures, choisissez parmi les meilleurs templates iOS puis exportez en HD. PreviewFast automatise toutes les tâches répétitives pour accélérer vos livrables marketing.
@@ -35,7 +35,7 @@
           <svg class="mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zm12.553 1.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
           </svg>
-          Démo (bientôt)
+          Démo (à venir)
         </button>
       </div>
     </div>

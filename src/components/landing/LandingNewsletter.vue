@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-gray-100 dark:bg-gray-800">
+  <section class="bg-white dark:bg-gray-800">
     <div class="mx-auto max-w-screen-xl px-4 py-16 lg:px-6">
       <div class="mx-auto max-w-screen-md text-center">
         <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">Recevez la newsletter produit</h2>
@@ -34,7 +34,7 @@
         </form>
         <p class="mt-4 text-xs text-gray-500 dark:text-gray-400">
           Nous respectons vos données. Consultez notre
-          <RouterLink to="/" class="font-medium text-blue-600 hover:underline dark:text-blue-400">politique de confidentialité</RouterLink>.
+          <RouterLink to="/politique-confidentialite" class="font-medium text-blue-600 hover:underline dark:text-blue-400">politique de confidentialité</RouterLink>.
         </p>
       </div>
     </div>

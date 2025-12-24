@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import BuilderBackup from '../views/BuilderBackup.vue'
 import NewBuilder from '../views/NewBuilder.vue'
 import LandingPage from '../components/page/LandingPage.vue'
+import PolitiqueConfidentialite from '../components/PolitiqueConfidentialite.vue'
 
 const routes = [
   {
@@ -22,13 +23,22 @@ const routes = [
       description: 'Créez vos mockups mobiles avec le builder PreviewFaster'
     }
   },
-    {
+  {
     path: '/atelier',
     name: 'New Builder',
     component: NewBuilder,
     meta: {
       title: 'Builder - PreviewFaster',
       description: 'Créez vos mockups mobiles avec le builder PreviewFaster'
+    }
+  },
+  {
+    path: '/politique-confidentialite',
+    name: 'Politique Confidentialite',
+    component: PolitiqueConfidentialite,
+    meta: {
+      title: 'Politique de Confidentialité - PreviewFaster',
+      description: 'Lisez la politique de confidentialité de PreviewFaster'
     }
   }
 ]

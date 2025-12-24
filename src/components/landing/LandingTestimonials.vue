@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-gray-100 dark:bg-gray-900">
+  <section class="bg-gray-100 dark:bg-gray-800">
     <div class="mx-auto max-w-screen-xl px-4 py-16 text-center lg:px-6">
       <figure class="mx-auto max-w-screen-md">
         <svg class="mx-auto mb-4 h-12 text-gray-300 dark:text-gray-600" viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -9,9 +9,15 @@
           />
         </svg>
         <blockquote>
-          <span class="mb-4 block text-yellow-400">⭐⭐⭐⭐⭐</span>
+          <span class="text-yellow-400 mb-4">⭐⭐⭐⭐⭐</span>
           <p class="text-2xl font-medium text-gray-900 dark:text-white">
-            « On passait 2h par release à refaire nos mockups manuellement. Avec PreviewFast, importer nos écrans, ajouter des textes marketing et exporter en HD prend moins de 10 minutes. »
+            <span class="italic"
+              >«Le genre d'outil qui te fait te demander comment tu faisais
+              avant.</span
+            ><br /><br />
+            On passait 2h par release à refaire nos mockups manuellement. <br> Avec
+            PreviewFast, importer nos écrans, ajouter des textes marketing et
+            exporter en HD prend moins de 10 minutes. »
           </p>
         </blockquote>
         <figcaption class="mt-6 flex items-center justify-center gap-4">
