@@ -1,0 +1,242 @@
+[
+{
+  "slug": "5-astuces-pour-creer-des-mockups-application-qui-cartonnent",
+  "title": "5 astuces pour créer des mockups d'application qui cartonnent",
+  "intro": "Les mockups d'application sont essentiels pour présenter votre produit de manière professionnelle. Voici 5 astuces incontournables pour créer des mockups qui captivent et convertissent.",
+  "date": "16 Novembre 2025",
+  "sections": [
+    {
+      "subtitle": "Choisissez le bon appareil",
+      "content": "Sélectionnez un mockup qui correspond à votre audience cible. Un iPhone pour les utilisateurs iOS, un Android pour les autres. Assurez-vous que le modèle d'appareil est à jour pour refléter les dernières tendances."
+    },
+    {
+      "subtitle": "Utilisez des captures d'écran haute résolution",
+      "content": "Des images floues ou pixelisées nuisent à la crédibilité de votre application. Utilisez toujours des captures d'écran en haute résolution pour garantir une présentation nette et professionnelle."
+    },
+    {
+      "subtitle": "Intégrez un contexte réaliste",
+      "content": "Placez votre mockup dans un environnement réaliste, comme une main tenant le téléphone ou un bureau avec des accessoires. Cela aide les utilisateurs à visualiser l'utilisation de votre application dans la vie quotidienne."
+    },
+    {
+      "subtitle": "Soignez le design autour du mockup",
+      "content": "Utilisez des couleurs, des polices et des éléments graphiques cohérents avec l'identité visuelle de votre application. Un design harmonieux renforce la reconnaissance de la marque et l'attrait visuel."
+    },
+    {
+      "subtitle": "Testez différents angles et perspectives",
+      "content": "N'hésitez pas à expérimenter avec différents angles de vue et perspectives pour trouver celui qui met le mieux en valeur les fonctionnalités clés de votre application."
+    }
+  ]
+},
+{
+  "slug": "preset-ecran-visuel-marketing",
+  "title": "Qu'est-ce qu'un preset d'écran et pourquoi il change tout pour vos visuels marketing",
+  "intro": "Créer des visuels marketing professionnels prend du temps : remplir chaque champ, ajuster les couleurs, harmoniser les textes… Les presets d'écran suppriment cette friction en pré-configurant vos designs en un clic. Voici comment ils transforment 20 minutes de paramétrage en 10 secondes.",
+  "date": "24 Décembre 2025",
+  "sections": [
+    {
+      "subtitle": "Un preset d'écran, c'est quoi exactement ?",
+      "content": "Un preset d'écran est une configuration pré-enregistrée pour un écran spécifique de votre visuel marketing. Concrètement : au lieu de remplir manuellement le titre, le sous-titre, choisir la couleur de fond, uploader le screenshot et ajuster la disposition, vous cliquez sur un preset et tout se remplit automatiquement. C'est comme un modèle Instagram Story, mais pour vos mockups d'application. Exemple : vous sélectionnez le preset « App E-commerce - Écran d'accueil » et instantanément votre écran affiche un titre accrocheur pré-rédigé, un fond dégradé moderne, et votre screenshot parfaitement positionné dans un mockup iPhone 15. Gain de temps immédiat : vous passez de 5 minutes de paramétrage à 10 secondes de sélection."
+    },
+    {
+      "subtitle": "Le problème que personne ne résout vraiment",
+      "content": "Sur Canva ou Figma, vous partez d'une page blanche ou d'un template générique que vous devez adapter lourdement. Résultat : vous perdez 15-20 minutes par écran à ajuster chaque élément, tester des combinaisons de couleurs, chercher la bonne formulation marketing. Pire : si vous créez 5 écrans pour un même projet, vous devez répéter ce processus 5 fois en essayant de garder une cohérence visuelle… sans garantie. Les outils classiques vous donnent des templates de page entière, mais pas de presets intelligents par écran. C'est là que la différence se joue : un preset d'écran n'est pas un simple template à dupliquer, c'est une configuration contextuelle qui comprend le rôle de chaque écran (accueil, features, pricing, testimonials) et adapte automatiquement le contenu marketing en conséquence."
+    },
+    {
+      "subtitle": "Comment ça marche en pratique ?",
+      "content": "Vous uploadez vos screenshots d'application. Vous choisissez un preset pour l'écran 1 : « Hero - Proposition de valeur ». Instantanément, le système applique un titre punchy (ex: « Votre app en 3 mots percutants »), un sous-titre explicatif, un fond dégradé bleu-violet tendance, et positionne votre screenshot dans un mockup iOS moderne avec l'angle parfait. Vous passez à l'écran 2, sélectionnez le preset « Features - Liste avantages », et là encore tout se configure : titre adapté, disposition en grille, fond contrasté pour mettre en valeur votre capture. En 30 secondes chrono, vos 5 écrans sont paramétrés avec une cohérence visuelle digne d'une agence design. Vous n'avez plus qu'à personnaliser les 2-3 éléments spécifiques à votre produit (votre nom d'app, votre baseline) et exporter en HD. Total : 2 minutes au lieu de 1h30 de travail manuel."
+    },
+    {
+      "subtitle": "Pourquoi les presets d'écran sont un game-changer",
+      "content": "La vraie force des presets, c'est qu'ils éliminent les 3 frictions majeures de la création de visuels : le syndrome de la page blanche (vous savez exactement par où commencer), l'incohérence visuelle (tous vos écrans suivent la même charte automatiquement), et la perte de temps (vous ne paramétrez plus rien manuellement). Résultat : vous livrez des visuels App Store, Product Hunt ou landing page en 2 minutes au lieu d'attendre 3 jours un designer freelance. Et contrairement à Canva où vous devez tout repositionner à la main si vous changez de template, ici un clic suffit : vous testez 5 presets différents en 10 secondes et choisissez celui qui claque le plus. C'est cette vélocité qui change tout pour les indie hackers, freelances et petites équipes : vous itérez à la vitesse de votre développement produit, pas à la vitesse d'un designer externe."
+    },
+    {
+      "subtitle": "La différence entre preset et template classique",
+      "content": "Un template Canva = une mise en page figée que vous devez adapter manuellement (déplacer des blocs, changer des textes, harmoniser des couleurs). Chronophage et risqué : un mauvais ajustement et tout part en vrille visuellement. Un preset d'écran = une intelligence qui comprend le contexte (« cet écran doit vendre », « celui-ci doit rassurer », « celui-là doit impressionner ») et configure automatiquement chaque élément en conséquence. Vous ne bougez rien, vous ne cassez rien, vous obtenez un rendu pro instantanément. Autre différence clé : les templates classiques sont généralistes (« template app mobile »), les presets sont hyper-ciblés (« écran 1 : hero statement app SaaS », « écran 3 : social proof app e-commerce »). Cette granularité fait toute la différence : chaque écran a son propre preset optimisé, pas une duplication du même modèle 5 fois."
+    },
+    {
+      "subtitle": "Qui utilise déjà les presets d'écran (et pourquoi)",
+      "content": "Les développeurs indépendants qui lancent une app et doivent créer des visuels App Store en 24h pour le launch. Les freelances design qui gèrent 10 clients simultanément et ne peuvent pas passer 2h sur chaque demande de visuel. Les petites agences qui veulent proposer des visuels marketing premium à leurs clients sans recruter un motion designer à temps plein. Les product managers qui testent 5 variations de baseline sur Product Hunt et ont besoin de régénérer les visuels en 5 minutes. Tous ont le même besoin : livrer vite, livrer pro, sans dépendre d'un designer. Les presets d'écran sont leur arme secrète : ils gardent l'agilité d'une équipe tech sur leur production visuelle. Pendant que leurs concurrents attendent 3 jours un freelance, eux testent, itèrent et publient le jour même."
+    }
+  ]
+},
+{
+  "slug": "creer-visuels-app-store-sans-designer-guide-2025",
+  "title": "Créer des visuels App Store professionnels sans designer : le guide complet 2025",
+  "intro": "Vous avez développé votre application, mais les visuels de l'App Store vous bloquent ? Entre les contraintes techniques d'Apple, le coût d'un designer (500-2000€) et les délais incompressibles, beaucoup d'indie hackers retardent leur lancement. Ce guide vous montre comment créer des visuels dignes d'une agence en 10 minutes chrono, sans compétence design.",
+  "date": "7 Janvier 2026",
+  "sections": [
+    {
+      "subtitle": "Pourquoi les visuels App Store sont décisifs (et souvent ratés)",
+      "content": "L'App Store affiche vos screenshots avant même la description de l'app. 80% des utilisateurs décident de télécharger ou non en moins de 7 secondes, uniquement basé sur vos visuels. Un screenshot brut de votre interface ne suffit plus : les apps qui cartonnent utilisent des mockups iOS premium, des fonds travaillés, des accroches marketing percutantes. Le problème ? Canva vous fait perdre 2h par visuel à tout repositionner manuellement. Figma exige des compétences techniques. Les freelances facturent 800€ minimum et livrent en 5 jours. Résultat : vous lancez avec des screenshots amateurs, et votre taux de conversion chute de 60%. → <a href='/atelier' class='font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400'>Testez gratuitement le générateur de visuels App Store</a>"
+    },
+    {
+      "subtitle": "Les 3 règles d'or des visuels App Store qui convertissent",
+      "content": "Règle 1 : Mockup device réaliste. Un iPhone 15 Pro avec reflets et ombres portées donne instantanément une impression premium. Les captures d'écran nues paraissent cheap en 2025. Règle 2 : Fond travaillé mais pas surchargé. Les dégradés subtils (bleu-violet, rose-orange) ou les couleurs unies audacieuses fonctionnent mieux que les photos génériques. L'œil doit aller vers l'écran, pas se perdre dans le background. Règle 3 : Hiérarchie textuelle claire. Un titre court et punchy (3-5 mots max), un sous-titre explicatif, et votre screenshot qui illustre concrètement. Pas de pavé de texte : l'utilisateur scrolle en 2 secondes. Bonus : Apple recommande 5-10 screenshots. Les apps top-grossing en utilisent exactement 5-6, jamais plus. Chaque écran doit vendre un bénéfice différent : écran 1 = proposition de valeur, écran 2 = feature killer, écran 3 = social proof, écran 4 = simplicité d'usage, écran 5 = call-to-action."
+    },
+    {
+      "subtitle": "Les erreurs qui tuent votre taux de téléchargement",
+      "content": "Erreur 1 : Screenshots identiques avec juste le texte qui change. Apple pénalise cette pratique et les utilisateurs scrollent sans regarder. Chaque visuel doit être visuellement différent. Erreur 2 : Texte illisible. Sur mobile, vos visuels s'affichent en miniature. Si votre police fait moins de 40pt ou si le contraste est faible, personne ne lira. Testez toujours en taille réduite avant de publier. Erreur 3 : Incohérence visuelle. Changer de style entre l'écran 1 et 5 donne une impression amateur. Gardez la même palette, les mêmes mockups, le même positionnement. Erreur 4 : Oublier l'A/B testing. Les grandes apps testent 10 variations de visuels avant de trouver celle qui convertit. Avec les bons outils, vous pouvez générer 5 variantes en 10 minutes et tester sur vos premiers utilisateurs. Erreur 5 : Visuels desktop sur une fiche mobile. 70% des téléchargements iOS se font depuis l'iPhone. Vos visuels doivent être pensés mobile-first, pas adaptés après coup."
+    },
+    {
+      "subtitle": "Le workflow complet pour créer vos visuels en 10 minutes",
+      "content": "Étape 1 (2 min) : Exportez 5-6 screenshots clés de votre app depuis votre simulateur iOS. Privilégiez les écrans qui montrent de l'action : utilisateur en train de compléter une tâche, résultat obtenu, interface avec données réelles (pas de lorem ipsum). Étape 2 (1 min) : Uploadez vos screenshots dans un générateur de visuels marketing. Les outils modernes détectent automatiquement le device (iPhone 15, 14, SE) et le ratio. Étape 3 (3 min) : Sélectionnez un preset pour chaque écran. Exemple : preset « Hero App SaaS » pour l'écran 1, « Feature List » pour l'écran 2, « Social Proof » pour l'écran 3. Chaque preset applique automatiquement un fond optimisé, un mockup premium, et une structure textuelle qui convertit. Étape 4 (2 min) : Personnalisez uniquement les textes marketing. Remplacez « Votre app en 3 mots » par votre vraie baseline. Ajustez le sous-titre si nécessaire. Étape 5 (2 min) : Exportez en PNG x2 (Retina) et uploadez directement dans App Store Connect. Total : 10 minutes chrono vs 2 jours d'attente designer. → <a href='/atelier' class='font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400'>Créez vos 5 premiers visuels gratuitement</a>"
+    },
+    {
+      "subtitle": "Faut-il vraiment payer un designer en 2025 ?",
+      "content": "Un designer freelance facture entre 500€ (junior, templates basiques) et 2000€ (senior, custom total) pour un set de visuels App Store. Délai moyen : 5-7 jours, avec 2-3 allers-retours de validation. Pour une v1 de produit ou un MVP, c'est souvent disproportionné. La vraie question : avez-vous besoin d'un design 100% custom ou d'un design 95% pro en 10 minutes ? Si votre app vise 10 000+ téléchargements et que vous avez un budget marketing conséquent, un designer peut créer une identité visuelle ultra-différenciante. Mais si vous êtes en phase de validation (Product Hunt launch, premiers testeurs, pre-seed), les générateurs modernes produisent des visuels indiscernables de ceux d'une agence. Le sweet spot : lancez avec des visuels générés automatiquement, testez votre product-market fit, puis investissez dans du custom quand vous aurez validé la traction. Des apps comme Notion, Linear ou Superhuman ont lancé avec des visuels simples avant d'investir massivement dans le design. L'essentiel : ne laissez jamais le design bloquer votre lancement."
+    },
+    {
+      "subtitle": "Checklist finale avant de publier vos visuels",
+      "content": "☑ Vos 5-6 screenshots sont visuellement différents (pas juste le texte qui change). ☑ Chaque visuel vend un bénéfice clair : proposition de valeur, feature, preuve sociale, simplicité, CTA. ☑ Les textes sont lisibles en miniature (testez en réduisant à 30% de la taille réelle). ☑ Vous utilisez des mockups iOS récents (iPhone 14/15, pas iPhone X ou 8). ☑ Les fonds sont cohérents : même palette de couleurs, même style (dégradés ou unis, pas un mix des deux). ☑ Vous avez exporté en résolution x2 minimum (Apple exige 1242x2688px pour iPhone). ☑ Aucun watermark visible (même en version gratuite, il doit être discret). ☑ Vous avez testé au moins 2 variations de l'écran 1 (le plus important) pour voir laquelle convertit mieux. ☑ Les screenshots montrent de vraies données, pas des placeholders. ☑ Vous avez relu les textes : zéro faute, ton cohérent avec votre positionnement. Dernier conseil : regardez les visuels des top apps de votre catégorie sur l'App Store. Analysez ce qui fonctionne (structure, couleurs, accroches) et adaptez sans copier. L'inspiration est votre meilleure alliée. → <a href='/atelier' class='font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400'>Générez vos visuels App Store maintenant</a>"
+    }
+  ]
+},
+{
+  "slug": "5-erreurs-fatales-visuels-marketing-comment-eviter",
+  "title": "5 erreurs fatales dans vos visuels marketing (et comment les éviter en 2 minutes)",
+  "intro": "Votre produit est solide, mais vos visuels marketing tuent vos conversions. Screenshot brut collé sur fond blanc, texte illisible, incohérence entre écrans : ces erreurs coûtent des milliers d'euros en opportunités perdues. La bonne nouvelle ? Elles se corrigent en moins de 2 minutes avec les bons outils. Voici les 5 pièges dans lesquels tombent 90% des indie hackers.",
+  "date": "21 Janvier 2025",
+  "sections": [
+    {
+      "subtitle": "Erreur n°1 : le screenshot nu (l'erreur à 10 000€)",
+      "content": "Vous exportez un screenshot de votre app, vous l'uploadez sur l'App Store ou Product Hunt, et vous attendez les téléchargements. Résultat : taux de conversion divisé par 3. Pourquoi ? Un screenshot brut crie « amateur » en 2025. Les utilisateurs comparent inconsciemment votre app aux leaders de votre catégorie (Notion, Stripe, Linear) qui investissent 50 000€+ en design. Votre interface peut être meilleure techniquement, mais sans mise en scène professionnelle, elle paraît cheap. Le coût réel : si vous visez 10 000 téléchargements avec un taux de conversion moyen de 3%, un screenshot nu vous fait passer à 1%. Vous perdez 6 600 utilisateurs potentiels. À 10€ de LTV par user, c'est 66 000€ qui s'évaporent. La solution en 2 minutes : encadrez votre screenshot dans un mockup iPhone récent (14/15 Pro). Instantanément, votre app paraît premium. Ajoutez un fond dégradé subtil (bleu-violet, rose-orange) pour créer de la profondeur. Résultat : vous passez de « test étudiant » à « produit professionnel » sans toucher une ligne de code. Outil gratuit pour tester : Mockuper.net (1 visuel rapide). Pour 5+ visuels cohérents : générateur avec presets intégrés. → <a href='/atelier' class='font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400'>Transformez vos screenshots en visuels premium en 2 minutes</a>"
+    },
+    {
+      "subtitle": "Erreur n°2 : le texte illisible (50% de vos visiteurs partent immédiatement)",
+      "content": "Vous ajoutez un titre sur votre visuel : « Gérez vos projets 10x plus vite avec notre solution intuitive ». Police 24pt, couleur gris clair sur fond gris. Sur desktop, ça passe. Sur mobile (70% du trafic App Store), personne ne lit. Test simple : réduisez votre visuel à 30% de sa taille. Si vous devez plisser les yeux pour lire, vos prospects ne liront pas. Ils scrolleront vers l'app suivante en 2 secondes. Les chiffres : une étude UX de Nielsen Norman Group montre que 79% des utilisateurs scannent une page plutôt que de lire. Si votre texte n'est pas instantanément déchiffrable, il est invisible. Pire : un texte illisible donne l'impression que votre app est complexe à utiliser. Prophétie autoréalisatrice fatale. La solution en 2 minutes : règle absolue → police minimum 40pt sur vos visuels marketing. Testez toujours en miniature avant de publier. Contraste élevé obligatoire : texte noir sur fond clair OU texte blanc sur fond sombre. Bannissez le gris sur gris, le jaune sur blanc, le bleu clair sur bleu foncé. Titre maximum 5 mots. Si vous devez écrire 15 mots, votre proposition de valeur n'est pas claire. Retravaillez votre message avant le design. Outils avec presets intelligents appliquent automatiquement ces règles : tailles optimisées, contrastes validés, hiérarchie textuelle pensée pour la lisibilité mobile. Vous ne réfléchissez plus, vous personnalisez juste le contenu."
+    },
+    {
+      "subtitle": "Erreur n°3 : l'incohérence visuelle (votre marque paraît instable)",
+      "content": "Écran 1 : fond bleu, mockup iPhone 15, police SF Pro. Écran 2 : fond rose, mockup iPhone 12, police Helvetica. Écran 3 : fond photo, mockup Android, police Comic Sans (ok, j'exagère). Résultat : votre app paraît bricolée par 3 personnes différentes qui ne se parlent pas. Psychologie cognitive : le cerveau humain associe cohérence visuelle = fiabilité produit. Si vos visuels sont hétéroclites, l'utilisateur suppose (inconsciemment) que votre code l'est aussi. Confiance = 0, téléchargement = 0. Cas réel : un indie hacker a A/B testé ses visuels Product Hunt. Version A : 5 écrans avec styles différents (ce qu'il avait sous la main). Version B : 5 écrans cohérents (même mockup, même palette, même structure). Résultat : +127% d'upvotes, +89% de clics vers l'App Store. Même produit, mêmes features, seule la cohérence visuelle change. La solution en 2 minutes : définissez 3 éléments fixes AVANT de créer vos visuels. (1) Palette de couleurs : 2-3 teintes max, déclinées en dégradés ou aplats. (2) Mockup device : un seul modèle (iPhone 15 Pro ou Galaxy S24, pas les deux). (3) Structure textuelle : même positionnement titre/sous-titre sur tous les écrans. Méthode manuelle : créez le premier écran parfait, dupliquez-le 4 fois, changez uniquement le screenshot et les textes. Méthode automatisée : les générateurs avec presets appliquent la cohérence automatiquement. Vous choisissez un style global, tous vos écrans suivent. → <a href='/atelier' class='font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400'>Générez 5 écrans cohérents en 1 clic</a>"
+    },
+    {
+      "subtitle": "Erreur n°4 : le syndrome de la feature list (personne ne comprend ce que vous faites)",
+      "content": "Votre visuel : « ✓ Gestion de tâches ✓ Calendrier intégré ✓ Collaboration temps réel ✓ Notifications push ✓ Export PDF ✓ API REST ✓ SSO ✓ RGPD compliant ». 8 features, zéro émotion. L'utilisateur ne sait toujours pas POURQUOI il devrait télécharger votre app. Il a déjà 47 apps qui font « gestion de tâches ». Erreur classique : confondre features et bénéfices. Une feature décrit CE QUE fait votre produit. Un bénéfice décrit CE QUE ça change dans la vie de l'utilisateur. Exemple : Feature → « Synchronisation cloud temps réel ». Bénéfice → « Vos données accessibles partout, même hors ligne ». Feature → « Notifications intelligentes ». Bénéfice → « Ne ratez plus jamais une deadline importante ». Le bénéfice vend, la feature rassure. Vos visuels marketing doivent VENDRE (bénéfices), votre page de détails peut RASSURER (features). Règle d'or : 1 écran = 1 bénéfice clair. Écran 1 : « Gérez 10 projets simultanés sans stress » (bénéfice : sérénité). Écran 2 : « Votre équipe alignée en 30 secondes » (bénéfice : gain de temps). Écran 3 : « 10 000+ entreprises nous font confiance » (bénéfice : réassurance sociale). Jamais de liste à puces sur un visuel App Store. Si vous devez lister, vous n'avez pas priorisé. La solution en 2 minutes : pour chaque écran, demandez-vous « Et alors ? » jusqu'à trouver le vrai bénéfice. « On a un calendrier intégré » → Et alors ? → « Vous voyez toutes vos tâches dans le temps » → Et alors ? → « Vous ne doublez-bookez plus jamais ». Bingo. Écrivez ce dernier niveau, pas les étapes intermédiaires. Presets intelligents vous guident : template « Hero » force 1 bénéfice punchy, template « Social Proof » force témoignage ou chiffre de confiance. Vous ne pouvez plus tomber dans le piège de la feature list."
+    },
+    {
+      "subtitle": "Erreur n°5 : l'oubli du mobile-first (70% de votre audience ne voit pas vos visuels correctement)",
+      "content": "Vous créez vos visuels sur un écran 27 pouces en 4K. Ils sont magnifiques. Vous les uploadez sur l'App Store. 70% des visiteurs les voient sur un iPhone 13 mini en 6,1 pouces. Votre titre en police 32pt devient illisible. Votre mockup déborde du cadre. Votre dégradé subtil devient bouilli. Chiffre brutal : selon Apple, 68% des téléchargements iOS se font directement depuis l'iPhone (pas depuis iTunes desktop). Si vos visuels ne sont pas pensés mobile-first, vous perdez 7 utilisateurs sur 10 avant même qu'ils lisent votre description. Test réel : ouvrez l'App Store sur votre iPhone. Cherchez « productivity app ». Les 3 premières apps ont des visuels ÉNORMES et CONTRASTÉS : titres en police 60pt+, mockups géants qui occupent 80% de l'espace, couleurs saturées qui explosent à l'écran. Maintenant cherchez les apps pages 3-4. Visuels timides, texte petit, compositions complexes. Corrélation = causalité ici. La solution en 2 minutes : créez toujours vos visuels en pensant « vue miniature iPhone ». Règle 80/20 : 80% de l'impact visuel doit être compréhensible en thumbnail (mockup + couleur dominante). Les 20% restants (texte détaillé, subtilités) apparaissent en plein écran. Testez systématiquement : exportez votre visuel, ouvrez-le sur votre iPhone, réduisez au format App Store thumbnail. Si vous devez zoomer pour comprendre, recommencez. Mockup minimum 60% de l'espace visuel. Texte maximum 2 lignes (titre + sous-titre). Fond uni ou dégradé simple (pas de photo complexe avec 12 éléments). Outils avec preview mobile intégrée évitent cette erreur : vous voyez en temps réel comment votre visuel s'affiche sur iPhone 15, iPhone SE, iPad. Vous ajustez avant d'exporter, pas après avoir découvert le désastre en prod."
+    },
+    {
+      "subtitle": "Bonus : comment corriger ces 5 erreurs en moins de 10 minutes (checklist action)",
+      "content": "Vous avez déjà créé vos visuels et reconnaissez ces erreurs ? Voici le plan de correction express. Erreur 1 (screenshot nu) : uploadez vos screenshots dans un générateur de mockups, sélectionnez un mockup iPhone 15, ajoutez un fond dégradé bleu-violet. Temps : 2 minutes par écran = 10 min total. Erreur 2 (texte illisible) : augmentez toutes vos polices à minimum 40pt, passez en noir sur blanc ou blanc sur noir (supprimez tous les gris). Réduisez vos titres à 3-5 mots max. Temps : 3 minutes. Erreur 3 (incohérence) : dupliquez votre meilleur écran 4 fois, changez uniquement les screenshots et textes, gardez mockup + couleurs + structure identiques. Temps : 5 minutes. Erreur 4 (feature list) : réécrivez chaque titre en format bénéfice. Remplacez « Fonction X » par « Résultat Y dans votre vie ». Gardez 1 seul bénéfice par écran. Temps : 5 minutes. Erreur 5 (pas mobile-first) : ouvrez vos visuels sur votre iPhone, identifiez ce qui ne passe pas (texte trop petit, mockup coupé), agrandissez les éléments principaux à 150%, supprimez les détails superflus. Temps : 5 minutes. Total : 28 minutes pour corriger 5 visuels. ROI : vous passez d'un taux de conversion App Store de 1-2% à 3-5% (moyenne industrie). Sur 1000 visiteurs, ça fait 20 téléchargements vs 40. Doublez vos installations sans changer une ligne de code. Méthode encore plus rapide : utilisez un générateur avec presets pré-optimisés. Ces 5 erreurs sont corrigées par design : mockups automatiques, textes lisibles forcés, cohérence globale garantie, templates orientés bénéfices, preview mobile native. Vous téléchargez des visuels déjà optimisés. → <a href='/atelier' class='font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400'>Corrigez vos 5 erreurs en 10 minutes chrono</a>"
+    }
+  ]
+},
+{
+  "slug": "mockup-mobile-gratuit-vs-payant-comparatif-2025",
+  "title": "Mockup mobile gratuit vs payant : comparatif honnête des solutions en 2025",
+  "intro": "Vous cherchez un mockup iPhone pour vos visuels marketing, mais entre les outils gratuits limités et les solutions premium à 30€/mois, difficile de choisir. Ce comparatif sans filtre analyse 12 outils (gratuits et payants) pour vous aider à trouver celui qui correspond vraiment à vos besoins et votre budget.",
+  "date": "4 Février 2026",
+  "sections": [
+    {
+      "subtitle": "Les mockups gratuits : ce qu'ils offrent vraiment (et leurs limites)",
+      "content": "Solution 1 : Mockuper.net et Cleanmock — Ces outils gratuits permettent d'uploader un screenshot et de le placer dans un mockup iPhone basique. Avantages : 100% gratuit, aucune inscription, export PNG immédiat. Limites : un seul mockup à la fois (impossible de créer 5 écrans cohérents), pas de personnalisation du fond, résolution limitée (souvent 1x, pas Retina), watermark discret mais présent. Verdict : parfait pour un test rapide ou un post LinkedIn, insuffisant pour l'App Store ou une campagne Meta. Solution 2 : Figma + plugins gratuits (Mockup, Artboard Studio) — Vous créez manuellement vos mockups dans Figma avec des plugins communautaires. Avantages : contrôle total, gratuit si vous maîtrisez Figma, assets iPhone récents disponibles. Limites : courbe d'apprentissage de 2-3h minimum, chronophage (30 min par visuel), pas de presets marketing (vous partez de zéro), export manuel écran par écran. Verdict : excellente solution si vous êtes designer ou avez du temps. Rédhibitoire pour un indie hacker qui veut livrer en 10 minutes. Solution 3 : Canva version gratuite — Templates mockup mobiles disponibles, drag & drop simplifié. Avantages : interface intuitive, bibliothèque de fonds et éléments. Limites : templates figés (difficile d'adapter sans casser la mise en page), watermark Canva sur les exports, résolution bridée en version gratuite, pas de mockups iOS récents (souvent iPhone X ou 11). Verdict : bon compromis pour débuter, mais rendu amateur sur des visuels App Store professionnels."
+    },
+    {
+      "subtitle": "Les solutions payantes : pour qui et pourquoi ?",
+      "content": "Solution 1 : Canva Pro (12,99€/mois) — Débloque les templates premium, supprime le watermark, augmente la résolution d'export. Avantages : bibliothèque massive, collaboration équipe, Brand Kit pour cohérence. Limites : toujours chronophage (15-20 min par visuel à repositionner), pas de détection automatique de device, templates généralistes (pas orientés App Store). ROI : intéressant si vous utilisez Canva pour tout (posts sociaux, présentations, flyers), surdimensionné si vous ne faites que des mockups mobiles. Solution 2 : Previewed (29$/mois) — Spécialisé mockups device (iPhone, iPad, Mac, Android). Avantages : mockups ultra-réalistes (reflets, ombres, profondeur), scènes lifestyle (mains tenant l'iPhone, bureau, café), export haute résolution. Limites : aucun preset marketing (vous devez tout composer manuellement), courbe d'apprentissage, pas de gestion multi-écrans (vous créez 5 visuels séparés sans cohérence automatique). ROI : excellent pour des visuels produit e-commerce ou site vitrine, overkill pour un launch rapide App Store. Solution 3 : Rotato (9$/mois) — Mockups 3D animés pour iPhone/Mac. Avantages : rendu 3D premium, animations fluides (parfait pour Product Hunt ou site web), presets de scènes. Limites : orienté animation (pas statique), export vidéo chronophage, nécessite un Mac (app native), pas de workflow batch (1 visuel à la fois). ROI : pertinent si vous voulez un teaser vidéo wow, inadapté pour générer 5 screenshots App Store en série. Solution 4 : Outils spécialisés SaaS visuels marketing (9-15€/mois) — Générateurs intelligents avec presets par écran. Avantages : workflow ultra-rapide (10 min pour 5 visuels), presets marketing contextuels, cohérence automatique, détection device, export batch HD. Limites : moins de flexibilité créative qu'un Figma (trade-off vitesse vs customisation totale). ROI : imbattable pour indie hackers, freelances et petites équipes qui doivent livrer vite sans compromettre la qualité. → <a href='/atelier' class='font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400'>Testez gratuitement un générateur spécialisé (5 exports/mois offerts)</a>"
+    },
+    {
+      "subtitle": "Le vrai coût caché des solutions gratuites",
+      "content": "Un mockup gratuit ne coûte rien en argent, mais combien en temps ? Scénario réel : vous devez créer 5 visuels App Store avec Canva gratuit. Écran 1 : 15 min (trouver le bon template, remplacer le screenshot, ajuster le texte, choisir un fond). Écran 2 : 12 min (dupliquer, réajuster, changer la couleur pour différencier). Écran 3 : 10 min (même process, mais vous êtes plus rapide). Écran 4 : 10 min. Écran 5 : 10 min. Total : 57 minutes. Problème : les 5 écrans ne sont pas parfaitement cohérents (légers décalages, tailles de texte qui varient, mockups pas identiques). Vous passez 15 min supplémentaires à harmoniser. Total réel : 1h12. Valorisation : si vous facturez 50€/h (tarif freelance junior), cette « solution gratuite » vous coûte 60€ en temps. Si vous facturez 100€/h (tarif senior), ça monte à 120€. Pire : ce temps n'est pas facturé à un client, c'est du temps perdu sur votre propre produit. Maintenant, scénario avec un outil payant à 10€/mois : upload des 5 screenshots (1 min), sélection de 5 presets (2 min), personnalisation textes (3 min), export batch HD (1 min). Total : 7 minutes. Économie : 1h05 récupérée, soit 87-108€ de valeur créée. ROI : l'outil s'autofinance dès la première utilisation. La vraie question n'est pas « combien coûte l'outil » mais « combien me coûte de ne pas l'utiliser ». → <a href='/atelier' class='font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400'>Calculez votre gain de temps avec notre outil</a>"
+    },
+    {
+      "subtitle": "Tableau comparatif : quelle solution pour quel besoin ?",
+      "content": "🎯 Vous testez un concept et n'avez aucun budget → Mockuper.net ou Cleanmock (gratuit, limité, suffisant pour valider une idée). 🎯 Vous avez 2h devant vous et maîtrisez Figma → Figma + plugins gratuits (contrôle total, gratuit, chronophage). 🎯 Vous créez occasionnellement des visuels (1x/mois) → Canva gratuit (compromis acceptable, rendu amateur assumé). 🎯 Vous utilisez déjà Canva pour tout → Canva Pro 12,99€/mois (ROI si utilisation intensive, sinon surdimensionné). 🎯 Vous vendez des produits physiques avec mockups lifestyle → Previewed 29$/mois (mockups ultra-réalistes, scènes premium). 🎯 Vous voulez un teaser vidéo wow pour Product Hunt → Rotato 9$/mois (animations 3D, nécessite un Mac). 🎯 Vous lancez une app et devez créer 5-10 visuels rapidement → Outil spécialisé SaaS 9-15€/mois (vitesse maximale, qualité pro, workflow optimisé). 🎯 Vous gérez plusieurs clients et créez 20+ visuels/mois → Outil spécialisé SaaS plan Pro (batch processing, presets illimités, support prioritaire). Le pattern : plus vous créez de visuels régulièrement, plus un outil payant spécialisé devient rentable. À l'inverse, si vous créez 1 visuel tous les 6 mois, le gratuit suffit."
+    },
+    {
+      "subtitle": "Les pièges à éviter dans votre choix",
+      "content": "Piège 1 : Choisir en fonction du prix, pas du besoin. Un outil à 30€/mois peut être moins cher qu'un designer à 500€ pour un projet. Raisonnez en coût total (outil + temps passé), pas en prix affiché. Piège 2 : Sous-estimer la courbe d'apprentissage. Figma est gratuit, mais si vous passez 5h à apprendre avant de produire votre premier visuel, c'est 250-500€ de temps perdu. Les outils spécialisés avec presets vous rendent productif en 5 minutes. Piège 3 : Prendre un outil trop polyvalent. Canva fait tout (posts, flyers, présentations, mockups), mais fait chaque chose moyennement bien. Un outil dédié mockups mobiles sera 10x plus rapide sur ce cas d'usage précis. Piège 4 : Négliger la cohérence visuelle. Créer 5 visuels avec 5 outils différents (gratuits) donne un rendu hétérogène. Mieux vaut un seul outil payant qui garantit la cohérence automatiquement. Piège 5 : Oublier le coût de l'itération. Vous créez vos visuels, puis vous pivotez votre baseline marketing. Avec un outil manuel (Canva, Figma), vous recommencez 1h de travail. Avec un outil à presets, vous changez 1 ligne de texte et régénérez en 2 minutes. L'agilité a un prix : zéro friction pour itérer. Conseil final : commencez toujours par la version gratuite d'un outil spécialisé. Testez le workflow sur 1 projet réel. Si vous gagnez effectivement 1h+, le passage en payant est un no-brainer."
+    },
+    {
+      "subtitle": "Notre recommandation selon votre profil",
+      "content": "Profil étudiant / side project sans budget → Mockuper.net + Canva gratuit. Acceptez le rendu amateur, l'important est de lancer. Vous optimiserez plus tard. Profil indie hacker en phase MVP → Outil spécialisé gratuit (5 exports/mois). Créez vos visuels de lancement sans payer, puis passez en Pro si vous validez la traction (9-15€/mois largement rentabilisés). Profil freelance design avec plusieurs clients → Canva Pro (12,99€) si vous faites déjà tout dedans, sinon outil spécialisé Pro pour les mockups mobiles (batch processing = gain massif). Profil petite agence / équipe produit → Outil spécialisé Pro (10-15€/mois). Le ROI est immédiat : 1 seul projet client rentabilise 6 mois d'abonnement. Profil designer senior qui vend du custom haut de gamme → Figma reste votre outil principal, mais gardez un générateur de mockups en backup pour les demandes urgentes ou les wireframes clients. Profil grande entreprise / scale-up → Previewed (29$/mois) pour les assets marketing premium + outil spécialisé pour les visuels produit/App Store en série. Budget confortable, maximisez qualité ET vitesse. Le point commun : personne ne devrait perdre 1h+ sur un mockup mobile en 2025. Les outils existent, gratuits ou à quelques euros. Le vrai luxe, c'est le temps récupéré pour bosser sur ce qui compte : votre produit. → <a href='/atelier' class='font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400'>Trouvez votre outil idéal : testez gratuitement</a>"
+    }
+  ]
+},
+{
+  "slug": "lancer-product-hunt-visuels-qui-cartonnent",
+  "title": "Lancer sur Product Hunt : comment créer des visuels qui cartonnent",
+  "intro": "Vous n’avez qu’une seule chance sur Product Hunt. Le jour du launch, tout se joue en quelques heures : upvotes, commentaires, visibilité. Et dans 90% des cas, ce ne sont pas les features qui font la différence… mais les visuels. Un bon produit avec de mauvais visuels passe inaperçu. Un produit moyen avec d’excellents visuels peut finir #1. Voici comment créer des assets Product Hunt qui captent l’attention, déclenchent le clic et maximisent vos upvotes.",
+  "date": "18 Février 2025",
+  "sections": [
+    {
+      "subtitle": "Pourquoi les visuels décident de votre succès sur Product Hunt",
+      "content": "Product Hunt est un flux ultra-compétitif. Votre produit apparaît entre 20 et 50 autres lancements le même jour. L’utilisateur scrolle vite. Très vite. Vous avez moins d’une seconde pour capter son attention. Le cerveau ne lit pas votre tagline, il analyse d’abord l’image. Si votre visuel est fade, confus ou amateur, votre produit est ignoré avant même d’être compris. Les top produits du jour ont tous un point commun : un visuel clair, contrasté, immédiatement compréhensible. Pas besoin d’un design extravagant. Juste un message évident."
+    },
+    {
+      "subtitle": "Erreur n°1 : recycler les visuels App Store sans les adapter",
+      "content": "Les visuels App Store sont pensés pour convaincre après le clic. Product Hunt, lui, doit convaincre avant. Recycler vos screenshots App Store tels quels est une erreur classique. Trop de texte, trop d’écrans, message dilué. Sur Product Hunt, un seul écran doit résumer la promesse principale. Exemple : « Turn CSV into pitch-ready slides in seconds ». Un mockup clair + une phrase forte. Pas plus."
+    },
+    {
+      "subtitle": "La structure gagnante d’un visuel Product Hunt",
+      "content": "Les launches performants suivent presque tous la même structure visuelle. En haut : une promesse courte et orientée résultat. Au centre : un mockup géant (desktop ou mobile selon le produit). En bas (optionnel) : un micro-bénéfice ou un chiffre clé. Rien d’autre. Pas de paragraphes, pas de listes, pas de détails techniques. Le visuel doit donner envie de cliquer, pas tout expliquer."
+    },
+    {
+      "subtitle": "Cohérence et storytelling sur la galerie",
+      "content": "Votre premier visuel attire le clic. Les suivants construisent la crédibilité. Erreur fréquente : 5 écrans sans logique. Chaque écran doit répondre à une question implicite. Écran 1 : « Qu’est-ce que c’est ? » Écran 2 : « À quoi ça sert concrètement ? » Écran 3 : « Pour qui ? » Écran 4 : « Pourquoi c’est différent ? » Écran 5 : « Puis-je vous faire confiance ? ». Même style, même mockup, même palette. La cohérence visuelle renforce la perception de sérieux."
+    },
+    {
+      "subtitle": "La solution rapide pour des visuels Product Hunt performants",
+      "content": "Créer ces visuels à la main prend du temps… que vous n’avez pas la veille d’un launch. La solution la plus efficace consiste à utiliser des templates optimisés Product Hunt : ratio correct, hiérarchie textuelle adaptée, mockups prêts à l’emploi. Vous remplacez le contenu, pas la structure. Résultat : des visuels propres, cohérents et orientés conversion en quelques minutes. → <a href='/atelier' class='font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400'>Créez vos visuels Product Hunt en moins de 10 minutes</a>"
+    }
+  ]
+},
+{
+  "slug": "template-visuel-marketing-pourquoi-solutions-classiques-font-perdre-temps",
+  "title": "Template visuel marketing : pourquoi les solutions classiques vous font perdre du temps",
+  "intro": "Canva, Figma, Photoshop… Ces outils sont puissants. Trop puissants. Pour un indie hacker ou une petite équipe, ils transforment une tâche simple (créer un visuel marketing) en projet chronophage. Résultat : des heures perdues, des visuels incohérents, et souvent… rien de publié. Le problème n’est pas votre créativité. Ce sont les outils généralistes.",
+  "date": "4 Mars 2025",
+  "sections": [
+    {
+      "subtitle": "Le faux mythe de la liberté créative",
+      "content": "Les outils classiques promettent une liberté totale. En réalité, cette liberté est un piège. Vous devez choisir les dimensions, les couleurs, les polices, la hiérarchie, les espacements… Chaque décision consomme de l’énergie mentale. Pour un visuel marketing, cette liberté est inutile. Vous n’avez pas besoin d’inventer un design. Vous avez besoin d’un visuel qui convertit."
+    },
+    {
+      "subtitle": "Pourquoi Canva et Figma ne sont pas faits pour le marketing produit",
+      "content": "Canva est pensé pour des posts génériques. Figma pour du design produit. Aucun des deux n’est optimisé pour des screenshots d’app, des mockups App Store ou des visuels Product Hunt. Vous passez votre temps à adapter, détourner, bricoler. Et malgré tout, le résultat reste souvent amateur, faute de règles marketing intégrées."
+    },
+    {
+      "subtitle": "Le vrai coût caché : le temps et l’incohérence",
+      "content": "Créer 5 visuels cohérents sur Canva ou Figma peut facilement prendre 1 à 2 heures. Et si vous revenez dessus un mois plus tard, impossible de reproduire exactement le même style. Résultat : une marque visuelle instable. Chaque nouvelle série de visuels repart de zéro. Mauvais signal pour vos utilisateurs."
+    },
+    {
+      "subtitle": "Ce qu’un bon template visuel marketing doit imposer",
+      "content": "Un bon template ne vous demande pas de réfléchir. Il impose les bonnes décisions par défaut : tailles de texte lisibles, contrastes validés, espaces cohérents, mockups réalistes. Vous ne choisissez pas la structure, vous choisissez le message. C’est la différence entre designer et marketer."
+    },
+    {
+      "subtitle": "La nouvelle génération d’outils orientés résultats",
+      "content": "Les outils modernes de création de visuels marketing fonctionnent à l’inverse de Canva. Ils limitent volontairement les options pour maximiser la cohérence et la vitesse. Résultat : en quelques minutes, vous obtenez des visuels prêts à publier, pensés pour l’App Store, Product Hunt ou les landing pages. → <a href='/atelier' class='font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400'>Passez des heures de design à 5 minutes par visuel</a>"
+    }
+  ]
+},
+{
+  "slug": "de-figma-visuels-hd-prets-publier-workflow-equipes-agiles",
+  "title": "De Figma à des visuels HD prêts à publier : le workflow des équipes agiles",
+  "intro": "Votre produit est déjà dans Figma. Les écrans sont propres, validés, prêts. Et pourtant, quand il faut créer des visuels marketing, tout recommence à zéro. Exports manuels, redimensionnements, mockups bricolés. Les équipes agiles perdent un temps fou à faire des tâches répétitives. Voici le workflow moderne pour passer de Figma à des visuels marketing HD, sans friction.",
+  "date": "18 Mars 2025",
+  "sections": [
+    {
+      "subtitle": "Le problème classique des équipes produit",
+      "content": "Les designers travaillent dans Figma. Le marketing travaille ailleurs. Entre les deux : des exports PNG, des Slack messages, des versions différentes, des erreurs. Chaque visuel devient un mini-projet. Ce fonctionnement casse la vélocité des équipes agiles."
+    },
+    {
+      "subtitle": "Pourquoi l’export Figma natif ne suffit pas",
+      "content": "Exporter un frame Figma donne une image brute. Pas de mockup réaliste. Pas de contexte. Pas de mise en scène. Un screenshot brut n’est pas un visuel marketing. Il manque la couche émotionnelle et professionnelle nécessaire pour convaincre."
+    },
+    {
+      "subtitle": "Le workflow optimisé en 3 étapes",
+      "content": "Étape 1 : concevoir l’UI normalement dans Figma, sans penser marketing. Étape 2 : exporter uniquement les écrans clés (pas tout). Étape 3 : injecter ces écrans dans un générateur de visuels marketing avec mockups, fonds et presets. Le design produit reste propre. Le marketing est rapide."
+    },
+    {
+      "subtitle": "Automatiser la cohérence visuelle",
+      "content": "Les équipes performantes utilisent un style global unique : même device, mêmes couleurs, même structure. Une fois défini, tous les visuels marketing suivent automatiquement. Plus besoin de vérifier chaque détail à la main."
+    },
+    {
+      "subtitle": "Résultat : vitesse, qualité et alignement produit/marketing",
+      "content": "Ce workflow permet de produire des visuels HD en quelques minutes, tout en respectant l’identité du produit. Les équipes gagnent du temps, réduisent les frictions et publient plus souvent. C’est exactement ce que recherchent les équipes agiles orientées impact. → <a href='/atelier' class='font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400'>Essayez le workflow complet gratuitement</a>"
+    }
+]
+}
+]

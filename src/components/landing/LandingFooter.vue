@@ -5,7 +5,8 @@
       <p class="mt-4 text-gray-500 dark:text-gray-400">Votre allié pour livrer des mockups impeccables.</p>
       <ul class="mt-6 flex flex-wrap items-center justify-center gap-4 text-gray-900 dark:text-gray-200">
         <li><RouterLink to="/" class="hover:underline">Accueil</RouterLink></li>
-        <li><RouterLink to="/atelier" class="hover:underline">Builder</RouterLink></li>
+        <li><RouterLink to="/atelier" class="hover:underline">Atelier</RouterLink></li>
+        <li><a href="/blog" class="hover:underline">Blog</a></li>
         <li><a href="#features" class="hover:underline">Fonctionnalités</a></li>
         <li><a href="#faq" class="hover:underline">FAQ</a></li>
       </ul>
