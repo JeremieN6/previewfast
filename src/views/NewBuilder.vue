@@ -2,7 +2,7 @@
   <!-- Wrapper Tailwind pour toute la page -->
   <div class="bg-gray-100 dark:bg-gray-900">
     <!-- Navigation -->
-    <LandingNav />
+    <LandingNav @open-auth-modal="openAuthModal" />
     
     <!-- Titre et description -->
     <main class="bg-gradient-to-b from-gray-50 via-white to-white py-12 dark:from-gray-900 dark:via-gray-900 dark:to-gray-950">
@@ -1220,6 +1220,10 @@ export default {
     openAuthModal() {
       this.isAuthModalOpen = true;
     },
+
+    handleOpenAuthEvent() {
+      this.openAuthModal();
+    },
     
     closeAuthModal() {
       this.isAuthModalOpen = false;
@@ -1428,6 +1432,8 @@ export default {
       const feature = event.detail?.feature
       this.openUpgradeModal(feature)
     });
+
+    window.addEventListener('open-auth-modal', this.handleOpenAuthEvent)
     
     // Charger le plan utilisateur
     this.userPlan = getUserPlan();
@@ -1454,6 +1460,7 @@ export default {
   
   beforeUnmount() {
     // Nettoyer le listener
+    window.removeEventListener('open-auth-modal', this.handleOpenAuthEvent)
     document.removeEventListener('click', this.handleClickOutside);
   }
 }

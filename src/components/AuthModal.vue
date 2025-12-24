@@ -1,86 +1,91 @@
 <template>
-  <div v-if="isOpen" class="modal-overlay" @click.self="handleClose">
-    <div class="modal">
-      <div class="modal-header">
-        <h2>{{ stepTitle }}</h2>
-        <button class="close-button" @click="handleClose" aria-label="Fermer">×</button>
-      </div>
+  <div
+    v-if="isOpen"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 py-6"
+    @click.self="handleClose"
+  >
+    <div class="relative w-full max-w-md">
+      <div class="relative rounded-lg border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900">
+        <div class="flex items-center justify-between border-b border-gray-200 px-4 py-3 dark:border-gray-700 md:px-6 md:py-4">
+          <h3 class="text-xl font-medium text-gray-900 dark:text-white">{{ stepTitle }}</h3>
+          <button
+            type="button"
+            class="flex h-9 w-9 items-center justify-center rounded-lg text-gray-500 transition hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
+            @click="handleClose"
+            aria-label="Fermer"
+          >
+            <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 18 6m0 12L6 6" />
+            </svg>
+            <span class="sr-only">Fermer la modal</span>
+          </button>
+        </div>
 
-      <div class="modal-body">
-        <!-- Étape 1 : Saisie email -->
-        <div v-if="step === 'email'" class="auth-step">
-          <p class="description">
-            Connectez-vous pour sauvegarder vos projets dans le cloud et y accéder depuis n'importe quel appareil.
-          </p>
+        <div class="space-y-5 px-4 py-5 md:px-6 md:py-6">
+          <!-- Étape 1 : Saisie email -->
+          <div v-if="step === 'email'" class="space-y-4">
+            <p class="text-sm text-gray-600 dark:text-gray-300">
+              Connectez-vous pour sauvegarder vos projets dans le cloud et y accéder depuis n'importe quel appareil.
+            </p>
 
-          <form @submit.prevent="handleSendMagicLink">
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input
-                id="email"
-                v-model="email"
-                type="email"
-                placeholder="votre@email.com"
-                required
-                :disabled="loading"
-                autofocus
-              />
+            <form class="space-y-4" @submit.prevent="handleSendMagicLink">
+              <div class="space-y-2">
+                <label for="email" class="block text-sm font-medium text-gray-900 dark:text-white">Votre email</label>
+                <input
+                  id="email"
+                  v-model="email"
+                  type="email"
+                  placeholder="votre@email.com"
+                  required
+                  :disabled="loading"
+                  class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 shadow-sm transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 disabled:cursor-not-allowed disabled:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:focus:border-indigo-400 dark:focus:ring-indigo-600/40"
+                />
+              </div>
+
+              <p v-if="error" class="error-message">{{ error }}</p>
+
+              <button type="submit" class="btn-primary w-full" :disabled="loading || !email">
+                <span v-if="loading">Envoi en cours...</span>
+                <span v-else>Envoyer le lien magique</span>
+              </button>
+            </form>
+
+            <div class="rounded-lg border border-gray-200 bg-gray-50 p-3 text-sm text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
+              <p class="font-semibold">Pas de mot de passe requis</p>
+              <p class="mt-1 text-sm">Nous vous enverrons un lien de connexion sécurisé par email.</p>
             </div>
-
-            <div v-if="error" class="error-message">
-              {{ error }}
-            </div>
-
-            <button type="submit" class="btn-primary" :disabled="loading || !email">
-              <span v-if="loading">Envoi en cours...</span>
-              <span v-else>Envoyer le lien magique</span>
-            </button>
-          </form>
-
-          <div class="info-box">
-            <p><strong>Pas de mot de passe requis</strong></p>
-            <p>Nous vous enverrons un lien de connexion sécurisé par email.</p>
           </div>
-        </div>
 
-        <!-- Étape 2 : Email envoyé -->
-        <div v-else-if="step === 'sent'" class="auth-step success-step">
-          <div class="success-icon">✉️</div>
-          <h3>Magic link envoyé !</h3>
-          <p class="success-message">
-            Vérifiez votre boîte mail <strong>{{ email }}</strong>
-          </p>
-          <p class="hint">
-            Cliquez sur le lien dans l'email pour vous connecter.<br>
-            Le lien expire dans <strong>15 minutes</strong>.
-          </p>
+          <!-- Étape 2 : Email envoyé -->
+          <div v-else-if="step === 'sent'" class="space-y-3 text-center">
+            <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-xl text-blue-600 dark:bg-blue-900/40 dark:text-blue-200">✉️</div>
+            <div class="space-y-1">
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Magic link envoyé !</h3>
+              <p class="text-sm text-gray-700 dark:text-gray-200">Vérifiez votre boîte mail <strong>{{ email }}</strong></p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Cliquez sur le lien, il expire dans 15 minutes.</p>
+            </div>
+            <button class="btn-secondary w-full" @click="resetForm">Utiliser un autre email</button>
+          </div>
 
-          <button class="btn-secondary" @click="resetForm">
-            Utiliser un autre email
-          </button>
-        </div>
+          <!-- Étape 3 : Migration en cours -->
+          <div v-else-if="step === 'migrating'" class="space-y-3 text-center">
+            <div class="mx-auto h-12 w-12">
+              <div class="loader" aria-hidden="true"></div>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Migration de vos données...</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300">Vos projets locaux sont en cours de sauvegarde dans le cloud.</p>
+          </div>
 
-        <!-- Étape 3 : Migration en cours -->
-        <div v-else-if="step === 'migrating'" class="auth-step">
-          <div class="loading-spinner"></div>
-          <h3>Migration de vos données...</h3>
-          <p>Vos projets locaux sont en cours de sauvegarde dans le cloud.</p>
-        </div>
-
-        <!-- Étape 4 : Succès -->
-        <div v-else-if="step === 'success'" class="auth-step success-step">
-          <div class="success-icon">✅</div>
-          <h3>Connexion réussie !</h3>
-          <p class="success-message">
-            Bienvenue <strong>{{ userEmail }}</strong>
-          </p>
-          <p v-if="migrationDone" class="hint">
-            Vos projets ont été sauvegardés dans le cloud.
-          </p>
-
-          <button class="btn-primary" @click="handleClose">
-            Continuer
-          </button>
+          <!-- Étape 4 : Succès -->
+          <div v-else-if="step === 'success'" class="space-y-3 text-center">
+            <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-50 text-xl text-green-600 dark:bg-green-900/40 dark:text-green-200">✅</div>
+            <div class="space-y-1">
+              <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Connexion réussie !</h3>
+              <p class="text-sm text-gray-700 dark:text-gray-200">Bienvenue <strong>{{ userEmail }}</strong></p>
+              <p v-if="migrationDone" class="text-sm text-gray-500 dark:text-gray-400">Vos projets ont été sauvegardés dans le cloud.</p>
+            </div>
+            <button class="btn-primary w-full" @click="handleClose">Continuer</button>
+          </div>
         </div>
       </div>
     </div>
@@ -191,206 +196,67 @@ export default {
 </script>
 
 <style scoped>
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: 1rem;
-}
-
-.modal {
-  background: white;
-  border-radius: 12px;
-  max-width: 500px;
-  width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem;
-  border-bottom: 1px solid #eee;
-}
-
-.modal-header h2 {
-  margin: 0;
-  font-size: 1.5rem;
-  color: #333;
-}
-
-.close-button {
-  background: none;
-  border: none;
-  font-size: 2rem;
-  color: #999;
-  cursor: pointer;
-  padding: 0;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  transition: all 0.2s;
-}
-
-.close-button:hover {
-  background: #f0f0f0;
-  color: #333;
-}
-
-.modal-body {
-  padding: 2rem 1.5rem;
-}
-
-.auth-step {
-  text-align: center;
-}
-
-.description {
-  font-size: 1rem;
-  color: #666;
-  margin-bottom: 2rem;
-  line-height: 1.5;
-}
-
-.form-group {
-  text-align: left;
-  margin-bottom: 1.5rem;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  color: #333;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 0.75rem;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: border-color 0.2s;
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: #667eea;
-}
-
-.form-group input:disabled {
-  background: #f5f5f5;
-  cursor: not-allowed;
-}
-
 .error-message {
-  background: #fee;
-  color: #c33;
-  padding: 0.75rem;
-  border-radius: 6px;
-  margin-bottom: 1rem;
+  background: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
   font-size: 0.9rem;
-}
-
-.btn-primary,
-.btn-secondary {
-  width: 100%;
-  padding: 1rem;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: none;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
   color: white;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
 .btn-primary:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(79, 70, 229, 0.28);
 }
 
 .btn-primary:disabled {
-  opacity: 0.6;
+  opacity: 0.65;
   cursor: not-allowed;
 }
 
 .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border-radius: 0.75rem;
+  border: 2px solid #4f46e5;
   background: white;
-  color: #667eea;
-  border: 2px solid #667eea;
-  margin-top: 1rem;
+  color: #4f46e5;
+  font-weight: 600;
+  transition: all 0.2s;
 }
 
 .btn-secondary:hover {
-  background: #f8f9ff;
+  background: #eef2ff;
 }
 
-.info-box {
-  margin-top: 2rem;
-  padding: 1rem;
-  background: #f8f9ff;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  color: #555;
-}
-
-.info-box p {
-  margin: 0.5rem 0;
-}
-
-.success-step {
-  padding: 1rem 0;
-}
-
-.success-icon {
-  font-size: 4rem;
-  margin-bottom: 1rem;
-}
-
-.success-step h3 {
-  color: #333;
-  margin-bottom: 1rem;
-}
-
-.success-message {
-  font-size: 1.1rem;
-  color: #555;
-  margin-bottom: 1rem;
-}
-
-.hint {
-  font-size: 0.9rem;
-  color: #777;
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
-}
-
-.loading-spinner {
-  width: 50px;
-  height: 50px;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #667eea;
-  border-radius: 50%;
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  border: 4px solid #e5e7eb;
+  border-top-color: #4f46e5;
   animation: spin 1s linear infinite;
-  margin: 2rem auto;
+  margin: 0 auto;
 }
 
 @keyframes spin {
