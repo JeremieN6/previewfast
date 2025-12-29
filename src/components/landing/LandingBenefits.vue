@@ -64,7 +64,7 @@ const benefits = [
     badge: 'Qualité professionnelle',
     title: 'Des visuels qui claquent, sans designer',
     description:
-      'Mockups parfaitement alignés, dégradés soignés, compositions harmonieuses : l\'outil génère automatiquement des visuels dignes d\'une agence de design.',
+      'Mockups parfaitement alignés, dégradés soignés, compositions harmonieuses : l\'outil génère automatiquement des visuels avec un rendu professionnel.',
     detail:
       'Le résultat : une image de marque premium pour vos projets, même avec un budget de 0€ en design. Vos clients ne verront jamais la différence avec du "fait main".',
   },
@@ -74,7 +74,7 @@ const benefits = [
     badge: 'Budget maîtrisé',
     title: 'Divisez vos coûts de design par 10',
     description:
-      'Un designer facture 500€-2000€ par set de visuels. Avec ce SaaS, produisez des dizaines de variantes pour le prix d\'un café par mois.',
+      'Un designer facture 500€-2000€ par set de visuels. Avec PreviewFast, produisez des dizaines de variantes pour le prix d\'un café par mois.',
     detail:
       'L\'économie : réinjectez votre budget design dans l\'acquisition, le développement ou votre trésorerie. Gardez le contrôle total sans dépendre d\'un freelance.',
   },

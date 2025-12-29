@@ -17,8 +17,9 @@
 
 <script>
 import { getAuthToken } from '../services/authService.js'
+import toast from '../utils/toast.js'
 
-const BACKEND_URL = 'http://localhost:3001'
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
 
 export default {
   name: 'BillingButton',
@@ -30,36 +31,37 @@ export default {
   methods: {
     async openBillingPortal() {
       const token = getAuthToken()
-      
+
       if (!token) {
-        alert('Veuillez vous connecter pour accéder à votre espace facturation')
+        toast.warning('Veuillez vous connecter pour accéder à votre espace facturation')
         return
       }
-      
+
       try {
         this.isLoading = true
-        
+
         // Appel backend pour créer une session Billing Portal
-        const response = await fetch(`${BACKEND_URL}/stripe/create-portal-session`, {
+        const response = await fetch(`${API_URL}/stripe/create-portal-session`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
           }
         })
-        
+
         if (!response.ok) {
           throw new Error('Erreur lors de la création de la session Billing Portal')
         }
-        
+
         const data = await response.json()
-        
+
         // Rediriger vers le Billing Portal Stripe
         window.location.href = data.url
-        
+
       } catch (error) {
         console.error('[Billing] Erreur:', error)
-        alert('❌ Erreur lors de l\'accès à l\'espace facturation. Veuillez réessayer.')
+        toast.error("Erreur lors de l'accès à l'espace facturation. Veuillez réessayer.")
+      } finally {
         this.isLoading = false
       }
     }

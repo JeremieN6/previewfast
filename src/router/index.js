@@ -29,6 +29,7 @@ const routes = [
     path: '/atelier',
     name: 'New Builder',
     component: NewBuilder,
+    alias: ['/auth/verify'],
     meta: {
       title: 'Builder - PreviewFaster',
       description: 'Créez vos mockups mobiles avec le builder PreviewFaster'

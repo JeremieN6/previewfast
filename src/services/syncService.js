@@ -14,7 +14,14 @@ const MIGRATION_KEY = 'previewfaster_has_migrated';
 class SyncService {
   constructor() {
     this.syncing = false;
-    this.lastSyncTime = null;
+    const savedSync = localStorage.getItem('last-sync-time');
+    this.lastSyncTime = savedSync ? parseInt(savedSync, 10) || null : null;
+  }
+
+  persistLastSyncTime(timestamp = Date.now()) {
+    this.lastSyncTime = timestamp;
+    localStorage.setItem('last-sync-time', String(timestamp));
+    window.dispatchEvent(new CustomEvent('last-sync-updated', { detail: { timestamp } }));
   }
 
   /**
@@ -77,7 +84,7 @@ class SyncService {
 
       // Marquer comme migré
       this.markMigrated();
-      this.lastSyncTime = Date.now();
+      this.persistLastSyncTime();
 
       console.log('Migration réussie vers le cloud');
       return true;
@@ -125,7 +132,7 @@ class SyncService {
         setUserPlan(data.user.plan);
       }
 
-      this.lastSyncTime = Date.now();
+      this.persistLastSyncTime();
 
       console.log('Données chargées depuis le cloud');
       return data;
@@ -175,7 +182,7 @@ class SyncService {
         throw new Error('Erreur lors de la synchronisation');
       }
 
-      this.lastSyncTime = Date.now();
+      this.persistLastSyncTime();
       return true;
     } catch (error) {
       console.error('Erreur syncProjects:', error);
