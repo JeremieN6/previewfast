@@ -13,7 +13,8 @@
           "selector": ".myScreen-design-1",
           "allowed": [
             "gradient",
-            "color"
+            "color",
+            "backgroundImage"
           ],
           "current": "gradient"
         },
@@ -58,7 +59,8 @@
           "selector": ".myScreen-design-1",
           "allowed": [
             "gradient",
-            "color"
+            "color",
+            "backgroundImage"
           ],
           "current": "gradient"
         },
@@ -103,7 +105,8 @@
           "selector": ".myScreen-design-1",
           "allowed": [
             "gradient",
-            "color"
+            "color",
+            "backgroundImage"
           ],
           "current": "gradient"
         },
@@ -148,7 +151,8 @@
           "selector": ".myScreen-design-1",
           "allowed": [
             "gradient",
-            "color"
+            "color",
+            "backgroundImage"
           ],
           "current": "gradient"
         },
@@ -193,7 +197,8 @@
           "selector": ".myScreen-design-1",
           "allowed": [
             "gradient",
-            "color"
+            "color",
+            "backgroundImage"
           ],
           "current": "gradient"
         },

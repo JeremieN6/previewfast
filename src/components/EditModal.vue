@@ -143,6 +143,36 @@
                   ></button>
                 </div>
               </div>
+
+              <div v-if="allowBackgroundImage(zone)" class="space-y-6">
+                <div class="flex items-center justify-between">
+                  <label class="text-sm font-medium text-gray-800 dark:text-gray-100">Image de fond</label>
+                  <!-- <span class="text-xs text-gray-500 dark:text-gray-400">Remplace couleur ou dégradé</span> -->
+                </div>
+
+                <div class="space-y-2">
+                  <label :for="`${zone.id}-bg-upload`" class="text-sm font-medium text-gray-800 dark:text-gray-100">Upload une image de fond</label>
+                  <input
+                    type="file"
+                    :id="`${zone.id}-bg-upload`"
+                    accept="image/*"
+                    @change="handleBackgroundUpload(zone.id, $event)"
+                    class="block w-full cursor-pointer rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-50 dark:focus:border-blue-400 dark:focus:ring-blue-800"
+                  />
+                </div>
+
+                <div class="space-y-2">
+                  <label :for="`${zone.id}-bg-url`" class="text-sm font-medium text-gray-800 dark:text-gray-100">URL pour l'image de fond</label>
+                  <input
+                    type="text"
+                    :id="`${zone.id}-bg-url`"
+                    :value="localEdits[zone.id]?.type === 'backgroundImage-url' ? localEdits[zone.id]?.value : (zone.current?.startsWith('http') || zone.current?.startsWith('/')) ? zone.current : ''"
+                    @input="updateZone(zone.id, $event.target.value, 'backgroundImage-url')"
+                    placeholder="https://..."
+                    class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-50 dark:focus:border-blue-400 dark:focus:ring-blue-800"
+                  />
+                </div>
+              </div>
             </div>
 
             <!-- TEXT ZONES -->
@@ -274,6 +304,10 @@ export default {
   computed: {
     visibleZones() {
       return (this.screenData?.editableZones || []).filter((zone) => !this.isMockupZone(zone))
+    },
+
+    allowBackgroundImage() {
+      return (zone) => (zone?.allowed || []).some((k) => ['backgroundImage', 'bgImage', 'image'].includes(k))
     },
 
     canApplyGlobal() {
@@ -505,6 +539,13 @@ export default {
         this.updateZone(zoneId, e.target.result, 'upload')
       }
       reader.readAsDataURL(file)
+    },
+
+    handleBackgroundUpload(zoneId, event) {
+      this.handleImageUpload(zoneId, event)
+      if (event?.target) {
+        event.target.value = ''
+      }
     },
 
     apply() {

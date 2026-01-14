@@ -12,7 +12,8 @@
           "type": "background",
           "selector": ".myScreen-design-2",
           "allowed": [
-            "color"
+            "color",
+            "backgroundImage"
           ],
           "current": "#ffffff"
         },
@@ -66,7 +67,8 @@
           "type": "background",
           "selector": ".myScreen-design-2",
           "allowed": [
-            "color"
+            "color",
+            "backgroundImage"
           ],
           "current": "#ffffff"
         },
@@ -120,7 +122,8 @@
           "type": "background",
           "selector": ".myScreen-design-2",
           "allowed": [
-            "color"
+            "color",
+            "backgroundImage"
           ],
           "current": "#ffffff"
         },
@@ -174,7 +177,8 @@
           "type": "background",
           "selector": ".myScreen-design-2",
           "allowed": [
-            "color"
+            "color",
+            "backgroundImage"
           ],
           "current": "#ffffff"
         },
@@ -228,7 +232,8 @@
           "type": "background",
           "selector": ".myScreen-design-2",
           "allowed": [
-            "color"
+            "color",
+            "backgroundImage"
           ],
           "current": "#ffffff"
         },

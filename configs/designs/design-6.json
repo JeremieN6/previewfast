@@ -16,7 +16,8 @@
           "selector": ".myScreen-design-6",
           "allowed": [
             "gradient",
-            "color"
+            "color",
+            "backgroundImage"
           ],
           "current": "linear-gradient(180deg, #b13bff 0%, #f248c4 50%, #ff6e8a 100%)"
         },
@@ -63,7 +64,8 @@
           "type": "background",
           "selector": ".myScreen-design-6",
           "allowed": [
-            "color"
+            "color",
+            "backgroundImage"
           ],
           "current": "#ffffff"
         },
@@ -111,7 +113,8 @@
           "selector": ".myScreen-design-6",
           "allowed": [
             "gradient",
-            "color"
+            "color",
+            "backgroundImage"
           ],
           "current": "linear-gradient(320deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 45%, rgba(0, 212, 255, 1) 100%)"
         },
@@ -158,7 +161,8 @@
           "type": "background",
           "selector": ".myScreen-design-6",
           "allowed": [
-            "color"
+            "color",
+            "backgroundImage"
           ],
           "current": "#ffffff"
         },
@@ -206,7 +210,8 @@
           "selector": ".myScreen-design-6",
           "allowed": [
             "gradient",
-            "color"
+            "color",
+            "backgroundImage"
           ],
           "current": "linear-gradient(221deg, rgba(165, 213, 198, 1) 0%, rgba(86, 128, 248, 1) 50%, rgba(119, 106, 242, 1) 100%)"
         },
