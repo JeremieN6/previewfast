@@ -20,7 +20,7 @@
       <div class="flex-1 overflow-y-auto px-6 py-4">
         <div class="space-y-6">
           <div
-            v-for="zone in screenData.editableZones"
+            v-for="zone in visibleZones"
             :key="zone.id"
             class="rounded-xl border border-gray-200 bg-gray-50 p-4 shadow-sm dark:border-gray-800 dark:bg-gray-900/60"
           >
@@ -272,6 +272,10 @@ export default {
     }
   },
   computed: {
+    visibleZones() {
+      return (this.screenData?.editableZones || []).filter((zone) => !this.isMockupZone(zone))
+    },
+
     canApplyGlobal() {
       const userPlan = getUserPlan()
       return userPlan === 'pro' || canAccess(userPlan, 'canApplyGlobalChanges')
@@ -459,7 +463,7 @@ export default {
     },
 
     displayAllowed(zone) {
-      return this.isMockupZone(zone) ? ['verrouillé'] : zone.allowed
+      return zone.allowed
     },
 
     sanitizeEdits(edits) {
