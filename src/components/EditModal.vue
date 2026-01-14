@@ -172,11 +172,7 @@
 
             <!-- IMAGE ZONES -->
             <div v-if="zone.type === 'image'" class="mt-4 space-y-4">
-              <div v-if="isMockupZone(zone)" class="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800 dark:border-amber-900/60 dark:bg-amber-900/30 dark:text-amber-100">
-                Mockup protégé : cette image n'est pas modifiable.
-              </div>
-
-              <template v-else>
+              <template v-if="!isMockupZone(zone)">
                 <div v-if="zone.allowed.includes('upload')" class="space-y-2">
                   <label :for="`${zone.id}-upload`" class="text-sm font-medium text-gray-800 dark:text-gray-100">Upload nouvelle image</label>
                   <input
