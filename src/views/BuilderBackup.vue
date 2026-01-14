@@ -1,8 +1,8 @@
 <template>
-  <div id="previewfaster-app">
+  <div id="previewfast-app">
     <main class="hero" aria-labelledby="hero-title">
       <header class="hero__header">
-        <p class="eyebrow">PreviewFaster mockup TEST VUE iPhone 15 Pro</p>
+        <p class="eyebrow">PreviewFast mockup TEST VUE iPhone 15 Pro</p>
         <h1 id="hero-title">Reprenez ce layout App Store</h1>
         <p class="lead">
           Importez vos captures d'écran et gardez une typographie, un cadrage et un dégradé cohérents pour vos
@@ -48,7 +48,7 @@
     </main>
 
     <!-- Badge Plan + Bouton Upgrade (toujours visible) -->
-    <div class="fixed top-4 right-4 z-40 flex items-center gap-3">
+    <div class="fixed bottom-4 left-4 z-40 flex items-center gap-3">
       <!-- Bouton Auth / User Info -->
       <div v-if="isAuthenticated" class="relative">
         <button

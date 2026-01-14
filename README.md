@@ -1,4 +1,4 @@
-# Mockups iPhone – PreviewFaster
+# Mockups for your app – Previewfast
 
 Ce dossier contient une maquette HTML/CSS qui reproduit les captures de présentation style App Store visibles dans l'exemple fourni. Le but est d'offrir un canevas très simple à partir duquel vous pourrez remplacer les images et ajuster les textes tout en conservant la typographie, les couleurs et la structure.
 

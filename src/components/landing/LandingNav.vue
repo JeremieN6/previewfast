@@ -154,6 +154,15 @@ const closeMenu = () => {
 }
 
 const openEmail = () => {
-  window.location.href = 'mailto:contact@previewfaster.com'
+  window.location.href = 'mailto:contact-previewfast@sassify.fr'
 }
 </script>
+
+<style scoped>
+  .top-banner {
+    position: fixed; /* si c’était déjà le cas */
+    top: var(--nav-height, 72px);
+    z-index: 5;           /* inférieur à la nav si la nav a z-index 10 */
+    width: 100%;
+  }
+</style>

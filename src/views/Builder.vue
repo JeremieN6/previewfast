@@ -1,5 +1,5 @@
 <template>
-  <div id="previewfaster-app">
+  <div id="previewfast-app">
     <main class="hero" aria-labelledby="hero-title">
       <Design1 
         :screensCount="5" 
@@ -39,7 +39,7 @@
     </main>
 
     <!-- Badge Plan + Bouton Upgrade (toujours visible) -->
-    <div class="fixed top-4 right-4 z-40 flex items-center gap-3">
+    <div class="fixed bottom-4 left-4 z-40 flex items-center gap-3">
       <!-- Bouton Auth / User Info -->
       <div v-if="isAuthenticated" class="relative">
         <button

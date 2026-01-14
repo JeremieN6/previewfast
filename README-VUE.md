@@ -1,4 +1,4 @@
-# PreviewFaster - Vue.js Migration
+# previewfast - Vue.js Migration
 
 ## 🎯 Module 1 : Initialisation Vue.js + Tailwind + Flowbite
 
@@ -27,7 +27,7 @@ npm run build
 ## 📁 Structure du projet
 
 ```
-previewfaster-stepbystep/
+previewfast/
 ├── index-vue.html          # Point d'entrée HTML pour Vue.js
 ├── src/
 │   ├── App.vue             # Composant racine (contient tout le HTML existant)

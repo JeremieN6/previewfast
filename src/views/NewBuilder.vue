@@ -29,7 +29,7 @@
               :class="assetsReady ? 'builder-loaded' : 'opacity-0 pointer-events-none'"
             >
                 <section class="container-builder">
-                <div id="previewfaster-app">
+                <div id="previewfast-app">
                     <main class="hero" aria-labelledby="hero-title">
                     <Design1 
                         :screensCount="5" 
@@ -69,7 +69,7 @@
                     </main>
 
                 <!-- Badge Plan + Bouton Upgrade (fixed en haut à droite) -->
-                <div class="fixed top-4 right-4 z-40 flex items-center gap-3">
+                <div class="fixed bottom-4 left-4 z-40 flex items-center gap-3">
                 <!-- Badge plan actuel -->
                 
                 <!-- Bouton upgrade (uniquement si Free) -->
@@ -274,7 +274,7 @@
                 @close="closeAuthModal"
                 @success="handleAuthSuccess"
                 />
-                    </div> <!-- Close #previewfaster-app -->
+                    </div> <!-- Close #previewfast-app -->
                 </section>
             </div>
             <!-- Close container-builder -->
@@ -471,7 +471,7 @@ export default {
     },
 
     storageKey(designId) {
-      return `previewfaster_design_${designId}`
+      return `previewfast_design_${designId}`
     },
 
     persistDesignStateObject(designId, state) {

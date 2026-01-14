@@ -1,6 +1,6 @@
-# PreviewFaster Backend
+# Previewfast Backend
 
-Backend minimal pour PreviewFaster avec authentification magic link et synchronisation des données.
+Backend minimal pour Previewfast avec authentification magic link et synchronisation des données.
 
 ## 🚀 Démarrage rapide
 
