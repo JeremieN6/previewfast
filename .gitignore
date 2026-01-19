@@ -42,6 +42,7 @@ tokens.json
 
 # Folder for generated files about issues fixed
 bugsFixed
+.scripts/
 
 # Local archive for unused files
 unused_archive/
