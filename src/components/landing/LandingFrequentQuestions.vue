@@ -109,7 +109,7 @@ const faqItems = [
         icon: '❓',
         question: 'Une autre question ?',
         answer:
-            'Notre équipe est dispo pour vous aider. Contactez-nous via le chat intégré ou par email à support@previewfast.com et nous vous répondons sous 24h (souvent bien plus vite).'
+            'Notre équipe est dispo pour vous aider. Contactez-nous via le chat intégré ou par email à contact-previewfast@sassify.fr et nous vous répondons sous 24h (souvent bien plus vite).'
     }
 ]
 
