@@ -2,7 +2,7 @@
  * Service d'envoi d'emails
  * 
  * En développement: affiche les emails dans la console
- * En production: utilise SMTP via Nodemailer
+ * En production: utilise SMTP via Nodemailer (configuré avec les variables d'environnement)
  */
 
 import nodemailer from 'nodemailer'
