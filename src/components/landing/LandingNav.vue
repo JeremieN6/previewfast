@@ -94,6 +94,24 @@
           <li>
             <button type="button" class="px-3 py-2 text-left hover:text-blue-600" @click="openEmail">Contact</button>
           </li>
+          <li v-if="!isAuthenticated" class="pt-2 md:hidden">
+            <button
+              type="button"
+              @click="requestAuth(); closeMenu()"
+              class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-left text-sm font-medium text-gray-900 transition hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+            >
+              Connexion
+            </button>
+          </li>
+          <li v-if="!isAuthenticated" class="md:hidden">
+            <RouterLink
+              to="/atelier"
+              class="inline-flex w-full items-center justify-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+              @click="closeMenu"
+            >
+              Aller à l'atelier
+            </RouterLink>
+          </li>
         </ul>
       </div>
     </nav>
