@@ -1195,25 +1195,22 @@ export default {
         this.syncStatus = syncService.getSyncStatus();
         
         // Nettoyer l'URL (retirer le token)
-        window.history.replaceState({}, document.title, '/');
+        window.history.replaceState({}, document.title, '/atelier');
         
         // Afficher un message de succès
         const message = migrationDone 
-          ? '✅ Connexion réussie ! Vos projets ont été sauvegardés dans le cloud.'
-          : '✅ Connexion réussie ! Vos données ont été chargées.';
+          ? '✅ Connexion réussie ! Vos projets ont été (ou vont être désormais) sauvegardés dans le cloud.'
+          : '✅ Connexion réussie ! Vos données ont été chargées (ou vont l\'être désormais).';
         
         toast.success(message.replace(/\n/g, ' - '));
         
-        // Recharger pour appliquer les changements
-        setTimeout(() => {
-          window.location.reload();
-        }, 500);
+        // Pas de reload automatique pour conserver le toast et rester sur /atelier
       } catch (error) {
         console.error('❌ Erreur vérification magic link:', error);
         toast.error('Erreur de connexion : ' + error.message);
         
         // Nettoyer l'URL
-        window.history.replaceState({}, document.title, '/');
+        window.history.replaceState({}, document.title, '/atelier');
       }
     },
     
