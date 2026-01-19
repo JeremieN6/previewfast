@@ -14,7 +14,7 @@ class AuthService {
    */
   async sendMagicLink(email) {
     try {
-      const response = await fetch(`${API_URL}/auth/send-link`, {
+      const response = await fetch(`${API_URL}/api/auth/send-link`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ class AuthService {
    */
   async verifyMagicLink(token) {
     try {
-      const response = await fetch(`${API_URL}/auth/verify?token=${token}`);
+      const response = await fetch(`${API_URL}/api/auth/verify?token=${token}`);
       const data = await response.json();
 
       if (!response.ok) {
@@ -72,7 +72,7 @@ class AuthService {
         throw new Error('Non authentifié');
       }
 
-      const response = await fetch(`${API_URL}/auth/me`, {
+      const response = await fetch(`${API_URL}/api/auth/me`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },

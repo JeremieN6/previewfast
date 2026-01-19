@@ -86,6 +86,27 @@ app.post('/auth/send-link', async (req, res) => {
 })
 
 /**
+ * POST /api/auth/send-link
+ * Envoyer un magic link à l'utilisateur (namespace API)
+ */
+app.post('/api/auth/send-link', async (req, res) => {
+  try {
+    const { email } = req.body
+
+    if (!email) {
+      return res.status(400).json({ error: 'Email requis' })
+    }
+
+    const result = await sendMagicLink(email)
+
+    res.json(result)
+  } catch (error) {
+    console.error('[API] Erreur /api/auth/send-link:', error)
+    res.status(500).json({ error: error.message })
+  }
+})
+
+/**
  * GET /auth/verify?token=xxx
  * Vérifier le magic link et retourner un JWT
  */
@@ -107,6 +128,27 @@ app.get('/auth/verify', (req, res) => {
 })
 
 /**
+ * GET /api/auth/verify?token=xxx
+ * Vérifier le magic link et retourner un JWT (namespace API)
+ */
+app.get('/api/auth/verify', (req, res) => {
+  try {
+    const { token } = req.query
+
+    if (!token) {
+      return res.status(400).json({ error: 'Token requis' })
+    }
+
+    const result = verifyMagicLink(token)
+
+    res.json(result)
+  } catch (error) {
+    console.error('[API] Erreur /api/auth/verify:', error)
+    res.status(401).json({ error: error.message })
+  }
+})
+
+/**
  * GET /auth/me
  * Obtenir les informations de l'utilisateur connecté
  */
@@ -116,6 +158,20 @@ app.get('/auth/me', verifyJWT, (req, res) => {
     res.json(userInfo)
   } catch (error) {
     console.error('[API] Erreur /auth/me:', error)
+    res.status(500).json({ error: error.message })
+  }
+})
+
+/**
+ * GET /api/auth/me
+ * Obtenir les informations de l'utilisateur connecté (namespace API)
+ */
+app.get('/api/auth/me', verifyJWT, (req, res) => {
+  try {
+    const userInfo = getUserInfo(req.user.userId)
+    res.json(userInfo)
+  } catch (error) {
+    console.error('[API] Erreur /api/auth/me:', error)
     res.status(500).json({ error: error.message })
   }
 })

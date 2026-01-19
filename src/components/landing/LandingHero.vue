@@ -9,7 +9,7 @@
         <span class="px-3 text-sm font-medium italic">Le Preset PreviewFast est sorti 🎉</span>
       </RouterLink>
       <h1 class="mb-4 text-4xl italic font-extrabold leading-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-        Créez des <br> <span class="text-gradient">mockups mobiles</span> en 2 clics.
+        Créez des <br> <span class="text-gradient">mockups mobiles</span> en 2 clics
       </h1>
       <p class="mb-10 max-w-3xl text-lg text-gray-600 dark:text-gray-300">
         Importez vos captures, choisissez parmi les meilleurs templates iOS puis exportez en HD. PreviewFast automatise toutes les tâches répétitives pour accélérer vos livrables marketing.
