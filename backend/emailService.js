@@ -8,7 +8,7 @@
 import nodemailer from 'nodemailer'
 
 const EMAIL_SERVICE = process.env.EMAIL_SERVICE || 'console'
-const EMAIL_FROM = process.env.EMAIL_FROM || 'noreply@previewfaster.com'
+const EMAIL_FROM = process.env.EMAIL_FROM || 'noreply-previewfast@sassify.fr'
 
 /**
  * Créer un transporteur email selon l'environnement
@@ -58,11 +58,11 @@ export async function sendMagicLinkEmail(email, magicLink) {
   const mailOptions = {
     from: EMAIL_FROM,
     to: email,
-    subject: '🔐 Votre lien de connexion PreviewFaster',
+    subject: '🔐 Votre lien de connexion PreviewFast',
     text: `
 Bonjour,
 
-Vous avez demandé à vous connecter à PreviewFaster.
+Vous avez demandé à vous connecter à PreviewFast.
 
 Cliquez sur ce lien pour vous connecter :
 ${magicLink}
@@ -72,7 +72,7 @@ Ce lien est valide pendant 15 minutes.
 Si vous n'avez pas demandé cette connexion, ignorez cet email.
 
 Cordialement,
-L'équipe PreviewFaster
+L'équipe PreviewFast
     `,
     html: `
 <!DOCTYPE html>
@@ -90,9 +90,9 @@ L'équipe PreviewFaster
   <div class="container">
     <h2>🔐 Votre lien de connexion</h2>
     <p>Bonjour,</p>
-    <p>Vous avez demandé à vous connecter à <strong>PreviewFaster</strong>.</p>
+    <p>Vous avez demandé à vous connecter à <strong>PreviewFast</strong>.</p>
     <p style="margin: 30px 0;">
-      <a href="${magicLink}" class="button">Se connecter à PreviewFaster</a>
+      <a href="${magicLink}" class="button">Se connecter à PreviewFast</a>
     </p>
     <p style="font-size: 14px; color: #666;">
       Ou copiez ce lien dans votre navigateur :<br>
@@ -103,7 +103,7 @@ L'équipe PreviewFaster
     </p>
     <div class="footer">
       <p>Si vous n'avez pas demandé cette connexion, ignorez cet email.</p>
-      <p>L'équipe PreviewFaster</p>
+      <p>L'équipe PreviewFast</p>
     </div>
   </div>
 </body>
