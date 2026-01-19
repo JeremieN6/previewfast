@@ -12,6 +12,8 @@ import { canExport, incrementExportCount, getUserPlan, getRemainingExports, isPr
 import authService from './authService.js'
 import syncService from './syncService.js'
 
+const API_URL = import.meta.env.VITE_API_URL || window.location.origin
+
 /**
  * États possibles d'une demande d'export
  */
@@ -207,7 +209,7 @@ async function checkExportQuota() {
  */
 async function logExportToBackend(exportData) {
   try {
-    const response = await fetch('http://localhost:3001/api/exports/log', {
+    const response = await fetch(`${API_URL}/api/exports/log`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

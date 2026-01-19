@@ -19,7 +19,7 @@
 import { getAuthToken } from '../services/authService.js'
 import toast from '../utils/toast.js'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+const API_URL = import.meta.env.VITE_API_URL || window.location.origin
 
 export default {
   name: 'BillingButton',

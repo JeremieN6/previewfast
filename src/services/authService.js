@@ -3,7 +3,7 @@
  * Gère la communication avec le backend pour l'authentification magic link
  */
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API_URL = import.meta.env.VITE_API_URL || window.location.origin;
 const TOKEN_KEY = 'previewfaster_auth_token';
 
 class AuthService {

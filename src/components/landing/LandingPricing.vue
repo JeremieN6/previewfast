@@ -167,7 +167,7 @@ import { ref } from 'vue'
 import { getAuthToken } from '../../services/authService'
 import { showToast, TOAST_TYPE } from '../../utils/toast.js'
 
-const API_BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3001'
+const API_BASE_URL = import.meta.env.VITE_API_URL || window.location.origin
 
 const isCheckoutLoading = ref(false)
 const billingError = ref('')

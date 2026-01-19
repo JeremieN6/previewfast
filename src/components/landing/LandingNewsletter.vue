@@ -46,6 +46,8 @@ import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { showToast, TOAST_TYPE } from '../../utils/toast.js'
 
+const API_URL = import.meta.env.VITE_API_URL || window.location.origin
+
 const email = ref('')
 const isLoading = ref(false)
 
@@ -55,7 +57,7 @@ const handleSubmit = async () => {
   isLoading.value = true
   
   try {
-    const response = await fetch('http://localhost:3001/newsletter/subscribe', {
+    const response = await fetch(`${API_URL}/newsletter/subscribe`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

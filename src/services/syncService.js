@@ -8,7 +8,7 @@ import { getDesigns, saveDesigns } from '../utils/designsStore.js';
 import { getAllPresets, saveAllPresets } from '../utils/presets.js';
 import { getUserPlan, setUserPlan, getExportCount } from '../utils/planManager.js';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API_URL = import.meta.env.VITE_API_URL || window.location.origin;
 const MIGRATION_KEY = 'previewfaster_has_migrated';
 
 class SyncService {

@@ -108,7 +108,7 @@ import { getExportCount } from '../utils/planManager.js'
 import { UPGRADE_MESSAGES } from '../utils/plans.config.js'
 import { getAuthToken } from '../services/authService.js'
 
-const BACKEND_URL = 'http://localhost:3001'
+const BACKEND_URL = import.meta.env.VITE_API_URL || window.location.origin
 
 export default {
   name: 'UpgradeModal',
