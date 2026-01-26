@@ -10,7 +10,7 @@
         <div class=""><!--rounded-3xl bg-white/80 p-8 shadow-xl backdrop-blur dark:bg-gray-900/70-->
           <div class="mb-10">
             <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-500">L'atelier previewfast</p>
-            <h1 class="mt-3 text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">Mockups prêts en 3 étapes.</h1>
+            <h1 class="mt-3 text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">Previews prêtes en 3 étapes.</h1>
             <p class="mt-4 max-w-3xl text-lg text-gray-600 dark:text-gray-300">
               Upload 5 à 10 captures, ajoutes tes textes, modifie la couleur, le dégradé ou l'image de fond et exporte instantanément 10 slides HD.
             </p>

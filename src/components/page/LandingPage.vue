@@ -3,6 +3,7 @@
     <LandingNav @open-auth-modal="openAuthModal" />
     <main>
       <LandingHero />
+      <LandingLiveDemo />
       <LandingBenefits />
       <LandingProcess />
       <LandingPricing />
@@ -26,6 +27,7 @@ import LandingNewsletter from '../../components/landing/LandingNewsletter.vue'
 import LandingPricing from '../../components/landing/LandingPricing.vue'
 import LandingTestimonials from '../../components/landing/LandingTestimonials.vue'
 import LandingBenefits from '../../components/landing/LandingBenefits.vue'
+import LandingLiveDemo from '../../components/landing/LandingLiveDemo.vue'
 import LandingFrequentQuestions from '../../components/landing/LandingFrequentQuestions.vue'
 import AuthModal from '../../components/AuthModal.vue'
 
