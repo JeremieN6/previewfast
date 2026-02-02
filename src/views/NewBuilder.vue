@@ -471,7 +471,7 @@ export default {
     },
 
     storageKey(designId) {
-      return `previewfast_design_${designId}`
+      return `previewfaster_design_${designId}`
     },
 
     persistDesignStateObject(designId, state) {
@@ -1395,6 +1395,16 @@ export default {
               if (zone.type === 'background') {
                 if (edit.type === 'color' || edit.type === 'gradient') {
                   targetElement.style.background = edit.value
+                  targetElement.style.backgroundImage = ''
+                } else if (edit.type === 'backgroundImage-url' || edit.type === 'backgroundImage-upload' || edit.type === 'backgroundImage') {
+                  if (edit.value) {
+                    targetElement.style.backgroundImage = `url(${edit.value})`
+                    targetElement.style.backgroundSize = 'cover'
+                    targetElement.style.backgroundPosition = 'center'
+                    targetElement.style.backgroundRepeat = 'no-repeat'
+                  } else {
+                    targetElement.style.backgroundImage = ''
+                  }
                 }
               } else if (zone.type === 'text') {
                 targetElement.textContent = edit.value

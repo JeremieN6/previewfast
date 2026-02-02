@@ -542,7 +542,16 @@ export default {
     },
 
     handleBackgroundUpload(zoneId, event) {
-      this.handleImageUpload(zoneId, event)
+      if (this.isLockedZoneId(zoneId)) return
+      const file = event.target.files?.[0]
+      if (!file) return
+
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        this.updateZone(zoneId, e.target.result, 'backgroundImage-upload')
+      }
+      reader.readAsDataURL(file)
+
       if (event?.target) {
         event.target.value = ''
       }

@@ -933,9 +933,16 @@ export default {
       
       // Supprimer du localStorage
       const savedState = loadDesignState(this.selectedDesign)
-      if (savedState && savedState[`screen-${this.selectedScreenId}`]) {
-        delete savedState[`screen-${this.selectedScreenId}`]
-        saveDesignState(this.selectedDesign, savedState)
+      const screenKey = `screen-${this.selectedScreenId}`
+      if (savedState && savedState[screenKey]) {
+        delete savedState[screenKey]
+
+        const storageKey = `previewfaster_design_${this.selectedDesign}`
+        if (Object.keys(savedState).length === 0) {
+          localStorage.removeItem(storageKey)
+        } else {
+          localStorage.setItem(storageKey, JSON.stringify(savedState))
+        }
       }
       
       // Recharger la page pour réinitialiser visuellement
@@ -1449,6 +1456,16 @@ export default {
               if (zone.type === 'background') {
                 if (edit.type === 'color' || edit.type === 'gradient') {
                   targetElement.style.background = edit.value
+                  targetElement.style.backgroundImage = ''
+                } else if (edit.type === 'backgroundImage-url' || edit.type === 'backgroundImage-upload' || edit.type === 'backgroundImage') {
+                  if (edit.value) {
+                    targetElement.style.backgroundImage = `url(${edit.value})`
+                    targetElement.style.backgroundSize = 'cover'
+                    targetElement.style.backgroundPosition = 'center'
+                    targetElement.style.backgroundRepeat = 'no-repeat'
+                  } else {
+                    targetElement.style.backgroundImage = ''
+                  }
                 }
               } else if (zone.type === 'text') {
                 targetElement.textContent = edit.value

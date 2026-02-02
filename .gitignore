@@ -49,3 +49,6 @@ unused_archive/
 
 /public/assets
 /docs*
+
+# SQLite database file
+backend/database.sqlite
