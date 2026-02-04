@@ -97,7 +97,7 @@
                 <div class="flex flex-wrap items-center gap-3">
                   <input
                     type="file"
-                    accept="image/png,image/jpeg,image/webp"
+                    accept="image/png,image/jpeg,image/webp,image/gif"
                     class="block w-full cursor-pointer rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-50 dark:focus:border-blue-400 dark:focus:ring-blue-800 sm:w-auto"
                     @change="handleBackgroundUpload"
                   />
@@ -120,7 +120,7 @@
                 <div class="flex flex-wrap items-center gap-3">
                   <input
                     type="file"
-                    accept="image/png,image/jpeg,image/webp"
+                    accept="image/png,image/jpeg,image/webp,image/gif"
                     class="block w-full cursor-pointer rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-50 dark:focus:border-blue-400 dark:focus:ring-blue-800 sm:w-auto"
                     @change="handleMockupUpload"
                   />
@@ -210,7 +210,7 @@ const screenStyle = computed(() => {
 
 const handleBackgroundUpload = (event) => {
   const file = event.target.files?.[0]
-  if (!file || !/image\/(png|jpe?g|webp)$/i.test(file.type)) return
+  if (!file || !/image\/(png|jpe?g|webp|gif)$/i.test(file.type)) return
   clearBackgroundImage()
   backgroundImageUrl.value = URL.createObjectURL(file)
   backgroundImageName.value = file.name
@@ -226,7 +226,7 @@ const clearBackgroundImage = () => {
 
 const handleMockupUpload = (event) => {
   const file = event.target.files?.[0]
-  if (!file || !/image\/(png|jpe?g|webp)$/i.test(file.type)) return
+  if (!file || !/image\/(png|jpe?g|webp|gif)$/i.test(file.type)) return
   clearMockupImage()
   mockupImageUrl.value = URL.createObjectURL(file)
   mockupImageName.value = file.name

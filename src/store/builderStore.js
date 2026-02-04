@@ -26,7 +26,7 @@ const state = reactive({
   backgrounds: {}
 })
 
-const isValidImage = (file) => /image\/(png|jpe?g|webp)$/i.test(file.type)
+const isValidImage = (file) => /image\/(png|jpe?g|webp|gif)$/i.test(file.type)
 
 const makeScreenshot = (file) => ({
   id: createId(),
@@ -41,7 +41,7 @@ export function useBuilderStore() {
   const addScreenshots = (files) => {
     const incoming = Array.from(files).filter(isValidImage)
     if (!incoming.length) {
-  return { ok: false, message: 'Formats acceptés: WEBP, PNG ou JPG.' }
+  return { ok: false, message: 'Formats acceptés: WEBP, PNG, JPG ou GIF.' }
     }
 
     const total = state.screenshots.length + incoming.length
@@ -113,7 +113,7 @@ export function useBuilderStore() {
 
   const setLogoAsset = (slideId, file) => {
     if (!file || !isValidImage(file)) {
-      return { ok: false, message: 'Formats acceptés: WEBP, PNG ou JPG.' }
+      return { ok: false, message: 'Formats acceptés: WEBP, PNG, JPG ou GIF.' }
     }
     const current = state.logos[slideId]
     if (current) {
@@ -140,7 +140,7 @@ export function useBuilderStore() {
 
   const setMockupAsset = (slideId, file) => {
     if (!file || !isValidImage(file)) {
-      return { ok: false, message: 'Formats acceptés: WEBP, PNG ou JPG.' }
+      return { ok: false, message: 'Formats acceptés: WEBP, PNG, JPG ou GIF.' }
     }
     const current = state.mockups[slideId]
     if (current) {
@@ -167,7 +167,7 @@ export function useBuilderStore() {
 
   const setBackgroundAsset = (slideId, file) => {
     if (!file || !isValidImage(file)) {
-      return { ok: false, message: 'Formats acceptés: WEBP, PNG ou JPG.' }
+      return { ok: false, message: 'Formats acceptés: WEBP, PNG, JPG ou GIF.' }
     }
     const current = state.backgrounds[slideId]
     if (current) {

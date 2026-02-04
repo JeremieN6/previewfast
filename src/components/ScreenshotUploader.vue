@@ -4,7 +4,7 @@
       <div>
         <p class="text-xs font-semibold uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400">Étape 1</p>
         <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Ajoute 5 à 10 captures</h3>
-        <p class="text-sm text-gray-500 dark:text-gray-300">Formats acceptés : WEBP, PNG ou JPG · drag & drop ou sélection classique.</p>
+        <p class="text-sm text-gray-500 dark:text-gray-300">Formats acceptés : WEBP, PNG, JPG ou GIF · drag & drop ou sélection classique.</p>
       </div>
       <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-600 dark:bg-gray-900 dark:text-gray-300">
         {{ store.state.screenshots.length }}/10
@@ -43,7 +43,7 @@
         id="uploader"
         ref="fileInput"
         type="file"
-        accept="image/png,image/jpeg,image/webp,"
+        accept="image/png,image/jpeg,image/webp,image/gif"
         multiple
         class="sr-only"
         @change="onInput"
