@@ -28,10 +28,10 @@
 }
 
 .myScreen-design-1 .visual-on-mockup {
-  top: 18px;
+  top: 17px;
   width: 69%;
   height: 89%;
-  border-radius: 16px;
+  border-radius: 19px;
 }
 
 @media (max-width: 1200px) {
@@ -613,8 +613,8 @@
 .myScreen-design-5[data-variant~='lavender'] .visual-on-mockup,
 .myScreen-design-5[data-screen='3'] .visual-on-mockup,
 .myScreen-design-5[data-screen='5'] .visual-on-mockup {
-  top: 45px;
-  width: 93%;
+  top: 47px;
+  width: 92%;
   height: 100%;
   border-radius: 21px;
   left: 50%;
