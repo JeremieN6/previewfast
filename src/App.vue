@@ -52,10 +52,12 @@ onMounted(() => {
 
   initAuth()
   window.addEventListener("last-sync-updated", handleLastSyncEvent)
+  window.addEventListener("auth-updated", handleAuthUpdated)
 })
 
 onUnmounted(() => {
   window.removeEventListener("last-sync-updated", handleLastSyncEvent)
+  window.removeEventListener("auth-updated", handleAuthUpdated)
 })
 
 const initAuth = () => {
@@ -92,6 +94,10 @@ const handleLastSyncEvent = (event) => {
   if (!ts) return
   localStorage.setItem("last-sync-time", ts.toString())
   lastSyncTime.value = formatSyncTime(ts)
+}
+
+const handleAuthUpdated = () => {
+  initAuth()
 }
 
 const handleLogout = () => {

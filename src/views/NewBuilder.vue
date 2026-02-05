@@ -1193,6 +1193,8 @@ export default {
         this.isAuthenticated = true;
         this.userEmail = authService.getUserEmail();
         this.syncStatus = syncService.getSyncStatus();
+
+        window.dispatchEvent(new CustomEvent('auth-updated'));
         
         // Nettoyer l'URL (retirer le token)
         window.history.replaceState({}, document.title, '/atelier');
@@ -1233,6 +1235,8 @@ export default {
       this.isAuthenticated = true;
       this.userEmail = data.email;
       this.syncStatus = syncService.getSyncStatus();
+
+      window.dispatchEvent(new CustomEvent('auth-updated'));
       
       // Fermer la modal
       this.closeAuthModal();
