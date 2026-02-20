@@ -958,7 +958,18 @@ export default {
         if (zone.type === 'background') {
           if (edit.type === 'color' || edit.type === 'gradient') {
             targetElement.style.background = edit.value
+            targetElement.style.backgroundImage = ''
             console.log(`[App] Applied ${edit.type} to ${zoneId}:`, edit.value)
+          } else if (edit.type === 'backgroundImage-url' || edit.type === 'backgroundImage-upload' || edit.type === 'backgroundImage') {
+            if (edit.value) {
+              targetElement.style.backgroundImage = `url(${edit.value})`
+              targetElement.style.backgroundSize = 'cover'
+              targetElement.style.backgroundPosition = 'center'
+              targetElement.style.backgroundRepeat = 'no-repeat'
+              console.log(`[App] Applied background image to ${zoneId}`)
+            } else {
+              targetElement.style.backgroundImage = ''
+            }
           }
         } else if (zone.type === 'text') {
           targetElement.textContent = edit.value
