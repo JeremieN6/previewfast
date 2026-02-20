@@ -901,6 +901,14 @@ export default {
       
       // Synchroniser avec le cloud si authentifié
       this.debouncedSync()
+
+      // Préparer le message de confirmation à afficher après le rechargement
+      const zoneCount = Object.keys(edits).filter(k => k !== SCREEN_FONT_KEY).length
+      const withFont = edits[SCREEN_FONT_KEY] ? ' + police globale' : ''
+      sessionStorage.setItem('__pending_toast__', JSON.stringify({
+        type: 'success',
+        message: `Modifications appliquées à tous les écrans (${zoneCount} zone(s)${withFont})`
+      }))
       
       // Recharger la page pour appliquer visuellement
       window.location.reload()
@@ -1537,6 +1545,16 @@ export default {
   mounted() {
     // MODULE 12 : Initialiser le conteneur de toasts
     initToastContainer();
+
+    // Afficher un toast différé si la page vient d'être rechargée après une action
+    const pendingToast = sessionStorage.getItem('__pending_toast__')
+    if (pendingToast) {
+      sessionStorage.removeItem('__pending_toast__')
+      try {
+        const { type, message } = JSON.parse(pendingToast)
+        setTimeout(() => toast[type]?.(message, { duration: 5000 }), 600)
+      } catch (e) { /* ignore */ }
+    }
     
     // Écouter les événements d'upgrade depuis les guards
     window.addEventListener('open-upgrade-modal', (event) => {

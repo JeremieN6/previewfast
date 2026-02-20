@@ -319,6 +319,7 @@
 
 <script>
 import { getUserPlan, canAccess } from '../utils/planManager.js'
+import toast from '../utils/toast.js'
 
 export default {
   name: 'EditModal',
@@ -704,7 +705,7 @@ export default {
       }
 
       if (!this.hasCompatibleZones) {
-        window.alert('Aucune modification compatible avec tous les écrans')
+        toast.warning('Aucune modification compatible avec tous les écrans')
         return
       }
 
@@ -721,15 +722,7 @@ export default {
       }
 
       const count = this.compatibleZones.length
-      const zones = this.compatibleZones.join(', ')
-      const withFont = cleaned[this.screenFontKey] ? '\nPolice globale appliquée également.' : ''
-      const confirmAction = window.confirm(
-        `Appliquer ces modifications à TOUS les écrans du design ?\n\n` +
-          `${count} zone(s) seront modifiées : ${zones}\n\n` +
-          `Cela affectera les 5 écrans de ce design.${withFont}`
-      )
-
-      if (!confirmAction) return
+      const withFont = cleaned[this.screenFontKey] ? ' + police globale' : ''
 
       this.$emit('apply-to-all', compatibleEdits)
       this.localEdits = {}
