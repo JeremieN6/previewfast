@@ -635,8 +635,30 @@ export default {
         this.openUpgradeModal('applyToAllScreens')
         return
       }
-      // S'il n'y a pas d'édition en cours, on avertit simplement.
-      toast.info('Appliquer à tous nécessite des modifications sur un écran source.')
+
+      if (!this.selectedDesign || !this.selectedScreenId) {
+        toast.warning('Veuillez sélectionner un écran source.')
+        return
+      }
+
+      // Lire les modifications en mémoire pour cet écran
+      const key = this.modKey(this.selectedDesign, this.selectedScreenId)
+      const localEdits = this.modifications[key] || {}
+
+      // Lire les modifications sauvegardées dans localStorage
+      const savedState = loadDesignState(this.selectedDesign)
+      const screenId = `screen-${this.selectedScreenId}`
+      const savedEdits = savedState?.[screenId] || {}
+
+      // Fusionner : local (session en cours) > saved (localStorage)
+      const allEdits = { ...savedEdits, ...localEdits }
+
+      if (Object.keys(allEdits).length === 0) {
+        toast.info('Aucune modification trouvée sur cet écran à propager.')
+        return
+      }
+
+      this.applyChangesToAll(allEdits)
     },
 
     triggerPreset() {
