@@ -19,6 +19,54 @@
 
       <div class="flex-1 overflow-y-auto px-6 py-4">
         <div class="space-y-6">
+          <div class="rounded-xl border border-gray-200 bg-gray-50 p-4 shadow-sm dark:border-gray-800 dark:bg-gray-900/60">
+            <div class="flex items-center justify-between gap-4">
+              <div>
+                <h4 class="text-sm font-semibold text-gray-900 dark:text-white">Police globale de l'écran</h4>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Applique la police à tous les textes de cet écran.</p>
+              </div>
+              <span class="rounded-full bg-white px-3 py-1 text-xs font-medium text-gray-700 ring-1 ring-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:ring-gray-700">
+                10 styles
+              </span>
+            </div>
+
+            <div class="mt-4 space-y-3">
+              <label for="screen-font-select" class="text-sm font-medium text-gray-800 dark:text-gray-100">Choisir une police</label>
+              <select
+                id="screen-font-select"
+                :value="selectedScreenFont || ''"
+                @change="selectScreenFont($event.target.value || null)"
+                class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-50 dark:focus:border-blue-400 dark:focus:ring-blue-800"
+              >
+                <option value="">Aucune police personnalisée</option>
+                <optgroup
+                  v-for="group in groupedFontOptions"
+                  :key="group.category"
+                  :label="group.category"
+                >
+                  <option
+                    v-for="font in group.fonts"
+                    :key="font.key"
+                    :value="font.key"
+                  >
+                    {{ font.name }}
+                  </option>
+                </optgroup>
+              </select>
+
+              <p v-if="selectedFontMeta" class="text-xs text-gray-500 dark:text-gray-400">
+                Catégorie : {{ selectedFontMeta.category }}
+              </p>
+
+              <p
+                class="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+                :style="selectedFontMeta ? { fontFamily: selectedFontMeta.cssFamily } : {}"
+              >
+                Aperçu typographique
+              </p>
+            </div>
+          </div>
+
           <div
             v-for="zone in visibleZones"
             :key="zone.id"
@@ -286,11 +334,29 @@ export default {
     designConfig: {
       type: Object,
       default: null
+    },
+    screenFontEdit: {
+      type: Object,
+      default: null
     }
   },
   data() {
     return {
       localEdits: {},
+      selectedScreenFont: null,
+      screenFontKey: '__screenFont__',
+      fontOptions: [
+        { key: 'inter', name: 'Inter', category: 'moderne / startup', googleFamily: 'Inter:wght@400;500;600;700', cssFamily: "'Inter', sans-serif" },
+        { key: 'manrope', name: 'Manrope', category: 'moderne / startup', googleFamily: 'Manrope:wght@400;500;600;700;800', cssFamily: "'Manrope', sans-serif" },
+        { key: 'playfair-display', name: 'Playfair Display', category: 'élégante / premium', googleFamily: 'Playfair+Display:wght@400;500;600;700', cssFamily: "'Playfair Display', serif" },
+        { key: 'cormorant-garamond', name: 'Cormorant Garamond', category: 'élégante / premium', googleFamily: 'Cormorant+Garamond:wght@400;500;600;700', cssFamily: "'Cormorant Garamond', serif" },
+        { key: 'montserrat', name: 'Montserrat', category: 'bold / impact', googleFamily: 'Montserrat:wght@500;600;700;800', cssFamily: "'Montserrat', sans-serif" },
+        { key: 'bebas-neue', name: 'Bebas Neue', category: 'bold / impact', googleFamily: 'Bebas+Neue', cssFamily: "'Bebas Neue', sans-serif" },
+        { key: 'dm-sans', name: 'DM Sans', category: 'clean / app store', googleFamily: 'DM+Sans:wght@400;500;700', cssFamily: "'DM Sans', sans-serif" },
+        { key: 'poppins', name: 'Poppins', category: 'clean / app store', googleFamily: 'Poppins:wght@400;500;600;700', cssFamily: "'Poppins', sans-serif" },
+        { key: 'fredoka', name: 'Fredoka', category: 'fun / créatif', googleFamily: 'Fredoka:wght@400;500;600;700', cssFamily: "'Fredoka', sans-serif" },
+        { key: 'baloo-2', name: 'Baloo 2', category: 'fun / créatif', googleFamily: 'Baloo+2:wght@400;500;600;700', cssFamily: "'Baloo 2', cursive" }
+      ],
       gradientState: {},
       activeKnob: null,
       gradientExamples: [
@@ -308,6 +374,28 @@ export default {
 
     allowBackgroundImage() {
       return (zone) => (zone?.allowed || []).some((k) => ['backgroundImage', 'bgImage', 'image'].includes(k))
+    },
+
+    hasScreenFontEdit() {
+      return Boolean(this.selectedScreenFont)
+    },
+
+    selectedFontMeta() {
+      if (!this.selectedScreenFont) return null
+      return this.getFontByKey(this.selectedScreenFont)
+    },
+
+    groupedFontOptions() {
+      const groups = []
+      this.fontOptions.forEach((font) => {
+        let group = groups.find((item) => item.category === font.category)
+        if (!group) {
+          group = { category: font.category, fonts: [] }
+          groups.push(group)
+        }
+        group.fonts.push(font)
+      })
+      return groups
     },
 
     canApplyGlobal() {
@@ -329,7 +417,7 @@ export default {
     },
 
     hasCompatibleZones() {
-      return this.compatibleZones.length > 0 && this.canApplyGlobal
+      return (this.compatibleZones.length > 0 || this.hasScreenFontEdit) && this.canApplyGlobal
     },
 
     compatibleZonesTooltip() {
@@ -341,12 +429,57 @@ export default {
         return 'Aucune modification compatible avec tous les écrans'
       }
 
-      const count = this.compatibleZones.length
-      const zones = this.compatibleZones.join(', ')
-      return `${count} zone(s) compatible(s) : ${zones}`
+      const zonesCount = this.compatibleZones.length
+      const zones = zonesCount ? this.compatibleZones.join(', ') : 'Aucune zone textuelle/image/background'
+      const fontLabel = this.hasScreenFontEdit ? ' + Police globale' : ''
+      return `${zonesCount} zone(s) compatible(s) : ${zones}${fontLabel}`
     }
   },
   methods: {
+    initScreenFontSelection() {
+      const fromLocal = this.localEdits[this.screenFontKey]?.value
+      const fromProp = this.screenFontEdit?.value
+      this.selectedScreenFont = fromLocal || fromProp || null
+      if (this.selectedScreenFont) {
+        this.ensureGoogleFontLoaded(this.selectedScreenFont)
+      }
+    },
+
+    selectScreenFont(fontKey) {
+      if (!fontKey) {
+        this.selectedScreenFont = null
+        return
+      }
+      this.selectedScreenFont = fontKey
+      this.ensureGoogleFontLoaded(fontKey)
+    },
+
+    getFontByKey(fontKey) {
+      return this.fontOptions.find((font) => font.key === fontKey) || null
+    },
+
+    ensureGoogleFontLoaded(fontKey) {
+      const font = this.getFontByKey(fontKey)
+      if (!font || !font.googleFamily) return
+
+      const linkId = `google-font-${font.key}`
+      if (document.getElementById(linkId)) return
+
+      const link = document.createElement('link')
+      link.id = linkId
+      link.rel = 'stylesheet'
+      link.href = `https://fonts.googleapis.com/css2?family=${font.googleFamily}&display=swap`
+      document.head.appendChild(link)
+    },
+
+    buildEditsPayload() {
+      const cleaned = this.sanitizeEdits(this.localEdits)
+      if (this.selectedScreenFont) {
+        cleaned[this.screenFontKey] = { type: 'screen-font', value: this.selectedScreenFont }
+      }
+      return cleaned
+    },
+
     getGradientState(zone) {
       const existing = this.gradientState[zone.id]
       if (existing) return existing
@@ -558,8 +691,8 @@ export default {
     },
 
     apply() {
-      const cleaned = this.sanitizeEdits(this.localEdits)
-      this.$emit('apply-changes', cleaned)
+      const payload = this.buildEditsPayload()
+      this.$emit('apply-changes', payload)
       this.localEdits = {}
       this.close()
     },
@@ -575,7 +708,7 @@ export default {
         return
       }
 
-      const cleaned = this.sanitizeEdits(this.localEdits)
+      const cleaned = this.buildEditsPayload()
       const compatibleEdits = {}
       this.compatibleZones.forEach((zoneId) => {
         if (cleaned[zoneId]) {
@@ -583,12 +716,17 @@ export default {
         }
       })
 
+      if (cleaned[this.screenFontKey]) {
+        compatibleEdits[this.screenFontKey] = cleaned[this.screenFontKey]
+      }
+
       const count = this.compatibleZones.length
       const zones = this.compatibleZones.join(', ')
+      const withFont = cleaned[this.screenFontKey] ? '\nPolice globale appliquée également.' : ''
       const confirmAction = window.confirm(
         `Appliquer ces modifications à TOUS les écrans du design ?\n\n` +
           `${count} zone(s) seront modifiées : ${zones}\n\n` +
-          `Cela affectera les 5 écrans de ce design.`
+          `Cela affectera les 5 écrans de ce design.${withFont}`
       )
 
       if (!confirmAction) return
@@ -601,16 +739,27 @@ export default {
     close() {
       this.localEdits = {}
       this.gradientState = {}
+      this.initScreenFontSelection()
       this.stopKnobDrag()
       this.$emit('close')
     }
   },
   watch: {
     isOpen(newVal) {
-      if (!newVal) {
+      if (newVal) {
+        this.initScreenFontSelection()
+      } else {
         this.localEdits = {}
         this.gradientState = {}
         this.stopKnobDrag()
+      }
+    },
+    screenFontEdit: {
+      deep: true,
+      handler() {
+        if (this.isOpen) {
+          this.initScreenFontSelection()
+        }
       }
     }
   },

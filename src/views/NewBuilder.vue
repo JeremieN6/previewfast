@@ -236,6 +236,7 @@
                 :isOpen="isEditModalOpen"
                 :screenData="currentScreenData"
                 :designConfig="selectedDesign ? designConfigs[selectedDesign] : null"
+                :screenFontEdit="currentScreenFontEdit"
                 @close="closeEditModal"
                 @apply-changes="applyChanges"
                 @apply-to-all="applyChangesToAll"
@@ -339,6 +340,20 @@ import design5Config from '../../configs/designs/design-5.json';
 import design6Config from '../../configs/designs/design-6.json';
 import design7Config from '../../configs/designs/design-7.json';
 
+const SCREEN_FONT_KEY = '__screenFont__'
+const FONT_LIBRARY = {
+  inter: { googleFamily: 'Inter:wght@400;500;600;700', cssFamily: "'Inter', sans-serif" },
+  manrope: { googleFamily: 'Manrope:wght@400;500;600;700;800', cssFamily: "'Manrope', sans-serif" },
+  'playfair-display': { googleFamily: 'Playfair+Display:wght@400;500;600;700', cssFamily: "'Playfair Display', serif" },
+  'cormorant-garamond': { googleFamily: 'Cormorant+Garamond:wght@400;500;600;700', cssFamily: "'Cormorant Garamond', serif" },
+  montserrat: { googleFamily: 'Montserrat:wght@500;600;700;800', cssFamily: "'Montserrat', sans-serif" },
+  'bebas-neue': { googleFamily: 'Bebas+Neue', cssFamily: "'Bebas Neue', sans-serif" },
+  'dm-sans': { googleFamily: 'DM+Sans:wght@400;500;700', cssFamily: "'DM Sans', sans-serif" },
+  poppins: { googleFamily: 'Poppins:wght@400;500;600;700', cssFamily: "'Poppins', sans-serif" },
+  fredoka: { googleFamily: 'Fredoka:wght@400;500;600;700', cssFamily: "'Fredoka', sans-serif" },
+  'baloo-2': { googleFamily: 'Baloo+2:wght@400;500;600;700', cssFamily: "'Baloo 2', cursive" }
+}
+
 export default {
   name: 'App',
   components: {
@@ -395,6 +410,7 @@ export default {
         'design-6': design6Config,
         'design-7': design7Config
       },
+      loadedGoogleFonts: {},
       modifications: {}, // Store des modifications locales
       planGuards: planGuards // Expose planGuards pour le template
     }
@@ -463,6 +479,22 @@ export default {
         ...screen,
         editableZones: enrichedZones
       }
+    },
+
+    currentScreenFontEdit() {
+      if (!this.selectedDesign || !this.selectedScreenId) {
+        return null
+      }
+
+      const key = this.modKey(this.selectedDesign, this.selectedScreenId)
+      const localEdits = this.modifications[key] || {}
+      if (localEdits[SCREEN_FONT_KEY]) {
+        return localEdits[SCREEN_FONT_KEY]
+      }
+
+      const savedState = loadDesignState(this.selectedDesign)
+      const screenId = `screen-${this.selectedScreenId}`
+      return savedState?.[screenId]?.[SCREEN_FONT_KEY] || null
     }
   },
   methods: {
@@ -481,6 +513,47 @@ export default {
       } else {
         localStorage.setItem(key, JSON.stringify(state))
       }
+    },
+
+    getFontConfig(fontKey) {
+      return FONT_LIBRARY[fontKey] || null
+    },
+
+    ensureGoogleFontLoaded(fontKey) {
+      const fontConfig = this.getFontConfig(fontKey)
+      if (!fontConfig || !fontConfig.googleFamily) return
+
+      if (this.loadedGoogleFonts[fontKey]) {
+        return
+      }
+
+      const linkId = `google-font-${fontKey}`
+      if (document.getElementById(linkId)) {
+        this.loadedGoogleFonts = { ...this.loadedGoogleFonts, [fontKey]: true }
+        return
+      }
+
+      const link = document.createElement('link')
+      link.id = linkId
+      link.rel = 'stylesheet'
+      link.href = `https://fonts.googleapis.com/css2?family=${fontConfig.googleFamily}&display=swap`
+      document.head.appendChild(link)
+      this.loadedGoogleFonts = { ...this.loadedGoogleFonts, [fontKey]: true }
+    },
+
+    applyScreenFontToElement(screenElement, screenConfig, fontKey) {
+      const fontConfig = this.getFontConfig(fontKey)
+      if (!fontConfig || !screenElement || !screenConfig) return
+
+      this.ensureGoogleFontLoaded(fontKey)
+
+      const textZones = (screenConfig.editableZones || []).filter((zone) => zone.type === 'text')
+      textZones.forEach((zone) => {
+        const targetElement = screenElement.querySelector(zone.selector)
+        if (targetElement) {
+          targetElement.style.fontFamily = fontConfig.cssFamily
+        }
+      })
     },
 
     async waitForMockups() {
@@ -803,7 +876,7 @@ export default {
         const compatibleEdits = {}
         
         Object.keys(edits).forEach(zoneId => {
-          const zoneExists = screen.editableZones.some(z => z.id === zoneId)
+          const zoneExists = zoneId === SCREEN_FONT_KEY || screen.editableZones.some(z => z.id === zoneId)
           if (zoneExists) {
             compatibleEdits[zoneId] = edits[zoneId]
           }
@@ -844,8 +917,16 @@ export default {
         console.warn(`[App] Screen element not found: ${screenSelector}`)
         return
       }
+
+      if (edits[SCREEN_FONT_KEY]?.type === 'screen-font' && edits[SCREEN_FONT_KEY]?.value) {
+        this.applyScreenFontToElement(screenElement, this.currentScreenData, edits[SCREEN_FONT_KEY].value)
+      }
       
       Object.keys(edits).forEach(zoneId => {
+        if (zoneId === SCREEN_FONT_KEY) {
+          return
+        }
+
         const edit = edits[zoneId]
         const zone = this.currentScreenData.editableZones.find(z => z.id === zoneId)
         
@@ -1372,9 +1453,17 @@ export default {
             const screen = config.screens.find(s => s.id === screenId)
             
             if (!screen) return
+
+            if (edits[SCREEN_FONT_KEY]?.type === 'screen-font' && edits[SCREEN_FONT_KEY]?.value) {
+              this.applyScreenFontToElement(screenElement, screen, edits[SCREEN_FONT_KEY].value)
+            }
             
             // Appliquer chaque modification
             Object.keys(edits).forEach(zoneId => {
+              if (zoneId === SCREEN_FONT_KEY) {
+                return
+              }
+
               const edit = edits[zoneId]
               const zone = screen.editableZones.find(z => z.id === zoneId)
               
