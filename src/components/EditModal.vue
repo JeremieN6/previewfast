@@ -236,7 +236,7 @@
               </label>
               <textarea
                 :id="`${zone.id}-text`"
-                :value="localEdits[zone.id]?.value || zone.current"
+                :value="zone.id in localEdits ? localEdits[zone.id].value : zone.current"
                 @input="updateZone(zone.id, $event.target.value, 'text', zone)"
                 :maxlength="zone.maxChars"
                 rows="3"
@@ -244,7 +244,7 @@
               ></textarea>
               <div class="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                 <span v-if="zone.maxLines">Ne pas dépasser {{ zone.maxLines }} ligne{{ zone.maxLines > 1 ? 's' : '' }}.</span>
-                <span v-if="zone.maxChars">{{ (localEdits[zone.id]?.value || zone.current).length }} / {{ zone.maxChars }} caractères.</span>
+                <span v-if="zone.maxChars">{{ (zone.id in localEdits ? localEdits[zone.id].value : zone.current).length }} / {{ zone.maxChars }} caractères.</span>
               </div>
             </div>
 
@@ -275,6 +275,37 @@
                 </div>
               </template>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Confirmation discrète : texte vide -->
+      <div
+        v-if="showEmptyTextWarning"
+        class="border-t border-amber-200 bg-amber-50 px-6 py-3 dark:border-amber-800/50 dark:bg-amber-900/20"
+      >
+        <div class="flex items-center justify-between gap-4">
+          <div class="flex items-center gap-2 text-sm text-amber-800 dark:text-amber-300">
+            <svg class="h-4 w-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+            </svg>
+            <span>Certains champs texte sont vides. Confirmer la suppression ?</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <button
+              type="button"
+              @click="confirmApply"
+              class="rounded-lg bg-amber-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-300"
+            >
+              Oui, supprimer
+            </button>
+            <button
+              type="button"
+              @click="showEmptyTextWarning = false"
+              class="rounded-lg border border-amber-300 bg-white px-3 py-1.5 text-xs font-semibold text-amber-700 hover:bg-amber-50 focus:outline-none focus:ring-2 focus:ring-amber-300 dark:border-amber-700 dark:bg-transparent dark:text-amber-300"
+            >
+              Annuler
+            </button>
           </div>
         </div>
       </div>
@@ -344,6 +375,7 @@ export default {
   data() {
     return {
       localEdits: {},
+      showEmptyTextWarning: false,
       selectedScreenFont: null,
       screenFontKey: '__screenFont__',
       fontOptions: [
@@ -692,6 +724,22 @@ export default {
     },
 
     apply() {
+      const hasEmptyText = Object.values(this.localEdits).some(
+        (edit) => edit.type === 'text' && edit.value === ''
+      )
+      if (hasEmptyText) {
+        this.showEmptyTextWarning = true
+        return
+      }
+      this._doApply()
+    },
+
+    confirmApply() {
+      this.showEmptyTextWarning = false
+      this._doApply()
+    },
+
+    _doApply() {
       const payload = this.buildEditsPayload()
       this.$emit('apply-changes', payload)
       this.localEdits = {}
@@ -732,6 +780,7 @@ export default {
     close() {
       this.localEdits = {}
       this.gradientState = {}
+      this.showEmptyTextWarning = false
       this.initScreenFontSelection()
       this.stopKnobDrag()
       this.$emit('close')
