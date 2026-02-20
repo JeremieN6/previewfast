@@ -188,13 +188,7 @@
                             <span>📦 Exporter ce design (zip)</span>
                             <span class="text-gray-400">↵</span>
                           </button>
-                          <button
-                            class="flex w-full items-center justify-between rounded-lg bg-white px-3 py-2 text-left text-sm font-medium text-gray-800 shadow-sm ring-1 ring-gray-200 transition hover:-translate-y-0.5 hover:shadow-md dark:bg-gray-900 dark:text-gray-100 dark:ring-gray-700"
-                            @click="triggerExportAll"
-                          >
-                            <span>🌍 Exporter tous (🔒 Pro)</span>
-                            <span class="text-gray-400">↵</span>
-                          </button>
+
                         </div>
                       </div>
 
@@ -674,11 +668,6 @@ export default {
     triggerExportDesign() {
       this.closeActionsModal()
       this.handleExportAllScreens()
-    },
-
-    triggerExportAll() {
-      this.closeActionsModal()
-      this.openUpgradeModal('exportAllDesigns')
     },
 
     triggerResetScreen() {
