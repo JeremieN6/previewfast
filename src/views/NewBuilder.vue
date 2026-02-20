@@ -1047,35 +1047,42 @@ export default {
       // Fermer le dropdown
       this.isResetDropdownOpen = false
       
-      // Compter les modifications pour ce design
-      const modificationCount = Object.keys(this.modifications)
+      // Compter les modifications pour ce design (mémoire + localStorage)
+      const memCount = Object.keys(this.modifications)
         .filter(key => key.startsWith(this.selectedDesign))
         .length
-      
-      // Confirmation si des modifications existent
-      if (modificationCount > 0) {
-        const confirm = window.confirm(
-          `⚠️ Réinitialiser tout le ${this.selectedDesign} ?\n\n` +
-          `Cela supprimera les modifications sur les 5 écrans de ce design.\n\n` +
-          `Voulez-vous continuer ?`
-        )
-        
-        if (!confirm) return
-      }
-      
+      const savedState = loadDesignState(this.selectedDesign)
+      const savedCount = savedState ? Object.keys(savedState).length : 0
+      const totalCount = Math.max(memCount, savedCount)
+
+      const warningText = totalCount > 0
+        ? `⚠️ Réinitialiser tout le ${this.selectedDesign} ? ${totalCount} écran(s) modifié(s) seront remis à zéro.`
+        : `⚠️ Réinitialiser tout le ${this.selectedDesign} (tous les écrans) ?`
+
+      toast.warning(warningText, {
+        duration: 8000,
+        action: 'Confirmer',
+        onAction: () => this.performResetCurrentDesign()
+      })
+    },
+
+    performResetCurrentDesign() {
       // Réinitialiser l'état dans localStorage
       resetDesignState(this.selectedDesign)
-      
+
       // Réinitialiser l'état local
       Object.keys(this.modifications).forEach(key => {
         if (key.startsWith(this.selectedDesign)) {
           delete this.modifications[key]
         }
       })
-      
-      // Recharger la page pour tout réinitialiser visuellement
+
+      sessionStorage.setItem('__pending_toast__', JSON.stringify({
+        type: 'success',
+        message: `${this.selectedDesign} réinitialisé avec succès.`
+      }))
+
       window.location.reload()
-      
       console.log(`✅ ${this.selectedDesign} complet réinitialisé`)
     },
     
@@ -1102,6 +1109,12 @@ export default {
       })
 
       this.modifications = {}
+
+      sessionStorage.setItem('__pending_toast__', JSON.stringify({
+        type: 'success',
+        message: 'Tous les designs ont été réinitialisés avec succès.'
+      }))
+
       window.location.reload()
       console.log(`✅ Tous les designs ont été réinitialisés`)
     },
