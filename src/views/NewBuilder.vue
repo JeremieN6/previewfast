@@ -1034,7 +1034,10 @@ export default {
         delete savedState[screenKey]
         this.persistDesignStateObject(this.selectedDesign, savedState)
       }
-      
+
+      // Signaler que le prochain chargement ne doit PAS écraser depuis le cloud
+      sessionStorage.setItem('__skip_cloud_load__', '1')
+
       // Recharger la page pour réinitialiser visuellement
       window.location.reload()
       
@@ -1082,6 +1085,9 @@ export default {
         message: `${this.selectedDesign} réinitialisé avec succès.`
       }))
 
+      // Signaler que le prochain chargement ne doit PAS écraser depuis le cloud
+      sessionStorage.setItem('__skip_cloud_load__', '1')
+
       window.location.reload()
       console.log(`✅ ${this.selectedDesign} complet réinitialisé`)
     },
@@ -1114,6 +1120,9 @@ export default {
         type: 'success',
         message: 'Tous les designs ont été réinitialisés avec succès.'
       }))
+
+      // Signaler que le prochain chargement ne doit PAS écraser depuis le cloud
+      sessionStorage.setItem('__skip_cloud_load__', '1')
 
       window.location.reload()
       console.log(`✅ Tous les designs ont été réinitialisés`)
@@ -1277,6 +1286,21 @@ export default {
       if (this.isAuthenticated) {
         this.userEmail = authService.getUserEmail();
         this.syncStatus = syncService.getSyncStatus();
+
+        // Si un reset vient d'être effectué, ne pas écraser localStorage avec le cloud
+        const skipCloudLoad = sessionStorage.getItem('__skip_cloud_load__')
+        if (skipCloudLoad) {
+          sessionStorage.removeItem('__skip_cloud_load__')
+          console.log('[App] Skip cloud load après reset.')
+          // Synchroniser immédiatement l'état vidé vers le cloud
+          try {
+            await syncService.syncProjects()
+            console.log('[App] ✅ État réinitialisé synchronisé dans le cloud.')
+          } catch (e) {
+            console.warn('[App] Sync post-reset échouée (mode hors ligne ok):', e)
+          }
+          return
+        }
         
         // Charger les données du cloud au démarrage
         try {
