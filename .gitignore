@@ -52,3 +52,10 @@ unused_archive/
 
 # SQLite database file
 backend/database.sqlite
+
+
+# Fichiers/Dossiers de gestion MCP
+.github
+.mcp
+.vscode
+CLAUDE.md
