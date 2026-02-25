@@ -984,10 +984,17 @@ export default {
         
         // Appliquer selon le type
         if (zone.type === 'background') {
-          if (edit.type === 'color' || edit.type === 'gradient') {
+          if (edit.type === 'color') {
+            // Couleur unie : appliquer la couleur et forcer backgroundImage à 'none'
+            // pour empêcher le gradient du fichier CSS de prendre le dessus
             targetElement.style.background = edit.value
-            targetElement.style.backgroundImage = ''
-            console.log(`[App] Applied ${edit.type} to ${zoneId}:`, edit.value)
+            targetElement.style.backgroundImage = 'none'
+            console.log(`[App] Applied color to ${zoneId}:`, edit.value)
+          } else if (edit.type === 'gradient') {
+            // Dégradé : le shorthand 'background' suffit
+            // NE PAS réinitialiser backgroundImage car le gradient est géré via background-image
+            targetElement.style.background = edit.value
+            console.log(`[App] Applied gradient to ${zoneId}:`, edit.value)
           } else if (edit.type === 'backgroundImage-url' || edit.type === 'backgroundImage-upload' || edit.type === 'backgroundImage') {
             if (edit.value) {
               targetElement.style.backgroundImage = `url(${edit.value})`
@@ -1562,9 +1569,13 @@ export default {
               
               // Appliquer selon le type
               if (zone.type === 'background') {
-                if (edit.type === 'color' || edit.type === 'gradient') {
+                if (edit.type === 'color') {
+                  // Couleur unie : forcer backgroundImage à 'none' pour bloquer le gradient CSS
                   targetElement.style.background = edit.value
-                  targetElement.style.backgroundImage = ''
+                  targetElement.style.backgroundImage = 'none'
+                } else if (edit.type === 'gradient') {
+                  // Dégradé : ne pas vider backgroundImage (le gradient s'applique via background-image)
+                  targetElement.style.background = edit.value
                 } else if (edit.type === 'backgroundImage-url' || edit.type === 'backgroundImage-upload' || edit.type === 'backgroundImage') {
                   if (edit.value) {
                     targetElement.style.backgroundImage = `url(${edit.value})`

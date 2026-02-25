@@ -22,7 +22,7 @@
           <div class="rounded-xl border border-gray-200 bg-gray-50 p-4 shadow-sm dark:border-gray-800 dark:bg-gray-900/60">
             <div class="flex items-center justify-between gap-4">
               <div>
-                <h4 class="text-sm font-semibold text-gray-900 dark:text-white">Police globale de l'écran</h4>
+                <h4 class="text-sm font-semibold text-gray-900 dark:text-white">Police de l'écran</h4>
                 <p class="text-xs text-gray-500 dark:text-gray-400">Applique la police à tous les textes de cet écran.</p>
               </div>
               <span class="rounded-full bg-white px-3 py-1 text-xs font-medium text-gray-700 ring-1 ring-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:ring-gray-700">
