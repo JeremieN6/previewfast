@@ -124,29 +124,54 @@
       </div>
       
       <!-- Footer -->
-      <div class="px-6 py-4 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between gap-3">
-        <button
-          @click="$emit('close')"
-          class="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
-        >
-          Annuler
-        </button>
-        
-        <button
-          @click="handleDuplicate"
-          :disabled="!selectedTarget"
-          :class="[
-            'px-6 py-2 rounded-lg font-medium transition-all flex items-center gap-2',
-            selectedTarget
-              ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl'
-              : 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
-          ]"
-        >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-          </svg>
-          Dupliquer
-        </button>
+      <div class="px-6 py-4 border-t border-gray-200 dark:border-gray-700">
+
+        <!-- Bandeau de confirmation (remplacement du confirm natif) -->
+        <div v-if="showConfirm" class="mb-3 flex items-center justify-between gap-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 dark:border-amber-800/50 dark:bg-amber-900/20">
+          <div class="flex items-center gap-2 text-sm text-amber-800 dark:text-amber-300">
+            <svg class="h-4 w-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+            <span>L'écran {{ selectedTarget }} contient déjà des modifications. Confirmer le remplacement ?</span>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <button
+              type="button"
+              @click="confirmDuplicate"
+              class="rounded-lg bg-amber-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-300"
+            >Remplacer</button>
+            <button
+              type="button"
+              @click="showConfirm = false"
+              class="rounded-lg border border-amber-300 bg-white px-3 py-1.5 text-xs font-semibold text-amber-700 hover:bg-amber-50 focus:outline-none focus:ring-2 focus:ring-amber-300 dark:border-amber-700 dark:bg-transparent dark:text-amber-300"
+            >Annuler</button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between gap-3">
+          <button
+            @click="$emit('close')"
+            class="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+          >
+            Annuler
+          </button>
+          
+          <button
+            @click="handleDuplicate"
+            :disabled="!selectedTarget"
+            :class="[
+              'px-6 py-2 rounded-lg font-medium transition-all flex items-center gap-2',
+              selectedTarget
+                ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-xl'
+                : 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+            ]"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+            </svg>
+            Dupliquer
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -177,7 +202,8 @@ export default {
   },
   data() {
     return {
-      selectedTarget: null
+      selectedTarget: null,
+      showConfirm: false
     }
   },
   computed: {
@@ -220,29 +246,32 @@ export default {
     handleDuplicate() {
       if (!this.selectedTarget) return
       
-      // Confirmation si l'écran cible est déjà modifié
+      // Si l'écran cible est déjà modifié, afficher le bandeau de confirmation stylisé
       if (this.targetIsModified) {
-        const confirm = window.confirm(
-          `L'écran ${this.selectedTarget} contient déjà des modifications.\n\n` +
-          `Voulez-vous vraiment le remplacer ?`
-        )
-        
-        if (!confirm) return
+        this.showConfirm = true
+        return
       }
       
+      this._doDuplicate()
+    },
+
+    confirmDuplicate() {
+      this.showConfirm = false
+      this._doDuplicate()
+    },
+
+    _doDuplicate() {
       this.$emit('duplicate', {
         targetScreen: this.selectedTarget
       })
-      
-      // Réinitialiser la sélection
       this.selectedTarget = null
     }
   },
   watch: {
     isOpen(newValue) {
       if (!newValue) {
-        // Réinitialiser quand la modal se ferme
         this.selectedTarget = null
+        this.showConfirm = false
       }
     }
   }

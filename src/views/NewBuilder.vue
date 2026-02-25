@@ -1010,7 +1010,12 @@ export default {
             }
           }
         } else if (zone.type === 'text') {
-          targetElement.textContent = edit.value
+          // Préserver les sauts de ligne : échapper le HTML puis convertir \n en <br>
+          targetElement.innerHTML = edit.value
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/\n/g, '<br>')
           if (edit.color) {
             targetElement.style.color = edit.color
           }
@@ -1593,7 +1598,11 @@ export default {
                   }
                 }
               } else if (zone.type === 'text') {
-                targetElement.textContent = edit.value
+                targetElement.innerHTML = edit.value
+                  .replace(/&/g, '&amp;')
+                  .replace(/</g, '&lt;')
+                  .replace(/>/g, '&gt;')
+                  .replace(/\n/g, '<br>')
                 if (edit.color) {
                   targetElement.style.color = edit.color
                 }
