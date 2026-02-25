@@ -759,6 +759,9 @@ export default {
       
       // Synchroniser avec le cloud si authentifié
       this.debouncedSync()
+
+      // Empêcher loadCloudData de récraser localStorage au rechargement
+      sessionStorage.setItem('__skip_cloud_load__', '1')
       
       // Recharger pour appliquer visuellement
       window.location.reload()
@@ -838,7 +841,10 @@ export default {
       
       // Fermer la modal
       this.closeDuplicateModal()
-      
+
+      // Empêcher loadCloudData de récraser localStorage au rechargement
+      sessionStorage.setItem('__skip_cloud_load__', '1')
+
       // Recharger la page pour appliquer visuellement
       window.location.reload()
       
@@ -920,6 +926,9 @@ export default {
         type: 'success',
         message: `Modifications appliquées à tous les écrans (${zoneCount} zone(s)${withFont})`
       }))
+
+      // Empêcher loadCloudData de récraser localStorage au rechargement
+      sessionStorage.setItem('__skip_cloud_load__', '1')
       
       // Recharger la page pour appliquer visuellement
       window.location.reload()
