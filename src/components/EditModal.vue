@@ -19,6 +19,74 @@
 
       <div class="flex-1 overflow-y-auto px-6 py-4">
         <div class="space-y-6">
+
+          <!-- 1. ZONES TEXTE (contenu + couleur) -->
+          <div
+            v-for="zone in textZones"
+            :key="zone.id"
+            class="rounded-xl border border-gray-200 bg-gray-50 p-4 shadow-sm dark:border-gray-800 dark:bg-gray-900/60"
+          >
+            <div class="flex items-center justify-between">
+              <div>
+                <h4 class="text-sm font-semibold text-gray-900 dark:text-white">{{ zone.id }}</h4>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Type : {{ zone.type }}</p>
+              </div>
+              <span class="rounded-full bg-white px-3 py-1 text-xs font-medium text-gray-700 ring-1 ring-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:ring-gray-700">
+                {{ displayAllowed(zone).join(', ') }}
+              </span>
+            </div>
+
+            <div v-if="zone.allowed.includes('edit')" class="mt-4 space-y-2">
+              <label :for="`${zone.id}-text`" class="text-sm font-medium text-gray-800 dark:text-gray-100">
+                Texte
+                <span v-if="zone.maxLines" class="ml-1 text-xs font-normal text-gray-500 dark:text-gray-400">
+                  (Max {{ zone.maxLines }} ligne{{ zone.maxLines > 1 ? 's' : '' }})
+                </span>
+                <span v-if="zone.maxChars" class="ml-1 text-xs font-normal text-gray-500 dark:text-gray-400">
+                  (Max {{ zone.maxChars }} caractères)
+                </span>
+              </label>
+              <textarea
+                :id="`${zone.id}-text`"
+                :value="zone.id in localEdits ? localEdits[zone.id].value : zone.current"
+                @input="updateZone(zone.id, $event.target.value, 'text', zone)"
+                :maxlength="zone.maxChars"
+                rows="3"
+                class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-50 dark:focus:border-blue-400 dark:focus:ring-blue-800"
+              ></textarea>
+              <div class="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                <span v-if="zone.maxLines">Ne pas dépasser {{ zone.maxLines }} ligne{{ zone.maxLines > 1 ? 's' : '' }}.</span>
+                <span v-if="zone.maxChars">{{ (zone.id in localEdits ? localEdits[zone.id].value : zone.current).length }} / {{ zone.maxChars }} caractères.</span>
+              </div>
+              <!-- Couleur du texte -->
+              <div class="flex items-center gap-3 pt-2 border-t border-gray-100 dark:border-gray-700 mt-2">
+                <label :for="`${zone.id}-tcolor`" class="text-sm font-medium text-gray-800 dark:text-gray-100 shrink-0">Couleur du texte</label>
+                <input
+                  type="color"
+                  :id="`${zone.id}-tcolor`"
+                  :value="localEdits[zone.id]?.color || zone.currentColor || '#000000'"
+                  @input="updateTextColor(zone.id, $event.target.value, zone)"
+                  class="h-9 w-12 cursor-pointer rounded-lg border border-gray-200 bg-white p-1 shadow-sm dark:border-gray-700 dark:bg-gray-800"
+                />
+                <input
+                  type="text"
+                  :value="localEdits[zone.id]?.color || zone.currentColor || ''"
+                  @input="updateTextColor(zone.id, $event.target.value, zone)"
+                  placeholder="#000000"
+                  class="w-28 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-50 dark:focus:border-blue-400 dark:focus:ring-blue-800"
+                />
+                <button
+                  v-if="localEdits[zone.id]?.color || zone.currentColor"
+                  type="button"
+                  @click="resetTextColor(zone.id, zone)"
+                  class="text-xs text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition"
+                  title="Réinitialiser la couleur"
+                >Réinitialiser</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. POLICE DE L'ÉCRAN -->
           <div class="rounded-xl border border-gray-200 bg-gray-50 p-4 shadow-sm dark:border-gray-800 dark:bg-gray-900/60">
             <div class="flex items-center justify-between gap-4">
               <div>
@@ -67,23 +135,23 @@
             </div>
           </div>
 
+          <!-- 3. ZONES BACKGROUND (couleur unie, dégradé, image de fond) -->
           <div
-            v-for="zone in visibleZones"
+            v-for="zone in backgroundZones"
             :key="zone.id"
             class="rounded-xl border border-gray-200 bg-gray-50 p-4 shadow-sm dark:border-gray-800 dark:bg-gray-900/60"
           >
-              <div class="flex items-center justify-between">
+            <div class="flex items-center justify-between">
               <div>
                 <h4 class="text-sm font-semibold text-gray-900 dark:text-white">{{ zone.id }}</h4>
                 <p class="text-xs text-gray-500 dark:text-gray-400">Type : {{ zone.type }}</p>
               </div>
-                <span class="rounded-full bg-white px-3 py-1 text-xs font-medium text-gray-700 ring-1 ring-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:ring-gray-700">
-                  {{ displayAllowed(zone).join(', ') }}
+              <span class="rounded-full bg-white px-3 py-1 text-xs font-medium text-gray-700 ring-1 ring-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:ring-gray-700">
+                {{ displayAllowed(zone).join(', ') }}
               </span>
             </div>
 
-            <!-- BACKGROUND ZONES -->
-            <div v-if="zone.type === 'background'" class="mt-4 space-y-4">
+            <div class="mt-4 space-y-4">
               <div v-if="zone.allowed.includes('color')" class="space-y-2">
                 <label :for="`${zone.id}-color`" class="text-sm font-medium text-gray-800 dark:text-gray-100">Couleur unie</label>
                 <div class="flex items-center gap-3">
@@ -110,7 +178,6 @@
                 <label class="text-sm font-medium text-gray-800 dark:text-gray-100">Dégradé</label>
 
                 <div class="flex flex-wrap items-center gap-4">
-                  <!-- Orientation -->
                   <div class="flex items-center gap-2">
                     <div
                       class="gradient-knob"
@@ -130,7 +197,6 @@
                     />
                   </div>
 
-                  <!-- Couleurs -->
                   <div class="flex flex-wrap items-center gap-4">
                     <div class="flex flex-col gap-1">
                       <span class="text-xs font-medium text-gray-600 dark:text-gray-300">Couleur début</span>
@@ -170,7 +236,6 @@
                     </div>
                   </div>
 
-                  <!-- Aperçu -->
                   <div class="flex flex-col gap-1">
                     <span class="text-xs font-medium text-gray-600 dark:text-gray-300">Résultat</span>
                     <div
@@ -195,9 +260,7 @@
               <div v-if="allowBackgroundImage(zone)" class="space-y-6">
                 <div class="flex items-center justify-between">
                   <label class="text-sm font-medium text-gray-800 dark:text-gray-100">Image de fond</label>
-                  <!-- <span class="text-xs text-gray-500 dark:text-gray-400">Remplace couleur ou dégradé</span> -->
                 </div>
-
                 <div class="space-y-2">
                   <label :for="`${zone.id}-bg-upload`" class="text-sm font-medium text-gray-800 dark:text-gray-100">Upload une image de fond</label>
                   <input
@@ -208,7 +271,6 @@
                     class="block w-full cursor-pointer rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-50 dark:focus:border-blue-400 dark:focus:ring-blue-800"
                   />
                 </div>
-
                 <div class="space-y-2">
                   <label :for="`${zone.id}-bg-url`" class="text-sm font-medium text-gray-800 dark:text-gray-100">URL pour l'image de fond</label>
                   <input
@@ -222,60 +284,49 @@
                 </div>
               </div>
             </div>
+          </div>
 
-            <!-- TEXT ZONES -->
-            <div v-if="zone.type === 'text' && zone.allowed.includes('edit')" class="mt-4 space-y-2">
-              <label :for="`${zone.id}-text`" class="text-sm font-medium text-gray-800 dark:text-gray-100">
-                Texte
-                <span v-if="zone.maxLines" class="ml-1 text-xs font-normal text-gray-500 dark:text-gray-400">
-                  (Max {{ zone.maxLines }} ligne{{ zone.maxLines > 1 ? 's' : '' }})
-                </span>
-                <span v-if="zone.maxChars" class="ml-1 text-xs font-normal text-gray-500 dark:text-gray-400">
-                  (Max {{ zone.maxChars }} caractères)
-                </span>
-              </label>
-              <textarea
-                :id="`${zone.id}-text`"
-                :value="zone.id in localEdits ? localEdits[zone.id].value : zone.current"
-                @input="updateZone(zone.id, $event.target.value, 'text', zone)"
-                :maxlength="zone.maxChars"
-                rows="3"
-                class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-50 dark:focus:border-blue-400 dark:focus:ring-blue-800"
-              ></textarea>
-              <div class="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                <span v-if="zone.maxLines">Ne pas dépasser {{ zone.maxLines }} ligne{{ zone.maxLines > 1 ? 's' : '' }}.</span>
-                <span v-if="zone.maxChars">{{ (zone.id in localEdits ? localEdits[zone.id].value : zone.current).length }} / {{ zone.maxChars }} caractères.</span>
+          <!-- 4. ZONES IMAGE (screenshot dans le mockup) -->
+          <div
+            v-for="zone in imageZones"
+            :key="zone.id"
+            class="rounded-xl border border-gray-200 bg-gray-50 p-4 shadow-sm dark:border-gray-800 dark:bg-gray-900/60"
+          >
+            <div class="flex items-center justify-between">
+              <div>
+                <h4 class="text-sm font-semibold text-gray-900 dark:text-white">{{ zone.id }}</h4>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Type : {{ zone.type }}</p>
+              </div>
+              <span class="rounded-full bg-white px-3 py-1 text-xs font-medium text-gray-700 ring-1 ring-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:ring-gray-700">
+                {{ displayAllowed(zone).join(', ') }}
+              </span>
+            </div>
+
+            <div class="mt-4 space-y-4">
+              <div v-if="zone.allowed.includes('upload')" class="space-y-2">
+                <label :for="`${zone.id}-upload`" class="text-sm font-medium text-gray-800 dark:text-gray-100">Upload nouvelle image</label>
+                <input
+                  type="file"
+                  :id="`${zone.id}-upload`"
+                  accept="image/*"
+                  @change="handleImageUpload(zone.id, $event)"
+                  class="block w-full cursor-pointer rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-50 dark:focus:border-blue-400 dark:focus:ring-blue-800"
+                />
+              </div>
+              <div v-if="zone.allowed.includes('replace')" class="space-y-2">
+                <label :for="`${zone.id}-url`" class="text-sm font-medium text-gray-800 dark:text-gray-100">URL de l'image</label>
+                <input
+                  type="text"
+                  :id="`${zone.id}-url`"
+                  :value="localEdits[zone.id]?.value || zone.current"
+                  @input="updateZone(zone.id, $event.target.value, 'url')"
+                  placeholder="https://..."
+                  class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-50 dark:focus:border-blue-400 dark:focus:ring-blue-800"
+                />
               </div>
             </div>
-
-            <!-- IMAGE ZONES -->
-            <div v-if="zone.type === 'image'" class="mt-4 space-y-4">
-              <template v-if="!isMockupZone(zone)">
-                <div v-if="zone.allowed.includes('upload')" class="space-y-2">
-                  <label :for="`${zone.id}-upload`" class="text-sm font-medium text-gray-800 dark:text-gray-100">Upload nouvelle image</label>
-                  <input
-                    type="file"
-                    :id="`${zone.id}-upload`"
-                    accept="image/*"
-                    @change="handleImageUpload(zone.id, $event)"
-                    class="block w-full cursor-pointer rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-50 dark:focus:border-blue-400 dark:focus:ring-blue-800"
-                  />
-                </div>
-
-                <div v-if="zone.allowed.includes('replace')" class="space-y-2">
-                  <label :for="`${zone.id}-url`" class="text-sm font-medium text-gray-800 dark:text-gray-100">URL de l'image</label>
-                  <input
-                    type="text"
-                    :id="`${zone.id}-url`"
-                    :value="localEdits[zone.id]?.value || zone.current"
-                    @input="updateZone(zone.id, $event.target.value, 'url')"
-                    placeholder="https://..."
-                    class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-50 dark:focus:border-blue-400 dark:focus:ring-blue-800"
-                  />
-                </div>
-              </template>
-            </div>
           </div>
+
         </div>
       </div>
 
@@ -403,6 +454,18 @@ export default {
   computed: {
     visibleZones() {
       return (this.screenData?.editableZones || []).filter((zone) => !this.isMockupZone(zone))
+    },
+
+    textZones() {
+      return this.visibleZones.filter((zone) => zone.type === 'text')
+    },
+
+    backgroundZones() {
+      return this.visibleZones.filter((zone) => zone.type === 'background')
+    },
+
+    imageZones() {
+      return this.visibleZones.filter((zone) => zone.type === 'image')
     },
 
     allowBackgroundImage() {
@@ -692,7 +755,32 @@ export default {
 
     updateZone(zoneId, value, type) {
       if (this.isLockedZoneId(zoneId)) return
-      this.localEdits[zoneId] = { value, type }
+      let existingColor = undefined
+      if (type === 'text') {
+        // Priorité 1 : couleur déjà saisie dans cette session
+        existingColor = this.localEdits[zoneId]?.color
+        // Priorité 2 : couleur sauvegardée transmise via zone.currentColor (après rechargement)
+        if (!existingColor) {
+          const zone = this.screenData?.editableZones?.find(z => z.id === zoneId)
+          existingColor = zone?.currentColor || undefined
+        }
+      }
+      this.localEdits[zoneId] = { value, type, ...(existingColor ? { color: existingColor } : {}) }
+    },
+
+
+    updateTextColor(zoneId, colorValue, zone) {
+      if (this.isLockedZoneId(zoneId)) return
+      const existingEdit = this.localEdits[zoneId]
+      const currentText = existingEdit?.value ?? zone?.current ?? ''
+      this.localEdits[zoneId] = { type: 'text', value: currentText, color: colorValue }
+    },
+
+    resetTextColor(zoneId, zone) {
+      if (this.isLockedZoneId(zoneId)) return
+      const existingEdit = this.localEdits[zoneId]
+      const currentText = existingEdit?.value ?? zone?.current ?? ''
+      this.localEdits[zoneId] = { type: 'text', value: currentText }
     },
 
     handleImageUpload(zoneId, event) {

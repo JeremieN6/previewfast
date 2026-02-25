@@ -455,13 +455,16 @@ export default {
           // Modification locale en cours de session (la plus récente)
           return {
             ...zone,
-            current: localEdit.value
+            current: localEdit.value,
+            // Transmettre la couleur éventuelle du texte pour que la modale puisse la conserver
+            ...(localEdit.color ? { currentColor: localEdit.color } : {})
           }
         } else if (savedEdit) {
           // Modification sauvegardée depuis localStorage
           return {
             ...zone,
-            current: savedEdit.value
+            current: savedEdit.value,
+            ...(savedEdit.color ? { currentColor: savedEdit.color } : {})
           }
         }
         
@@ -1008,6 +1011,9 @@ export default {
           }
         } else if (zone.type === 'text') {
           targetElement.textContent = edit.value
+          if (edit.color) {
+            targetElement.style.color = edit.color
+          }
           console.log(`[App] Applied text to ${zoneId}:`, edit.value)
         } else if (zone.type === 'image') {
           if (edit.type === 'url' || edit.type === 'upload') {
@@ -1588,6 +1594,9 @@ export default {
                 }
               } else if (zone.type === 'text') {
                 targetElement.textContent = edit.value
+                if (edit.color) {
+                  targetElement.style.color = edit.color
+                }
               } else if (zone.type === 'image') {
                 if (edit.type === 'url' || edit.type === 'upload') {
                   targetElement.src = edit.value
