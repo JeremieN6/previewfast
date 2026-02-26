@@ -1520,7 +1520,22 @@ export default {
       }, 2000); // 2 secondes de délai
     },
     
+    /**
+     * Charge automatiquement les Google Fonts par defaut
+     * declarees dans les configs des designs (champ "defaultFont")
+     */
+    loadDefaultFonts() {
+      Object.values(this.designConfigs).forEach(config => {
+        if (config.defaultFont) {
+          this.ensureGoogleFontLoaded(config.defaultFont)
+        }
+      })
+    },
+
     restoreAllDesigns() {
+      // Charger les Google Fonts par defaut des designs
+      this.loadDefaultFonts()
+
       // Restaurer tous les designs sauvegardés
       Object.keys(this.designConfigs).forEach(designId => {
         const savedState = loadDesignState(designId)
