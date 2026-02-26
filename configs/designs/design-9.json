@@ -1,0 +1,237 @@
+{
+  "designId": "design-9",
+  "name": "Design 9 - Sophisticated Dark",
+  "description": "Design premium avec style dark sophistiqué et éclairage subtil",
+  "screens": [
+    {
+      "id": "screen-1",
+      "label": "Écran 1",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-9",
+          "allowed": [
+            "gradient",
+            "color",
+            "backgroundImage"
+          ],
+          "current": "gradient"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".titleScreen-design-9",
+          "allowed": [
+            "edit"
+          ],
+          "current": "Crafted for excellence",
+          "maxLines": 2
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".mockup-iphone-design-9",
+          "allowed": [
+            "replace"
+          ],
+          "current": "/assets/mockup/adam-mockup-1.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": [
+            "upload",
+            "replace"
+          ],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    },
+    {
+      "id": "screen-2",
+      "label": "Écran 2",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-9",
+          "allowed": [
+            "gradient",
+            "color",
+            "backgroundImage"
+          ],
+          "current": "gradient"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".titleScreen-design-9",
+          "allowed": [
+            "edit"
+          ],
+          "current": "Crafted for excellence",
+          "maxLines": 2
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".mockup-iphone-design-9",
+          "allowed": [
+            "replace"
+          ],
+          "current": "/assets/mockup/adam-mockup-1.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": [
+            "upload",
+            "replace"
+          ],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    },
+    {
+      "id": "screen-3",
+      "label": "Écran 3",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-9",
+          "allowed": [
+            "gradient",
+            "color",
+            "backgroundImage"
+          ],
+          "current": "gradient"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".titleScreen-design-9",
+          "allowed": [
+            "edit"
+          ],
+          "current": "Crafted for excellence",
+          "maxLines": 2
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".mockup-iphone-design-9",
+          "allowed": [
+            "replace"
+          ],
+          "current": "/assets/mockup/adam-mockup-1.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": [
+            "upload",
+            "replace"
+          ],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    },
+    {
+      "id": "screen-4",
+      "label": "Écran 4",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-9",
+          "allowed": [
+            "gradient",
+            "color",
+            "backgroundImage"
+          ],
+          "current": "gradient"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".titleScreen-design-9",
+          "allowed": [
+            "edit"
+          ],
+          "current": "Crafted for excellence",
+          "maxLines": 2
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".mockup-iphone-design-9",
+          "allowed": [
+            "replace"
+          ],
+          "current": "/assets/mockup/adam-mockup-1.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": [
+            "upload",
+            "replace"
+          ],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    },
+    {
+      "id": "screen-5",
+      "label": "Écran 5",
+      "editableZones": [
+        {
+          "id": "background",
+          "type": "background",
+          "selector": ".myScreen-design-9",
+          "allowed": [
+            "gradient",
+            "color",
+            "backgroundImage"
+          ],
+          "current": "gradient"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "selector": ".titleScreen-design-9",
+          "allowed": [
+            "edit"
+          ],
+          "current": "Crafted for excellence",
+          "maxLines": 2
+        },
+        {
+          "id": "mockup",
+          "type": "image",
+          "selector": ".mockup-iphone-design-9",
+          "allowed": [
+            "replace"
+          ],
+          "current": "/assets/mockup/adam-mockup-1.png"
+        },
+        {
+          "id": "screenshot",
+          "type": "image",
+          "selector": ".visual-on-mockup",
+          "allowed": [
+            "upload",
+            "replace"
+          ],
+          "current": "/assets/tmp/screenshot.jpg"
+        }
+      ]
+    }
+  ]
+}
