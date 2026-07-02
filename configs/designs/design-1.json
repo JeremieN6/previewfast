@@ -1,237 +1,238 @@
-{
-  "designId": "design-1",
-  "name": "Design 1 - Gradient Simple",
-  "description": "Design avec fond dégradé coloré et mockup centré",
-  "screens": [
-    {
-      "id": "screen-1",
-      "label": "Écran 1",
-      "editableZones": [
-        {
-          "id": "background",
-          "type": "background",
-          "selector": ".myScreen-design-1",
-          "allowed": [
-            "gradient",
-            "color",
-            "backgroundImage"
-          ],
-          "current": "gradient"
-        },
-        {
-          "id": "title",
-          "type": "text",
-          "selector": ".titleScreen-design-1",
-          "allowed": [
-            "edit"
-          ],
-          "current": "Lorem ipsum sit amet consectetur",
-          "maxLines": 2
-        },
-        {
-          "id": "mockup",
-          "type": "image",
-          "selector": ".mockup-iphone-design-1",
-          "allowed": [
-            "replace"
-          ],
-          "current": "/assets/mockup/adam-mockup-1.png"
-        },
-        {
-          "id": "screenshot",
-          "type": "image",
-          "selector": ".visual-on-mockup",
-          "allowed": [
-            "upload",
-            "replace"
-          ],
-          "current": "/assets/tmp/screenshot.jpg"
-        }
-      ]
-    },
-    {
-      "id": "screen-2",
-      "label": "Écran 2",
-      "editableZones": [
-        {
-          "id": "background",
-          "type": "background",
-          "selector": ".myScreen-design-1",
-          "allowed": [
-            "gradient",
-            "color",
-            "backgroundImage"
-          ],
-          "current": "gradient"
-        },
-        {
-          "id": "title",
-          "type": "text",
-          "selector": ".titleScreen-design-1",
-          "allowed": [
-            "edit"
-          ],
-          "current": "Lorem ipsum sit amet consectetur",
-          "maxLines": 2
-        },
-        {
-          "id": "mockup",
-          "type": "image",
-          "selector": ".mockup-iphone-design-1",
-          "allowed": [
-            "replace"
-          ],
-          "current": "/assets/mockup/adam-mockup-1.png"
-        },
-        {
-          "id": "screenshot",
-          "type": "image",
-          "selector": ".visual-on-mockup",
-          "allowed": [
-            "upload",
-            "replace"
-          ],
-          "current": "/assets/tmp/screenshot.jpg"
-        }
-      ]
-    },
-    {
-      "id": "screen-3",
-      "label": "Écran 3",
-      "editableZones": [
-        {
-          "id": "background",
-          "type": "background",
-          "selector": ".myScreen-design-1",
-          "allowed": [
-            "gradient",
-            "color",
-            "backgroundImage"
-          ],
-          "current": "gradient"
-        },
-        {
-          "id": "title",
-          "type": "text",
-          "selector": ".titleScreen-design-1",
-          "allowed": [
-            "edit"
-          ],
-          "current": "Lorem ipsum sit amet consectetur",
-          "maxLines": 2
-        },
-        {
-          "id": "mockup",
-          "type": "image",
-          "selector": ".mockup-iphone-design-1",
-          "allowed": [
-            "replace"
-          ],
-          "current": "/assets/mockup/adam-mockup-1.png"
-        },
-        {
-          "id": "screenshot",
-          "type": "image",
-          "selector": ".visual-on-mockup",
-          "allowed": [
-            "upload",
-            "replace"
-          ],
-          "current": "/assets/tmp/screenshot.jpg"
-        }
-      ]
-    },
-    {
-      "id": "screen-4",
-      "label": "Écran 4",
-      "editableZones": [
-        {
-          "id": "background",
-          "type": "background",
-          "selector": ".myScreen-design-1",
-          "allowed": [
-            "gradient",
-            "color",
-            "backgroundImage"
-          ],
-          "current": "gradient"
-        },
-        {
-          "id": "title",
-          "type": "text",
-          "selector": ".titleScreen-design-1",
-          "allowed": [
-            "edit"
-          ],
-          "current": "Lorem ipsum sit amet consectetur",
-          "maxLines": 2
-        },
-        {
-          "id": "mockup",
-          "type": "image",
-          "selector": ".mockup-iphone-design-1",
-          "allowed": [
-            "replace"
-          ],
-          "current": "/assets/mockup/adam-mockup-1.png"
-        },
-        {
-          "id": "screenshot",
-          "type": "image",
-          "selector": ".visual-on-mockup",
-          "allowed": [
-            "upload",
-            "replace"
-          ],
-          "current": "/assets/tmp/screenshot.jpg"
-        }
-      ]
-    },
-    {
-      "id": "screen-5",
-      "label": "Écran 5",
-      "editableZones": [
-        {
-          "id": "background",
-          "type": "background",
-          "selector": ".myScreen-design-1",
-          "allowed": [
-            "gradient",
-            "color",
-            "backgroundImage"
-          ],
-          "current": "gradient"
-        },
-        {
-          "id": "title",
-          "type": "text",
-          "selector": ".titleScreen-design-1",
-          "allowed": [
-            "edit"
-          ],
-          "current": "Lorem ipsum sit amet consectetur",
-          "maxLines": 2
-        },
-        {
-          "id": "mockup",
-          "type": "image",
-          "selector": ".mockup-iphone-design-1",
-          "allowed": [
-            "replace"
-          ],
-          "current": "/assets/mockup/adam-mockup-1.png"
-        },
-        {
-          "id": "screenshot",
-          "type": "image",
-          "selector": ".visual-on-mockup",
-          "allowed": [
-            "upload",
-            "replace"
-          ],
-          "current": "/assets/tmp/screenshot.jpg"
-        }
-      ]
-    }
-  ]
+﻿{
+    "designId":  "design-1",
+    "name":  "Design 1 - White Elegant",
+    "description":  "Design avec fond blanc et typographie elegante",
+    "defaultFont":  "cormorant-garamond",
+    "screens":  [
+                    {
+                        "id":  "screen-1",
+                        "label":  "Ecran 1",
+                        "editableZones":  [
+                                              {
+                                                  "id":  "background",
+                                                  "type":  "background",
+                                                  "selector":  ".myScreen-design-1",
+                                                  "allowed":  [
+                                                                  "gradient",
+                                                                  "color",
+                                                                  "backgroundImage"
+                                                              ],
+                                                  "current":  "#ffffff"
+                                              },
+                                              {
+                                                  "id":  "title",
+                                                  "type":  "text",
+                                                  "selector":  ".titleScreen-design-1",
+                                                  "allowed":  [
+                                                                  "edit"
+                                                              ],
+                                                  "current":  "Create your\nlikeness",
+                                                  "maxLines":  2
+                                              },
+                                              {
+                                                  "id":  "mockup",
+                                                  "type":  "image",
+                                                  "selector":  ".mockup-iphone-design-1",
+                                                  "allowed":  [
+                                                                  "replace"
+                                                              ],
+                                                  "current":  "/assets/mockup/adam-mockup-1.png"
+                                              },
+                                              {
+                                                  "id":  "screenshot",
+                                                  "type":  "image",
+                                                  "selector":  ".visual-on-mockup",
+                                                  "allowed":  [
+                                                                  "upload",
+                                                                  "replace"
+                                                              ],
+                                                  "current":  "/assets/tmp/screenshot.jpg"
+                                              }
+                                          ]
+                    },
+                    {
+                        "id":  "screen-2",
+                        "label":  "Ecran 2",
+                        "editableZones":  [
+                                              {
+                                                  "id":  "background",
+                                                  "type":  "background",
+                                                  "selector":  ".myScreen-design-1",
+                                                  "allowed":  [
+                                                                  "gradient",
+                                                                  "color",
+                                                                  "backgroundImage"
+                                                              ],
+                                                  "current":  "#ffffff"
+                                              },
+                                              {
+                                                  "id":  "title",
+                                                  "type":  "text",
+                                                  "selector":  ".titleScreen-design-1",
+                                                  "allowed":  [
+                                                                  "edit"
+                                                              ],
+                                                  "current":  "Shop from\ncurated brands",
+                                                  "maxLines":  2
+                                              },
+                                              {
+                                                  "id":  "mockup",
+                                                  "type":  "image",
+                                                  "selector":  ".mockup-iphone-design-1",
+                                                  "allowed":  [
+                                                                  "replace"
+                                                              ],
+                                                  "current":  "/assets/mockup/adam-mockup-1.png"
+                                              },
+                                              {
+                                                  "id":  "screenshot",
+                                                  "type":  "image",
+                                                  "selector":  ".visual-on-mockup",
+                                                  "allowed":  [
+                                                                  "upload",
+                                                                  "replace"
+                                                              ],
+                                                  "current":  "/assets/tmp/screenshot.jpg"
+                                              }
+                                          ]
+                    },
+                    {
+                        "id":  "screen-3",
+                        "label":  "Ecran 3",
+                        "editableZones":  [
+                                              {
+                                                  "id":  "background",
+                                                  "type":  "background",
+                                                  "selector":  ".myScreen-design-1",
+                                                  "allowed":  [
+                                                                  "gradient",
+                                                                  "color",
+                                                                  "backgroundImage"
+                                                              ],
+                                                  "current":  "#ffffff"
+                                              },
+                                              {
+                                                  "id":  "title",
+                                                  "type":  "text",
+                                                  "selector":  ".titleScreen-design-1",
+                                                  "allowed":  [
+                                                                  "edit"
+                                                              ],
+                                                  "current":  "Try on products\nbefore buying",
+                                                  "maxLines":  2
+                                              },
+                                              {
+                                                  "id":  "mockup",
+                                                  "type":  "image",
+                                                  "selector":  ".mockup-iphone-design-1",
+                                                  "allowed":  [
+                                                                  "replace"
+                                                              ],
+                                                  "current":  "/assets/mockup/adam-mockup-1.png"
+                                              },
+                                              {
+                                                  "id":  "screenshot",
+                                                  "type":  "image",
+                                                  "selector":  ".visual-on-mockup",
+                                                  "allowed":  [
+                                                                  "upload",
+                                                                  "replace"
+                                                              ],
+                                                  "current":  "/assets/tmp/screenshot.jpg"
+                                              }
+                                          ]
+                    },
+                    {
+                        "id":  "screen-4",
+                        "label":  "Ecran 4",
+                        "editableZones":  [
+                                              {
+                                                  "id":  "background",
+                                                  "type":  "background",
+                                                  "selector":  ".myScreen-design-1",
+                                                  "allowed":  [
+                                                                  "gradient",
+                                                                  "color",
+                                                                  "backgroundImage"
+                                                              ],
+                                                  "current":  "#ffffff"
+                                              },
+                                              {
+                                                  "id":  "title",
+                                                  "type":  "text",
+                                                  "selector":  ".titleScreen-design-1",
+                                                  "allowed":  [
+                                                                  "edit"
+                                                              ],
+                                                  "current":  "Mix and match\nnew looks",
+                                                  "maxLines":  2
+                                              },
+                                              {
+                                                  "id":  "mockup",
+                                                  "type":  "image",
+                                                  "selector":  ".mockup-iphone-design-1",
+                                                  "allowed":  [
+                                                                  "replace"
+                                                              ],
+                                                  "current":  "/assets/mockup/adam-mockup-1.png"
+                                              },
+                                              {
+                                                  "id":  "screenshot",
+                                                  "type":  "image",
+                                                  "selector":  ".visual-on-mockup",
+                                                  "allowed":  [
+                                                                  "upload",
+                                                                  "replace"
+                                                              ],
+                                                  "current":  "/assets/tmp/screenshot.jpg"
+                                              }
+                                          ]
+                    },
+                    {
+                        "id":  "screen-5",
+                        "label":  "Ecran 5",
+                        "editableZones":  [
+                                              {
+                                                  "id":  "background",
+                                                  "type":  "background",
+                                                  "selector":  ".myScreen-design-1",
+                                                  "allowed":  [
+                                                                  "gradient",
+                                                                  "color",
+                                                                  "backgroundImage"
+                                                              ],
+                                                  "current":  "#ffffff"
+                                              },
+                                              {
+                                                  "id":  "title",
+                                                  "type":  "text",
+                                                  "selector":  ".titleScreen-design-1",
+                                                  "allowed":  [
+                                                                  "edit"
+                                                              ],
+                                                  "current":  "Save your\nfavorites",
+                                                  "maxLines":  2
+                                              },
+                                              {
+                                                  "id":  "mockup",
+                                                  "type":  "image",
+                                                  "selector":  ".mockup-iphone-design-1",
+                                                  "allowed":  [
+                                                                  "replace"
+                                                              ],
+                                                  "current":  "/assets/mockup/adam-mockup-1.png"
+                                              },
+                                              {
+                                                  "id":  "screenshot",
+                                                  "type":  "image",
+                                                  "selector":  ".visual-on-mockup",
+                                                  "allowed":  [
+                                                                  "upload",
+                                                                  "replace"
+                                                              ],
+                                                  "current":  "/assets/tmp/screenshot.jpg"
+                                              }
+                                          ]
+                    }
+                ]
 }
